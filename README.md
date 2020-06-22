@@ -8,4 +8,4 @@
 
 ## **Etapas**
 
-1. Contruir todo o HTML e CSS do site e deixa-lo funcionando com as especificações do desafio;
+1. Contruir todo o HTML e CSS do site e deixa-lo funcionando com as especificações do desafio; 
