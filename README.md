@@ -1,9 +1,12 @@
-# foodfy
+# Foodfy
 
-###### Projeto sugerido em curso, para aperfeiçoamento de técnicas aprendidas em aulas.
-###### Desafio propos construir um site completo para uma empresa de receitas chamada Foodfy.
+<div align="center">
+<img src="https://github.com/douglas-vitor/LaunchBase_bootcamp/blob/master/logo-lauchbase.png" width="250px" height="auto">
+</div>
 
-###### **Curso :** LaunchBase - Rocketseat
+###### Projeto sugerido em curso, para aperfeiçoamento de técnicas aprendidas em aulas. Desafio propos construir um site completo para uma empresa de receitas chamada Foodfy.
+
+###### **Curso :** LaunchBase - [Rocketseat](https://rocketseat.com.br)
 ###### **Instrutor :** Mayk Brito
 
 ## **Etapas**
