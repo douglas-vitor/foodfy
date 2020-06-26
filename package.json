@@ -4,7 +4,7 @@
   "description": "<div align=\"center\">\r <img src=\"https://github.com/douglas-vitor/LaunchBase_bootcamp/blob/master/logo-lauchbase.png\" width=\"250px\" height=\"auto\">\r </div>",
   "main": "scripts.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "nunjucks": "^3.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

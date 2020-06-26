@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Home</title>
+{% endblock title %}
+
+{% block content %}
+    <main>
+        <h1>As melhores receitas</h1>
+        <h4>Aprenda a construir os melhores pratos com receitas criadas por profissionais do mundo inteiro.</h4>
+        <img src="/assets/chef.png" alt="Chef">
+    </main>
+
+    <div class="title">
+        <h1>Mais acessadas</h1>
+    </div>
+
+    <section class="cards">
+
+        <div class="card">
+            <img src="/assets/burger.png" alt="Receita">
+            <div class="title">Triplo bacon burger</div>
+            <div class="autor">por Jorge Relato</div>
+        </div>
+
+        <div class="card">
+            <img src="/assets/pizza.png" alt="Receita">
+            <div class="title">Pizza 4 estações</div>
+            <div class="autor">por Fabiana Melo</div>
+        </div>
+
+        <div class="card">
+            <img src="/assets/espaguete.png" alt="Receita">
+            <div class="title">Espaguete ao alho</div>
+            <div class="autor">por Júlia Kinoto</div>
+        </div>
+
+        <div class="card">
+            <img src="/assets/lasanha.png" alt="Receita">
+            <div class="title">Lasanha mac n’ cheese</div>
+            <div class="autor">por Juliano Vieira</div>
+        </div>
+
+        <div class="card">
+            <img src="/assets/doce.png" alt="Receita">
+            <div class="title">Docinhos pão-do-céu</div>
+            <div class="autor">por Ricardo Golvea</div>
+        </div>
+
+        <div class="card">
+            <img src="/assets/asinhas.png" alt="Receita">
+            <div class="title">Asinhas de frango ao barbecue</div>
+            <div class="autor">por Vania Steroski</div>
+        </div>
+
+    </section>
+{% endblock content %}
