@@ -1,0 +1,24 @@
+{
+  "name": "foodfy",
+  "version": "1.0.0",
+  "description": "<div align=\"center\">\r <img src=\"https://github.com/douglas-vitor/LaunchBase_bootcamp/blob/master/logo-lauchbase.png\" width=\"250px\" height=\"auto\">\r </div>",
+  "main": "scripts.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/douglas-vitor/foodfy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/douglas-vitor/foodfy/issues"
+  },
+  "homepage": "https://github.com/douglas-vitor/foodfy#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nunjucks": "^3.2.1"
+  }
+}

@@ -12,3 +12,4 @@
 ## **Etapas**
 
 1. Contruir todo o HTML e CSS do site e deixa-lo funcionando com as especificações do desafio; 
+2. Refaturamento de toda a estrutura do Foodfy, adicionado servidor próprio, pegando informações dinamicamente, usando template engine Nunjucks;
