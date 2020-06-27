@@ -18,7 +18,7 @@
     <section class="cards">
 
         {% for receita in recipes %}
-            <div class="card" id="{{receita.id}}">
+            <div class="card" id="{{recipes.indexOf(receita)}}">
                 <img src="{{receita.image}}" alt="{{receita.title}}">
                 <div class="title">{{receita.title}}</div>
                 <div class="autor">{{receita.author}}</div>
