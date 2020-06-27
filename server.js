@@ -7,6 +7,9 @@ const recipes = require("./data")
 // Pasta publica
 server.use(express.static("public"))
 
+// Setar template engine
+server.set("view engine", "njk")
+
 // Habilitar o uso do req.body na aplicação
 server.use(express.urlencoded({ extended: true }))
 
@@ -20,17 +23,17 @@ nunjucks.configure("src/views", {
 //Configurando rotas
 // home
 server.get("/", (req, res) => {
-    return res.render("home.html", { recipes: recipes })
+    return res.render("home", { recipes: recipes })
 })
 
 // About
 server.get("/about", (req, res) => {
-    return res.render("about.html")
+    return res.render("about")
 })
 
 // Recipes
 server.get("/recipes", (req, res) => {
-    return res.render("recipes.html", { recipes: recipes })
+    return res.render("recipes", { recipes: recipes })
 })
 
 // View recipe
@@ -47,16 +50,16 @@ server.get("/recipe/:id", function(req, res) {
     } 
     // verificar se a function retornou true ou false, se não for true renderiza pagina de erro 404
     if (!verify(id)) {
-        return res.status(404).render("not-found.html")
+        return res.status(404).render("not-found")
     }
     // Caso todos os requisitos acima forem aceitos renderiza pagina recipe com os dados do indicie recebido,
     // dentro de um objeto chamado data
-    return res.render("recipe.html", { data: recipes[id] })
+    return res.render("recipe", { data: recipes[id] })
 })
 
 // Not-found
 server.use(function (req, res) {
-    return res.status(404).render("not-found.html")
+    return res.status(404).render("not-found")
 })
 
 

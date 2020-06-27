@@ -1,11 +1,22 @@
-{% extends "base.html" %}
+{% extends "base.njk" %}
 
 {% block title %}
-    <title>Receitas</title>
+    <title>Home</title>
 {% endblock title %}
 
 {% block content %}
+    <main>
+        <h1>As melhores receitas</h1>
+        <h4>Aprenda a construir os melhores pratos com receitas criadas por profissionais do mundo inteiro.</h4>
+        <img src="/assets/chef.png" alt="Chef">
+    </main>
+
+    <div class="title">
+        <h1>Mais acessadas</h1>
+    </div>
+
     <section class="cards">
+
         {% for receita in recipes %}
             <div class="card" id="{{recipes.indexOf(receita)}}">
                 <img src="{{receita.image}}" alt="{{receita.title}}">
@@ -13,6 +24,7 @@
                 <div class="autor">{{receita.author}}</div>
             </div>
         {% endfor %}
+
     </section>
 {% endblock content %}
 
