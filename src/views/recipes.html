@@ -6,96 +6,16 @@
 
 {% block content %}
     <section class="cards">
-
-        <div class="card" id="burger">
-            <img src="assets/burger.png" alt="Receita">
-            <div class="title">Triplo bacon burger</div>
-            <div class="autor">por Jorge Relato</div>
-        </div>
-
-        <div class="card" id="pizza">
-            <img src="assets/pizza.png" alt="Receita">
-            <div class="title">Pizza 4 estações</div>
-            <div class="autor">por Fabiana Melo</div>
-        </div>
-
-        <div class="card" id="espaguete">
-            <img src="assets/espaguete.png" alt="Receita">
-            <div class="title">Espaguete ao alho</div>
-            <div class="autor">por Júlia Kinoto</div>
-        </div>
-
-        <div class="card" id="lasanha">
-            <img src="assets/lasanha.png" alt="Receita">
-            <div class="title">Lasanha mac n’ cheese</div>
-            <div class="autor">por Juliano Vieira</div>
-        </div>
-
-        <div class="card" id="doce">
-            <img src="assets/doce.png" alt="Receita">
-            <div class="title">Docinhos pão-do-céu</div>
-            <div class="autor">por Ricardo Golvea</div>
-        </div>
-
-        <div class="card" id="asinhas">
-            <img src="assets/asinhas.png" alt="Receita">
-            <div class="title">Asinhas de frango ao barbecue</div>
-            <div class="autor">por Vania Steroski</div>
-        </div>
-
-        <div class="card" id="burger">
-            <img src="assets/burger.png" alt="Receita">
-            <div class="title">Triplo bacon burger</div>
-            <div class="autor">por Jorge Relato</div>
-        </div>
-
-        <div class="card" id="pizza">
-            <img src="assets/pizza.png" alt="Receita">
-            <div class="title">Pizza 4 estações</div>
-            <div class="autor">por Fabiana Melo</div>
-        </div>
-
-        <div class="card" id="espaguete">
-            <img src="assets/espaguete.png" alt="Receita">
-            <div class="title">Espaguete ao alho</div>
-            <div class="autor">por Júlia Kinoto</div>
-        </div>
-
-        <div class="card" id="lasanha">
-            <img src="assets/lasanha.png" alt="Receita">
-            <div class="title">Lasanha mac n’ cheese</div>
-            <div class="autor">por Juliano Vieira</div>
-        </div>
-
-        <div class="card" id="doce">
-            <img src="assets/doce.png" alt="Receita">
-            <div class="title">Docinhos pão-do-céu</div>
-            <div class="autor">por Ricardo Golvea</div>
-        </div>
-
-        <div class="card" id="asinhas">
-            <img src="assets/asinhas.png" alt="Receita">
-            <div class="title">Asinhas de frango ao barbecue</div>
-            <div class="autor">por Vania Steroski</div>
-        </div>
+        {% for receita in recipes %}
+            <div class="card" id="{{receita.id}}">
+                <img src="{{receita.image}}" alt="{{receita.title}}">
+                <div class="title">{{receita.title}}</div>
+                <div class="autor">{{receita.author}}</div>
+            </div>
+        {% endfor %}
     </section>
-
-    <div class="modal-overlay">
-        <div class="modal">
-            <div class="modal-image-container">
-                <img src="assets/doce.png" alt="Foto da receita">
-            </div>
-            <div class="modal-content" id="modal-content">
-                <h1>titulo</h1>
-                <h4>autor</h4>
-            </div>
-            <a class="close-modal">
-                Fechar modal
-            </a>
-        </div>
-    </div>
 {% endblock content %}
 
 {% block scripts %}
-    <!-- <script src="/scripts/scripts.js"></script> -->
+    <script src="/scripts/script.js"></script>
 {% endblock scripts %}

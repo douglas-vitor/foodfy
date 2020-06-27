@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>{{data.title}}</title>
+{% endblock title %}
+
+{% block content %}
+<section class="view-recipe">
+<img src="{{data.image}}" alt="{{data.title}}">
+<h1>{{data.title}}</h1>
+<h5>{{data.author}}</h5>
+<div class="bar">
+<h2>Ingredientes</h2> <a class="detalhes">MOSTRAR</a>
+</div>
+<div class="ingredientes">
+    <ul>
+    {% for item in data.ingredients %}
+    <li>{{item}}</li>
+    {% endfor %}
+    </ul>
+</div>
+
+<div class="bar2">
+<h2>Modo de preparo</h2> <a class="detalhes">MOSTRAR</a>
+</div>
+<div class="preparo">
+    <ul>
+    {% for item in data.preparation %}
+    <li>{{item}}</li>
+    {% endfor %}
+    </ul>
+</div>
+
+<div class="bar3">
+<h2>Informações adicionais</h2> <a class="detalhes">MOSTRAR</a>
+</div>
+<div class="mais-infos">
+    {{data.information}}
+</div>
+
+</section>
+{% endblock content %}

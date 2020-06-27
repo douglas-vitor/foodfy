@@ -271,3 +271,100 @@ section.sobre-text-tres h4 p{
     opacity: 1;
     visibility: visible;
 }
+
+/* View recipe */
+.view-recipe {
+    max-width: 940px;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: center;
+}
+.view-recipe img {
+    width: 940px;
+    height: 230px;
+    border-radius: 15px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+.view-recipe h1 {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: #111111;
+    font-size: 36px;
+    line-height: 42px;
+    margin-bottom: 4px;
+}
+.view-recipe h5 {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    color: #777777;
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 50px;
+}
+.view-recipe .bar,
+.view-recipe .bar2,
+.view-recipe .bar3 {
+    width: 940px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+.view-recipe .bar h2,
+.view-recipe .bar2 h2,
+.view-recipe .bar3 h2 {
+    font-size: 24px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    line-height: 28px;
+    color: #111111;
+}
+
+.view-recipe .bar h2 { width: 136px; }
+.view-recipe .bar2 h2 { width: 184px; }
+.view-recipe .bar3 h2 { width: 253px; }
+
+.view-recipe .bar a,
+.view-recipe .bar2 a,
+.view-recipe .bar3 a {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    line-height: 14px;
+    color: #999999;
+    font-size: 12px;
+    margin: auto 0 auto 8px;
+}
+.view-recipe .ingredientes {
+    font-size: 18px;
+    line-height: 28px;
+    color: #444444;
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    padding-left: 17px;
+    margin-bottom: 39px;
+}
+.view-recipe .preparo {
+    font-size: 18px;
+    line-height: 28px;
+    color: #444444;
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    padding-left: 17px;
+    margin-top: 20px;
+    margin-bottom: 39px;
+}
+.view-recipe .mais-infos {
+    font-size: 18px;
+    line-height: 28px;
+    color: #444444;
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    margin-top: 20px;
+}

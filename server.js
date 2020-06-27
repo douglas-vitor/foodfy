@@ -20,7 +20,7 @@ nunjucks.configure("src/views", {
 //Configurando rotas
 // home
 server.get("/", (req, res) => {
-    return res.render("home.html", { recipe: recipes })
+    return res.render("home.html", { recipes: recipes })
 })
 
 // About
@@ -30,12 +30,26 @@ server.get("/about", (req, res) => {
 
 // Recipes
 server.get("/recipes", (req, res) => {
-    return res.render("recipes.html", { recipe: recipes })
+    return res.render("recipes.html", { recipes: recipes })
 })
 
 // View recipe
 server.get("/recipe", (req, res) => {
-    return res.render("recipe.html", { recipe: recipes })
+    const id = req.query.id
+    const recipe = recipes.find(function (recipe) {
+        if (recipe.id == id) {
+            return true
+        }
+    })
+    if (!recipe) {
+        return res.status(404).render("not-found.html")
+    }
+    return res.render("recipe.html", { data: recipe })
+})
+
+// Not-found
+server.use(function (req, res) {
+    return res.status(404).render("not-found.html")
 })
 
 
