@@ -97,6 +97,7 @@ main img {
 .card {
     max-width: 300px;
     margin-bottom: 30px;
+    cursor: pointer;
 }
 .card img {
     width: 300px;
@@ -272,6 +273,22 @@ section.sobre-text-tres h4 p{
     visibility: visible;
 }
 
+/* Not-found */
+.not-found {
+    max-width: 940px;
+    height: 450px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: #999999;
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    font-size: 30px;
+}
+
 /* View recipe */
 .view-recipe {
     max-width: 940px;
@@ -315,7 +332,6 @@ section.sobre-text-tres h4 p{
     display: flex;
     align-items: center;
     flex-direction: row;
-    margin-bottom: 20px;
 }
 .view-recipe .bar h2,
 .view-recipe .bar2 h2,
@@ -340,8 +356,9 @@ section.sobre-text-tres h4 p{
     color: #999999;
     font-size: 12px;
     margin: auto 0 auto 8px;
+    cursor: pointer;
 }
-.view-recipe .ingredientes {
+.view-recipe .ingredientes-preparo {
     font-size: 18px;
     line-height: 28px;
     color: #444444;
@@ -349,16 +366,7 @@ section.sobre-text-tres h4 p{
     font-weight: normal;
     padding-left: 17px;
     margin-bottom: 39px;
-}
-.view-recipe .preparo {
-    font-size: 18px;
-    line-height: 28px;
-    color: #444444;
-    font-family: 'Roboto', sans-serif;
-    font-weight: normal;
-    padding-left: 17px;
     margin-top: 20px;
-    margin-bottom: 39px;
 }
 .view-recipe .mais-infos {
     font-size: 18px;
@@ -367,4 +375,17 @@ section.sobre-text-tres h4 p{
     font-family: 'Roboto', sans-serif;
     font-weight: normal;
     margin-top: 20px;
+}
+.oculto,
+.oculto1,
+.oculto2 {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+}
+/* view-recipe:active */
+.view-div {
+    opacity: 1;
+    visibility: visible;
+    height: auto;
 }
