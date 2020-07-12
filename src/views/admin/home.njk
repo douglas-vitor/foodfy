@@ -1,0 +1,24 @@
+{% extends "./base-admin.njk" %}
+
+{% block title %}
+    <title>Admin | Recipes</title>
+{% endblock title %}
+
+{% block content %}
+    <section class="container">
+        <span>Gerenciar receitas</span>
+
+        <div class="recipes">
+            {% for receita in recipes %}
+                <div class="recipe">
+                    <span class="image" style="background-image: url({{receita.image}});"></span>
+                    <div class="details">
+                        <h1>{{receita.title}}</h1>
+                        <h5>{{receita.author}}</h5>
+                        <a href="/admin/recipes/{{recipes.indexOf(receita)}}">visualizar</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock content %}
