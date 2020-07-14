@@ -17,6 +17,7 @@ document
     .querySelector(".add-ingredient")
     .addEventListener("click", addIngredient);
 
+/*
 function addPreparation() {
     const preparations = document.querySelector("#preparations");
     const fieldContainer = document.querySelectorAll(".preparation");
@@ -35,3 +36,4 @@ function addPreparation() {
 document
     .querySelector(".add-preparation")
     .addEventListener("click", addPreparation);
+*/

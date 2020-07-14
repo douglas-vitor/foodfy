@@ -4,7 +4,7 @@ const fs = require('fs')
 
 // Index
 exports.index = function(req, res) {
-    return res.render("admin/home", { recipes: recipes })
+    return res.render("admin/home", { recipes: data.recipes })
 }
 
 // Create
@@ -20,7 +20,7 @@ exports.post = function(req, res) {
             return res.send("Por favor preencha todos os campos.")
         }
     }
-    let { title, author, image, ingredients, preparation, information } = req.body
+    //let { title, author, image, ingredients, preparation, information } = req.body
 
     let id = 1
     const lastRecipe = data.recipes[data.recipes.length -1]
@@ -28,14 +28,13 @@ exports.post = function(req, res) {
         id = lastRecipe.id + 1
     }
 
+    let itemsRecipe = []
+    for(ingredient of req.body.ingredients) {
+        itemsRecipe.push(ingredient)
+    }
+    console.log(req.body)
     data.recipes.push({
-        id,
-        title,
-        author,
-        image,
-        ingredients,
-        preparation,
-        information
+        ...req.body
     })
 
     fs.writeFile("data.json", JSON.stringify(data, null, 4), function (err) {
@@ -49,33 +48,25 @@ exports.post = function(req, res) {
 // Show
 exports.show = function(req, res) {
     const {id} = req.params
-    const verify = function(verify) {
-        if(id <= (recipes.length -1)){
-            return true
-        }
+    const foundRecipes = data.recipes.find(function (recipe) {
+        return recipe.id == id
+    })
+    if(!foundRecipes) {
+        return res.send("Receita não encontrada.")
     }
-    if(!verify){
-        return res.send("not found recipe")
-    }
-    let recipesSend = {
-        ...recipes[id],
-        id: id
-    }
-    return res.render("admin/show", { recipes: recipesSend })
+    return res.render("admin/show", { recipes: foundRecipes })
 }
 
 // Edit
 exports.edit = function(req, res) {
     const {id} = req.params
-    const verify = function(verify) {
-        if(id <= (recipes.length -1)){
-            return true
-        }
+    const foundRecipes = data.recipes.find(function (recipe) {
+        return recipe.id == id
+    })
+    if(!foundRecipes) {
+        return res.send("Receita não encontrada.")
     }
-    if(!verify){
-        return res.send("not found recipe")
-    }
-    return res.render("admin/edit", { recipes: recipes[id] })
+    return res.render("admin/edit", { recipes: foundRecipes })
 }
 
 // Update

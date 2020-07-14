@@ -5,6 +5,10 @@ const methodOverride = require("method-override")
 const server = express()
 
 
+
+// Habilitar o uso do req.body na aplicação
+server.use(express.urlencoded({ extended: true }))
+
 // Pasta publica
 server.use(express.static("public"))
 
@@ -16,9 +20,6 @@ server.use(routes)
 
 // Setar template engine
 server.set("view engine", "njk")
-
-// Habilitar o uso do req.body na aplicação
-server.use(express.urlencoded({ extended: true }))
 
 // Utilizando template engine nunjucks
 nunjucks.configure("src/views", {
