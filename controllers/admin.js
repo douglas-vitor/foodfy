@@ -15,12 +15,13 @@ exports.create = function(req, res) {
 // Post
 exports.post = function(req, res) {
     const keys = Object.keys(req.body)
-    for(key of keys) {
+    console.log(req.body)
+/*    for(key of keys) {
         if(req.body[key] == "") {
             return res.send("Por favor preencha todos os campos.")
         }
     }
-    //let { title, author, image, ingredients, preparation, information } = req.body
+    let { title, author, image, ingredients, preparation, information } = req.body
 
     let id = 1
     const lastRecipe = data.recipes[data.recipes.length -1]
@@ -28,13 +29,9 @@ exports.post = function(req, res) {
         id = lastRecipe.id + 1
     }
 
-    let itemsRecipe = []
-    for(ingredient of req.body.ingredients) {
-        itemsRecipe.push(ingredient)
-    }
-    console.log(req.body)
     data.recipes.push({
-        ...req.body
+        ...req.body,
+        ingredients: asdfingredients
     })
 
     fs.writeFile("data.json", JSON.stringify(data, null, 4), function (err) {
@@ -42,7 +39,7 @@ exports.post = function(req, res) {
             return res.send("Erro ao gravar arquivo.")
         }
         return res.redirect("/admin/recipes")
-    })
+    })*/
 }
 
 // Show
