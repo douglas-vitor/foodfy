@@ -1,18 +1,26 @@
-function addIngredient() {
-    const ingredients = document.querySelector("#ingredients");
-    const fieldContainer = document.querySelectorAll(".ingredient");
-  
-    // Realiza um clone do último ingrediente adicionado
-    const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
-  
-    // Não adiciona um novo input se o último tem um valor vazio
-    if (newField.children[0].value == "") return false;
-  
-    // Deixa o valor do input vazio
-    newField.children[0].value = "";
-    ingredients.appendChild(newField);
+function addIngredients() {
+  const ingredient = document.getElementById("ingredient")
+  const ingredientChildren = ingredient.children
+
+  //Select item para a copia
+  let idArray = ingredientChildren.length -1
+  const inputItem = ingredientChildren[idArray]
+
+  //Nao clona input se o index 0 estiver vazio
+  if(inputItem.value == "") {
+    return false
   }
+  inputItem.setAttribute("name", "ingredients[]")
+  inputItem.setAttribute("value", inputItem.value)
+  //Realiza o clone
+  const inputCopy = inputItem.cloneNode(true)
   
-  document
-    .querySelector(".add-ingredient")
-    .addEventListener("click", addIngredient);
+  //Deixa o filho com valor vazio
+  //Add o clone ao elemento pai
+  inputCopy.value = ""
+  ingredient.appendChild(inputCopy)
+console.log(inputItem)
+}
+
+const buttonAdd = document.querySelector(".add-ingredient")
+buttonAdd.addEventListener("click", addIngredients)
