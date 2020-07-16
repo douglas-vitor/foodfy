@@ -10,8 +10,7 @@ function addIngredients() {
   if(inputItem.value == "") {
     return false
   }
-  inputItem.setAttribute("name", "ingredients[]")
-  inputItem.setAttribute("value", inputItem.value)
+  
   //Realiza o clone
   const inputCopy = inputItem.cloneNode(true)
   
@@ -19,7 +18,6 @@ function addIngredients() {
   //Add o clone ao elemento pai
   inputCopy.value = ""
   ingredient.appendChild(inputCopy)
-console.log(inputItem)
 }
 
 const buttonAdd = document.querySelector(".add-ingredient")

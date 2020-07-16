@@ -142,7 +142,7 @@ section.admin-container .an form[id="delete"] {
     float: left;
 }
 section.admin-container .an a.button,
-section.admin-container .an form .button {
+section.admin-container .an .button {
     right: 0;
     border-radius: 4px;
     background-color: #6558C3;
@@ -156,7 +156,7 @@ section.admin-container .an form .button {
     font-weight: bold;
     cursor: pointer;
 }
-section.admin-container .an form .button { position: initial; }
+section.admin-container .an .button { position: initial; }
 section.admin-container .an form[id="delete"] .button[type="submit"] {
     background-color: #DC4747;
 }
