@@ -72,10 +72,48 @@ exports.edit = function(req, res) {
 
 // Update
 exports.update = function(req, res) {
+    const {id} = req.body
+    let index = 0
+
+    const foundRecipes = data.recipes.find(function (recipe, foundIndex) {
+        if(id == recipe.id) {
+            index = foundIndex
+            return true
+        }
+    })
+    if(!foundRecipes) {
+        return res.send("Receita não encontrada.")
+    }
+
+    const recipe = {
+        ...foundRecipes,
+        ...req.body,
+        id: Number(req.body.id)
+    }
     
+    data.recipes[index] = recipe
+
+    fs.writeFile("data.json", JSON.stringify(data, null, 4), function (err) {
+        if(err) {
+            return res.send("Erro ao gravar arquivo.")
+        }
+        return res.redirect(`/admin/recipes/${id}`)
+    })
 }
 
 // Delete
 exports.delete = function(req, res) {
-    
+    const {id} = req.body
+    const filteredRecipes = data.recipes.filter(function(recipe) {
+        return recipe.id != id
+    })
+
+    data.recipes = filteredRecipes
+
+    fs.writeFile("data.json", JSON.stringify(data, null, 4), function (err) {
+        if(err) {
+            return res.send("Erro ao gravar arquivo.")
+        }
+        return res.redirect("/admin/recipes")
+    })
 }

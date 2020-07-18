@@ -7,21 +7,25 @@
 
 {% block content %}
     <section class="admin-container">
-        <div class="an">
-            <h1>Editando receita</h1>
-            <form id="delete" action="" method="POST">
-                <button type="submit" class="button">Deletar</button>
-            </form>
-            <form action="" method="POST">
-                <button type="submit" class="button">Salvar receita</button>
-            </div>
+        <h1>Editando receita</h1>
 
+        <form id="delete" action="/admin/recipes?_method=DELETE" method="POST">
+            <button type="submit" class="button-delete">Deletar</button>
+            <input type="hidden" name="id" value="{{recipes.id}}">
+        </form>
+
+        <form action="/admin/recipes?_method=PUT" method="POST">
+            <button type="submit" class="button">Salvar receita</button>
+
+            <div class="fields">
             {% include "admin/fields.njk" %}
+            </div>
+            <input type="hidden" name="id" value="{{recipes.id}}">
 
         </form>
     </section>
 {% endblock content %}
 
 {% block scripts %}
-<script src="/scripts/admin.js"></script>
+    <script src="/scripts/admin.js"></script>
 {% endblock scripts %}

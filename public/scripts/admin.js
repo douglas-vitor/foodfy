@@ -22,3 +22,23 @@ function addIngredients() {
 
 const buttonAdd = document.querySelector(".add-ingredient")
 buttonAdd.addEventListener("click", addIngredients)
+
+//Example function bootcamp course
+function addPreparation() {
+  const ingredients = document.querySelector("#preparations");
+  const fieldContainer = document.querySelectorAll(".preparation");
+
+  // Realiza um clone do último preparation adicionado
+  const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
+
+  // Não adiciona um novo input se o último tem um valor vazio
+  if (newField.children[0].value == "") return false;
+
+  // Deixa o valor do input vazio
+  newField.children[0].value = "";
+  preparations.appendChild(newField);
+}
+
+document
+  .querySelector(".add-preparation")
+  .addEventListener("click", addPreparation);

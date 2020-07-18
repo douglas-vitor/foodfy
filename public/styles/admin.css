@@ -107,69 +107,51 @@ section.admin-container {
     width: 940px;
     margin: 0 auto;
     min-height: 87%;
+background-color: blue;
+position: relative;
+padding-top: 1px;
 }
-section.admin-container .an {
-    height: 37px;
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    align-items: center;
-    margin-top: 50px;
-    margin-bottom: 20px;
-    box-sizing: border-box;
+section.admin-container h1 {
+    margin: 53px 0 30px 0;
 }
-section.admin-container .an h1 {
-    font-weight: bold;
-    color: #111111;
-    font-size: 24px;
-    line-height: 28px;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-    margin: auto 0;
-    float: left;
-}
-/* Edit */
-section.admin-container .an form {
-    max-height: 37px;
-    width: auto;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    float: left;
-}
-section.admin-container .an form[id="delete"] {
-    margin-right: 10px;
-    float: left;
-}
-section.admin-container .an a.button,
-section.admin-container .an .button {
-    right: 0;
+section.admin-container button {
+    position: absolute;
+    top: 50px;
+    max-width: 139px;
     border-radius: 4px;
-    background-color: #6558C3;
     padding: 9px 20px;
+    font-weight: bold;
     color: white;
     font-size: 16px;
     line-height: 19px;
-    text-decoration: none;
-    box-sizing: border-box;
-    display: inline-block;
-    font-weight: bold;
     cursor: pointer;
+    background-color: #6558C3;
 }
-section.admin-container .an .button { position: initial; }
-section.admin-container .an form[id="delete"] .button[type="submit"] {
+section.admin-container .button {
+    right: 0%;
+}
+section.admin-container .button-delete {
+    right: 16%;
     background-color: #DC4747;
 }
-section.admin-container span {
-    display: flex;
-    width: 940px;
-    height: 230px;
-    background-position: center center;
-    background-size: cover;
-    border-radius: 15px;
-    margin-bottom: 50px;
+section.admin-container .fields {
+    top: 113px;
+    width: 100%;
 }
-section.admin-container .title {
+.fields input[type="text"] {
+    width: 100%;
+    border-radius: 4px;
+    border: solid 1px #DDDDDD;
+    padding: 15px 20px;
+    color: #111111;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    box-sizing: border-box;
+}
+
+.fields .title-recipe {
+    background-color: green;
     width: auto;
     text-align: center;
     font-size: 36px;
@@ -177,55 +159,17 @@ section.admin-container .title {
     color: #111111;
     font-weight: bold;
     margin-bottom: 4px;
-}
-section.admin-container .author {
-    font-weight: normal;
-    width: auto;
-    font-size: 20px;
-    line-height: 24px;
-    color: #777777;
-    text-align: center;
-    margin-bottom: 31px;
-}
-section.admin-container h1 {
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 28px;
-    color: #111111;
-    margin-bottom: 19px;
+
 }
 
-section.admin-container .recipe-detail {
-    font-weight: normal;
-    color: #444444;
-    font-size: 18px;
-    line-height: 28px;
-    margin-bottom: 41px;
-}
-section.admin-container .recipe-detail ul {
-    list-style-type: "- ";
-}
-
-.image-recpe h1,
-.ingredients h1,
-.preparations h1,
-.information-recipe h1,
-.title-recipe h1,
-.author-recipe h1 {
+.fields .title-recipe h1 {
     font-weight: bold;
     color: #111111;
     font-size: 16px;
     line-height: 19px;
-    margin: 30px 0 10px 0;
+
 }
-.title-recipe h1 { margin-top: 26px; }
-.ingredients h1 { margin-top: 0; }
-.image-recipe input[type="text"],
-.ingredients .ingredient input[type="text"],
-.preparations .preparation input[type="text"],
-.information-recipe textarea,
-.title-recipe input[type="text"],
-.author-recipe input[type="text"] {
+.fields .title-recipe input {
     width: 100%;
     box-sizing: border-box;
     border-radius: 4px;
@@ -237,20 +181,5 @@ section.admin-container .recipe-detail ul {
     font-size: 16px;
     line-height: 19px;
     margin-bottom: 30px;
-}
-.title-recipe input[type="text"] { margin-bottom: 0; }
-.ingredients .ingredient input[type="text"],
-.preparations .preparation input[type="text"] {
-    margin-bottom: 10px;
-}
-.ingredients .ingredient input + input,
-.preparations .preparation input + input {
-    margin-bottom: 10px;
-}
- .add-ingredient,
- .add-preparation {
-    color: blue;
-    background-color: white;
-    cursor: pointer;
-    margin-top: 5px;
+
 }
