@@ -23,22 +23,28 @@ function addIngredients() {
 const buttonAdd = document.querySelector(".add-ingredient")
 buttonAdd.addEventListener("click", addIngredients)
 
-//Example function bootcamp course
+
 function addPreparation() {
-  const ingredients = document.querySelector("#preparations");
-  const fieldContainer = document.querySelectorAll(".preparation");
+  const preparation = document.getElementById("preparation")
+  const preparationChildren = preparation.children
 
-  // Realiza um clone do último preparation adicionado
-  const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
+  //Select item para a copia
+  let idArray = preparationChildren.length -1
+  const inputItem = preparationChildren[idArray]
 
-  // Não adiciona um novo input se o último tem um valor vazio
-  if (newField.children[0].value == "") return false;
-
-  // Deixa o valor do input vazio
-  newField.children[0].value = "";
-  preparations.appendChild(newField);
+  //Nao clona input se o index 0 estiver vazio
+  if(inputItem.value == "") {
+    return false
+  }
+  
+  //Realiza o clone
+  const inputCopy = inputItem.cloneNode(true)
+  
+  //Deixa o filho com valor vazio
+  //Add o clone ao elemento pai
+  inputCopy.value = ""
+  preparation.appendChild(inputCopy)
 }
 
-document
-  .querySelector(".add-preparation")
-  .addEventListener("click", addPreparation);
+const buttonPreparationAdd = document.querySelector(".add-preparation")
+buttonPreparationAdd.addEventListener("click", addPreparation)

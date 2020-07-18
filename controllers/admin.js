@@ -20,6 +20,8 @@ exports.post = function(req, res) {
             return res.send("Por favor preencha todos os campos.")
         }
     }
+
+
     let { title, author, image, ingredients, preparation, information } = req.body
 
     let id = 1

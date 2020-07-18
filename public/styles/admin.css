@@ -102,19 +102,19 @@ body section.container span {
     box-sizing: border-box;
     color: blue;
 }
-/* Show */
+/* Edit */
 section.admin-container {
     width: 940px;
     margin: 0 auto;
     min-height: 87%;
-background-color: blue;
 position: relative;
 padding-top: 1px;
 }
 section.admin-container h1 {
     margin: 53px 0 30px 0;
 }
-section.admin-container button {
+section.admin-container button,
+section.admin-container a.button {
     position: absolute;
     top: 50px;
     max-width: 139px;
@@ -126,6 +126,7 @@ section.admin-container button {
     line-height: 19px;
     cursor: pointer;
     background-color: #6558C3;
+    text-decoration: none;
 }
 section.admin-container .button {
     right: 0%;
@@ -138,7 +139,8 @@ section.admin-container .fields {
     top: 113px;
     width: 100%;
 }
-.fields input[type="text"] {
+.fields input[type="text"],
+.fields textarea {
     width: 100%;
     border-radius: 4px;
     border: solid 1px #DDDDDD;
@@ -151,23 +153,20 @@ section.admin-container .fields {
 }
 
 .fields .title-recipe {
-    background-color: green;
     width: auto;
     text-align: center;
     font-size: 36px;
     line-height: 42px;
     color: #111111;
     font-weight: bold;
-    margin-bottom: 4px;
-
 }
-
 .fields .title-recipe h1 {
     font-weight: bold;
     color: #111111;
     font-size: 16px;
     line-height: 19px;
-
+    text-align: left;
+    margin: 0  0 10px 0;
 }
 .fields .title-recipe input {
     width: 100%;
@@ -180,6 +179,102 @@ section.admin-container .fields {
     color: #111111;
     font-size: 16px;
     line-height: 19px;
-    margin-bottom: 30px;
+}
+/*-----*/
+.fields .author-recipe,
+.fields .image-recipe,
+.fields .ingredients,
+.fields .preparations,
+.fields .information-recipe {
+    margin: 30px 0 0 0;
+    width: auto;
+    text-align: center;
+    font-size: 36px;
+    line-height: 42px;
+    color: #111111;
+    font-weight: bold;
+}
+.fields .author-recipe h1,
+.fields .image-recipe h1,
+.fields .ingredients h1,
+.fields .preparations h1,
+.fields .information-recipe h1 {
+    margin: 0 0 10px 0;
+    font-weight: bold;
+    color: #111111;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: left;
+}
 
+.fields .ingredients input + input,
+.fields .preparations input + input {
+    margin: 10px 0 0 0;
+}
+
+.fields .ingredients,
+.fields .preparations { position: relative;}
+
+.fields .add-ingredient,
+.fields .add-preparation {
+    position: initial;
+    color: #6558C3;
+    background-color: white;
+    cursor: pointer;
+    margin-top: 15px;
+    padding: 0;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    max-width: 200px;
+    border-radius: 0;
+}
+
+.fields textarea { margin: 0 0 30px 0; }
+/*Show*/
+section.admin-container span {
+    display: flex;
+    width: 940px;
+    height: 230px;
+    background-position: center center;
+    background-size: cover;
+    border-radius: 15px;
+    margin-bottom: 50px;
+}
+section.admin-container .title {
+    width: auto;
+    text-align: center;
+    font-size: 36px;
+    line-height: 42px;
+    color: #111111;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+section.admin-container .author {
+    font-weight: normal;
+    width: auto;
+    font-size: 20px;
+    line-height: 24px;
+    color: #777777;
+    text-align: center;
+    margin-bottom: 31px;
+}
+section.admin-container h1 {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    color: #111111;
+    margin-bottom: 19px;
+}
+
+section.admin-container .recipe-detail {
+    font-weight: normal;
+    color: #444444;
+    font-size: 18px;
+    line-height: 28px;
+    margin-bottom: 41px;
+}
+section.admin-container .recipe-detail ul {
+    list-style-type: "- ";
 }

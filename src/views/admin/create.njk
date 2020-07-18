@@ -7,47 +7,46 @@
 {% block content %}
     <section class="admin-container">
         <form action="/admin/recipes" method="POST">
-            <div class="an">
-                <h1>Criando receita</h1>
-                <button type="submit" class="button">Salvar receita</button>
-            </div>
+            <h1>Criando receita</h1>
+            <button type="submit" class="button">Salvar receita</button>
 
-            <div class="title-recipe">
-                <h1>Titulo</h1>
-                <input type="text" name="title" value="{{recipes.title}}" placeholder="Title">
-            </div>
+            <div class="fields">
+                <div class="title-recipe">
+                    <h1>Titulo</h1>
+                    <input type="text" name="title" value="{{recipes.title}}" placeholder="Title">
+                </div>
 
-            <div class="author-recipe">
-                <h1>Autor</h1>
-                <input type="text" name="author" value="{{recipes.author}}" placeholder="Author">
-            </div>
+                <div class="author-recipe">
+                    <h1>Autor</h1>
+                    <input type="text" name="author" value="{{recipes.author}}" placeholder="Author">
+                </div>
 
-            <div class="image-recipe">
-                <h1>Imagem da receita</h1>
-                <input type="text" name="image" value="{{recipes.image}}">
-            </div>
+                <div class="image-recipe">
+                    <h1>Imagem da receita</h1>
+                    <input type="text" name="image" value="{{recipes.image}}">
+                </div>
 
-            <div id="ingredients" class="ingredients">
-                <h1>Ingredientes</h1>
-                <div id="ingredient" class="ingredient">
-                    <input type="text" name="ingredients[]" value="{{ingredient}}" placeholder="Ingredient"/>
+                <div id="ingredients" class="ingredients">
+                    <h1>Ingredientes</h1>
+                    <div id="ingredient" class="ingredient">
+                        <input type="text" name="ingredients[]" value="{{ingredient}}" placeholder="Ingredient"/>
+                    </div>
+                </div>
+                <button type="button" class="add-ingredient">Adicionar novo ingrediente</button>
+
+                <div id="preparations" class="preparations">
+                    <h1>Modo de preparo</h1>
+                    <div id="preparation" class="preparation">
+                        <input type="text" name="preparation[]" value="{{step}}" placeholder="Preparation">
+                    </div>
+                </div>
+                <button type="button" class="add-preparation">Adicionar novo passo</button>
+
+                <div class="information-recipe">
+                    <h1>Informações adicionais</h1>
+                    <textarea name="information" id="information" cols="30" rows="10" placeholder="Information">{{recipes.information}}</textarea>
                 </div>
             </div>
-            <button type="button" class="add-ingredient">Adicionar novo ingrediente</button>
-
-            <div id="preparations" class="preparations">
-                <h1>Modo de preparo</h1>
-                <div class="preparation">
-                    <input type="text" name="preparation[]" value="{{step}}" placeholder="Preparation">
-                </div>
-            </div>
-            <button type="button" class="add-preparation">Adicionar novo passo</button>
-
-            <div class="information-recipe">
-                <h1>Informações adicionais</h1>
-                <textarea name="information" id="information" cols="30" rows="10" placeholder="Information">{{recipes.information}}</textarea>
-            </div>
-
         </form>
 
     </section>
