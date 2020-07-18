@@ -27,6 +27,7 @@ header .navbar a {
     text-decoration: none;
     font-size: 26.9px;
     font-family: 'Times New Roman', Times, serif;
+    max-width: 78px;
 }
 /* Index */
 section.container {
