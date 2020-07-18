@@ -13,3 +13,4 @@
 
 1. Contruir todo o HTML e CSS do site e deixa-lo funcionando com as especificações do desafio; 
 2. Refatoramento de toda a estrutura do Foodfy, adicionado servidor próprio, pegando informações dinamicamente, usando template engine Nunjucks, adicionado rota para pagina de erro 404, adicionado style responsivo;
+3. Adicionado área administrativa ao site, para gestão de receitas(criação, edição e exclusão). Alterado arquivo base de dados, para arquivo data.json. Refatorado estrutura de arquivos, movido rotas para arquivos especificos.
