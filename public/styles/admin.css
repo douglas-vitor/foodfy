@@ -18,7 +18,7 @@ header .navbar {
     width: 940px;
     height: 100%;
     margin: 0 auto;
-    display: grid;
+    display: flex;
     align-items: center;
 }
 header .navbar a {
@@ -27,7 +27,10 @@ header .navbar a {
     text-decoration: none;
     font-size: 26.9px;
     font-family: 'Times New Roman', Times, serif;
-    max-width: 78px;
+    margin: auto 30px auto 0;
+}
+header .navbar a:first-child {
+    margin-right: 50.4px;
 }
 /* Index */
 section.container {
