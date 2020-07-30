@@ -22,17 +22,10 @@ server.use(routes)
 server.set("view engine", "njk")
 
 // Utilizando template engine nunjucks
-nunjucks.configure("src/views", {
+nunjucks.configure("src/app/views", {
     express: server,
     noCache: true,
     autoescape: false
-})
-
-//Configurando rotas
-
-// Not-found
-server.use(function (req, res) {
-    return res.status(404).render("not-found")
 })
 
 
