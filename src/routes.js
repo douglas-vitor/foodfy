@@ -9,6 +9,8 @@ routes.get("/", publico.index)
 routes.get("/about", publico.about)
 routes.get("/recipes", publico.recipes)
 routes.get("/recipe/:id", publico.recipe)
+routes.get("/chefs", publico.chefs)
+routes.get("/search", publico.search)
 
 
 // Admin

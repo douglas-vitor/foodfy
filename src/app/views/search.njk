@@ -1,0 +1,21 @@
+{% extends "base.njk" %}
+
+{% block title %}
+    <title>Busca</title>
+{% endblock title %}
+
+{% block content %}
+    <section class="cards">
+        {% for receita in recipes %}
+            <div class="card" id="{{recipes.indexOf(receita)}}">
+                <img src="{{receita.image}}" alt="{{receita.title}}">
+                <div class="title">{{receita.title}}</div>
+                <div class="autor">{{receita.author}}</div>
+            </div>
+        {% endfor %}
+    </section>
+{% endblock content %}
+
+{% block scripts %}
+    <script src="/scripts/script.js"></script>
+{% endblock scripts %}
