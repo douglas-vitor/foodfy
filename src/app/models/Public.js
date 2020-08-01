@@ -4,11 +4,11 @@ module.exports = {
     allRecipes(callback) {
         db.query(`
             SELECT * FROM recipes ORDER BY id ASC
-        `, function(err, results) {
-            if(err) {
+        `, function (err, results) {
+            if (err) {
                 throw `[DATABASE ERROR] : ${err}`
             }
-        callback(results.rows)
+            callback(results.rows)
         })
     },
     findRecipe(id, callback) {
@@ -16,11 +16,11 @@ module.exports = {
             SELECT * 
             FROM recipes 
             WHERE id = $1 
-        `, [id], function(err, results) {
-            if(err) {
+        `, [id], function (err, results) {
+            if (err) {
                 throw `[DATABASE ERROR] : ${err}`
             }
-        callback(results.rows[0])
+            callback(results.rows[0])
         })
     }
 }
