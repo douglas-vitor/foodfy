@@ -1,26 +1,27 @@
 const db = require("../../config/db")
+const Publico = require("../models/Public")
 
 module.exports = {
     index(req, res) {
-        return res.render("home")
+        Publico.allRecipes(function(recipes) {
+            return res.render("home", {recipes})
+        })
     },
     about(req, res) {
         return res.render("about")
     },
     recipes(req, res) {
-        return res.render("recipes")
+        Publico.allRecipes(function(recipes) {
+            return res.render("recipes", {recipes})
+        })
     },
     recipe(req, res) {
-        const id = req.params.id
-        const verify = function (verify) {
-            if (id <= (recipes.recipes.length - 1)) {
-                return true
+        Publico.findRecipe(req.params.id, function(data) {
+            if(!data) {
+                return res.send("Receita não encontrada.")
             }
-        }
-        if (!verify(id)) {
-            return res.status(404).render("not-found")
-        }
-        return res.render("recipe")
+            return res.render("recipe", {data})
+        })
     },
     chefs(req, res) {
         return res.render("chefs")

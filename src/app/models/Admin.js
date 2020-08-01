@@ -43,7 +43,7 @@ module.exports = {
         callback(results.rows[0])
         })
     },
-    find(id, callback) {
+    findRecipe(id, callback) {
         db.query(`
             SELECT * 
             FROM recipes 
@@ -53,6 +53,42 @@ module.exports = {
                 throw `[DATABASE ERROR] : ${err}`
             }
         callback(results.rows[0])
+        })
+    },
+    updateRecipe(data, callback) {
+        const query = `
+            UPDATE recipes SET 
+            chef_id=($1),
+            image=($2),
+            title=($3),
+            ingredients=($4),
+            preparation=($5),
+            information=($6) 
+            WHERE id = $7
+        `
+        const values = [
+            data.chef_id,
+            data.image,
+            data.title,
+            data.ingredients,
+            data.preparation,
+            data.information,
+            data.id
+        ]
+
+        db.query(query, values, function(err, results) {
+            if(err) {
+                throw `[DATABASE ERROR] : ${err}`
+            }
+        callback()
+        })
+    },
+    deleteRecipe(id, callback) {
+        db.query(`DELETE FROM recipes WHERE id = $1`, [id], function(err, results) {
+            if(err) {
+                throw `[DATABASE ERROR] : ${err}`
+            }
+            return callback()
         })
     }
 }

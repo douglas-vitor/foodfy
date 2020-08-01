@@ -24,7 +24,7 @@ module.exports = {
         })
     },
     show(req, res) {
-        Admin.find(req.params.id, function(recipes) {
+        Admin.findRecipe(req.params.id, function(recipes) {
             if(!recipes) {
                 return res.send("Receita não encontrada.")
             }
@@ -32,43 +32,32 @@ module.exports = {
         })
     },
     edit(req, res) {
-        const { id } = req.params
-        const foundRecipes = data.recipes.find(function (recipe) {
-            return recipe.id == id
+        Admin.findRecipe(req.params.id, function(recipes) {
+            if(!recipes) {
+                return res.send("Receita não encontrada.")
+            }
+        return res.render("admin/edit", {recipes})
         })
-        if (!foundRecipes) {
-            return res.send("Receita não encontrada.")
-        }
-        return res.render("admin/edit")
     },
     update(req, res) {
-        const { id } = req.body
-        let index = 0
-
-        const foundRecipes = data.recipes.find(function (recipe, foundIndex) {
-            if (id == recipe.id) {
-                index = foundIndex
-                return true
+        const keys = Object.keys(req.body)
+        for(key of keys) {
+            if(req.body[key] == "") {
+                return res.send("Todos os capos devem ser preenchidos.")
             }
+        }
+
+        let data = {
+            ...req.body
+        }
+
+        Admin.updateRecipe(data, function() {
+            return res.redirect(`/admin/recipes/${req.body.id}`)
         })
-        if (!foundRecipes) {
-            return res.send("Receita não encontrada.")
-        }
-
-        const recipe = {
-            ...foundRecipes,
-            ...req.body,
-            id: Number(req.body.id)
-        }
-
-        data.recipes[index] = recipe
     },
     delete(req, res) {
-        const { id } = req.body
-        const filteredRecipes = data.recipes.filter(function (recipe) {
-            return recipe.id != id
+        Admin.deleteRecipe(req.body.id, function() {
+            return res.redirect("/admin/recipes")
         })
-
-        data.recipes = filteredRecipes
     }
 }
