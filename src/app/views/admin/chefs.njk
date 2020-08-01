@@ -1,0 +1,24 @@
+{% extends "./base-admin.njk" %}
+
+{% block title %}
+    <title>Chefs</title>
+{% endblock title %}
+
+{% block content %}
+    <section class="align-chefs">
+        {% for chef in chefs %}
+                <div class="chef">
+                    <span style="background-image: url({{chef.avatar_url}});"></span>
+                    <div class="info">
+                        <h1>{{chef.name}}</h1>
+                        <a href="/admin/chefs/{{chef.id}}">Visualizar</a>
+                    </div>
+                </div>
+        {% endfor %}
+
+    </section>
+{% endblock content %}
+
+{% block scripts %}
+    <script src="/scripts/admin.js"></script>
+{% endblock scripts %}

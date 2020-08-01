@@ -1,0 +1,31 @@
+{% extends "./base-admin.njk" %}
+
+{% block title %}
+    <title>Admin | Nova receita</title>
+{% endblock title %}
+
+{% block content %}
+    <section class="admin-container">
+        <form action="/admin/chefs" method="POST">
+            <h1>Criando chef</h1>
+            <button type="submit" class="button">Salvar chef</button>
+
+            <div class="fields">
+                <div class="chefName">
+                    <h1>Nome</h1>
+                    <input type="text" name="name" value="{{recipes.author}}" placeholder="Chef">
+                </div>
+
+                <div class="chefAvatar">
+                    <h1>Avatar</h1>
+                    <input type="text" name="avatar_url" value="{{recipes.image}}">
+                </div>
+            </div>
+        </form>
+
+    </section>
+{% endblock content %}
+
+{% block scripts %}
+    <script src="/scripts/admin.js"></script>
+{% endblock scripts %}

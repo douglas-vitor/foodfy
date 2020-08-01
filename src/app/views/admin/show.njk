@@ -1,37 +1,42 @@
 {% extends "./base-admin.njk" %}
 
 {% block title %}
-<title>Admin | {{recipes.title}}</title>
+    <title>Admin |
+        {{recipes.title}}</title>
 {% endblock title %}
 
 {% block content %}
-<section class="admin-container">
+    <section class="admin-container">
         <h1>{{recipes.title}}</h1>
         <a class="button" href="/admin/recipes/{{recipes.id}}/edit">Editar receita</a>
 
-    <span style="background-image: url({{recipes.image}});"></span>
+        <span style="background-image: url({{recipes.image}});"></span>
 
-    <div class="title">{{recipes.title}}</div>
-    <div class="author">{{recipes.author}}</div>
-    <h1>Ingredientes</h1>
-    <div class="recipe-detail">
-        <ul>
-            {% for item in recipes.ingredients %}
-            <li>{{item}}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    <h1>Modo de preparo</h1>
-    <div class="recipe-detail">
-        <ul>
-            {% for item in recipes.preparation %}
-            <li>{{item}}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    <h1>Informações adicionais</h1>
-    <div class="recipe-detail">
-        {{recipes.information}}
-    </div>
-</section>
+        <div class="title">{{recipes.title}}</div>
+        {% for chef in chefs %}
+            {% if chef.id == recipes.chef_id %}
+                <div class="author">por {{chef.name}}</div>
+            {% endif %}
+        {% endfor %}
+        <h1>Ingredientes</h1>
+        <div class="recipe-detail">
+            <ul>
+                {% for item in recipes.ingredients %}
+                    <li>{{item}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <h1>Modo de preparo</h1>
+        <div class="recipe-detail">
+            <ul>
+                {% for item in recipes.preparation %}
+                    <li>{{item}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <h1>Informações adicionais</h1>
+        <div class="recipe-detail">
+            {{recipes.information}}
+        </div>
+    </section>
 {% endblock content %}

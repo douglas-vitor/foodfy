@@ -18,7 +18,13 @@
 
                 <div class="author-recipe">
                     <h1>Autor</h1>
-                    <input type="text" name="author" value="{{recipes.author}}" placeholder="Author">
+                    <select name="chef_id">
+                        {% for chefOption in options %}
+                            <option value="{{chefOption.id}}" {% if recipes.chef_id == chefOption.id %} selected="selected" {% endif %}>
+                                {{chefOption.name}}
+                            </option>
+                        {% endfor %}
+                    </select>
                 </div>
 
                 <div class="image-recipe">

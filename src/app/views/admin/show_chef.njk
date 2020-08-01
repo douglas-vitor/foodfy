@@ -1,0 +1,18 @@
+{% extends "./base-admin.njk" %}
+
+{% block title %}
+<title>Admin | {{chefs.name}}</title>
+{% endblock title %}
+
+{% block content %}
+<section class="admin-container show-chef">
+        <h1>Chef: {{chefs.name}}</h1>
+        <a class="button" href="/admin/chefs/{{chefs.id}}/edit">Editar Chef</a>
+
+    <span id="chefAvatar" style="background-image: url({{chefs.avatar_url}});"></span>
+
+    <div class="title">{{chefs.name}}</div>
+    <div class="author">{{count.count}} receitas</div>
+    
+</section>
+{% endblock content %}

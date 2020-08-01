@@ -24,6 +24,10 @@ routes.get("/admin/recipes/:id", admin.show)
 routes.get("/admin/recipes/:id/edit", admin.edit)
 routes.put("/admin/recipes", admin.update)
 routes.delete("/admin/recipes", admin.delete)
+routes.get("/admin/chefs", admin.chefs)
+routes.get("/admin/chefs/create_chef", admin.createChef)
+routes.post("/admin/chefs", admin.postChef)
+routes.get("/admin/chefs/:id", admin.showChef)
 
 // Not-found
 routes.use(function (req, res) {

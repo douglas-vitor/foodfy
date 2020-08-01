@@ -5,11 +5,15 @@ const { date } = require("../../lib/utils")
 module.exports = {
     index(req, res) {
         Admin.allRecipes(function (recipes) {
-            return res.render("admin/home", { recipes })
+            Admin.selectChefOptions(function(chefs) {
+                return res.render("admin/home", { recipes, chefs })
+            })
         })
     },
     create(req, res) {
-        return res.render("admin/create")
+        Admin.selectChefOptions(function(options) {
+            return res.render("admin/create", {options})
+        })
     },
     post(req, res) {
         const keys = Object.keys(req.body)
@@ -24,11 +28,13 @@ module.exports = {
         })
     },
     show(req, res) {
-        Admin.findRecipe(req.params.id, function (recipes) {
+        Admin.findRecipe(req.params.id, function(recipes) {
             if (!recipes) {
                 return res.send("Receita não encontrada.")
             }
-            return res.render("admin/show", { recipes })
+            Admin.selectChefOptions(function(chefs) {
+                return res.render("admin/show", { recipes, chefs })
+            })
         })
     },
     edit(req, res) {
@@ -36,7 +42,9 @@ module.exports = {
             if (!recipes) {
                 return res.send("Receita não encontrada.")
             }
-            return res.render("admin/edit", { recipes })
+            Admin.selectChefOptions(function(options) {
+                return res.render("admin/edit", { recipes, options })
+            })
         })
     },
     update(req, res) {
@@ -58,6 +66,35 @@ module.exports = {
     delete(req, res) {
         Admin.deleteRecipe(req.body.id, function () {
             return res.redirect("/admin/recipes")
+        })
+    },
+    chefs(req, res) {
+        Admin.allChefs(function(chefs) {
+            return res.render("admin/chefs", {chefs})
+        })
+    },
+    showChef(req, res) {
+        Admin.findChef(req.params.id, function(chefs) {
+            if(!chefs) {
+                return res.send("Chef não encontrado.")
+            }
+            Admin.countRecipesOfChef(req.params.id, function(count) {
+                return res.render("admin/show_chef", {chefs, count})
+            })
+        })
+    },
+    createChef(req, res) {
+        return res.render("admin/create_chef")
+    },
+    postChef(req, res) {
+        const keys = Object.keys(req.body)
+        for(key of keys) {
+            if(req.body[key] == "") {
+                return res.send("Por favor preencha todos os campos.")
+            }
+        }
+        Admin.createChef(req.body, function(chefs) {
+            return res.redirect(`/admin/chefs/${chefs.id}`)
         })
     }
 }
