@@ -88,7 +88,7 @@ module.exports = {
             if (err) {
                 throw `[DATABASE ERROR] : ${err}`
             }
-            return callback()
+            callback()
         })
     },
     findChef(id, callback) {
@@ -129,27 +129,63 @@ module.exports = {
             date(Date.now()).iso
         ]
 
-        db.query(query, values, function(err, results) {
-            if(err) {
+        db.query(query, values, function (err, results) {
+            if (err) {
                 throw `[DATABASE ERROR] : ${err}`
             }
             callback(results.rows[0])
         })
     },
     selectChefOptions(callback) {
-        db.query(`SELECT name, id FROM chefs`, function(err, results) {
-            if(err) {
+        db.query(`SELECT name, id FROM chefs`, function (err, results) {
+            if (err) {
                 throw `[DATABASE ERROR] : ${err}`
             }
-            return callback(results.rows)
+            callback(results.rows)
         })
     },
     countRecipesOfChef(id, callback) {
-        db.query(`SELECT count(*) FROM recipes WHERE chef_id = $1`, [id], function(err, results) {
-            if(err) {
+        db.query(`SELECT count(*) FROM recipes WHERE chef_id = $1`, [id], function (err, results) {
+            if (err) {
                 throw `[DATABASE ERROR] : ${err}`
             }
             callback(results.rows[0])
+        })
+    },
+    recipesOfChef(id, callback) {
+        db.query(`SELECT * FROM recipes WHERE chef_id = $1`, [id], function (err, results) {
+            if (err) {
+                throw `[DATABASE ERROR] : ${err}`
+            }
+            callback(results.rows)
+        })
+    },
+    updateChef(data, callback) {
+        const query = `
+            UPDATE chefs SET 
+            name=($1),
+            avatar_url=($2)
+            WHERE id = $3
+        `
+        const values = [
+            data.name,
+            data.avatar_url,
+            data.id
+        ]
+
+        db.query(query, values, function (err, results) {
+            if (err) {
+                throw `[DATABASE ERROR] : ${err}`
+            }
+            callback()
+        })
+    },
+    deleteChef(id, callback) {
+        db.query(`DELETE FROM chefs WHERE id = $1`, [id], function (err, results) {
+            if (err) {
+                throw `[DATABASE] : ${err}`
+            }
+            callback()
         })
     }
 }

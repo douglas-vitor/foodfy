@@ -1,18 +1,43 @@
 {% extends "./base-admin.njk" %}
 
 {% block title %}
-<title>Admin | {{chefs.name}}</title>
+    <title>Admin |
+        {{chefs.name}}</title>
 {% endblock title %}
 
 {% block content %}
-<section class="admin-container show-chef">
-        <h1>Chef: {{chefs.name}}</h1>
+    <section class="admin-container show-chef">
+        <h1>Chef:
+            {{chefs.name}}</h1>
         <a class="button" href="/admin/chefs/{{chefs.id}}/edit">Editar Chef</a>
 
-    <span id="chefAvatar" style="background-image: url({{chefs.avatar_url}});"></span>
+        <span id="chefAvatar" style="background-image: url({{chefs.avatar_url}});"></span>
 
-    <div class="title">{{chefs.name}}</div>
-    <div class="author">{{count.count}} receitas</div>
-    
-</section>
+        <div class="title">{{chefs.name}}</div>
+        <div class="author">{{count.count}}
+            receitas</div>
+
+    </section>
+
+    <section class="container recipesOfChef">
+        <span>Receitas</span>
+
+        <div class="recipes">
+            {% for receita in recipes %}
+                <div class="recipe">
+                    <span class="image" style="background-image: url({{receita.image}});"></span>
+                    <div class="details">
+                        <h1>{{receita.title}}</h1>
+                        {% for chef in options %}
+                            {% if chef.id == receita.chef_id %}
+                                <h5>por
+                                    {{chef.name}}</h5>
+                            {% endif %}
+                        {% endfor %}
+                        <a href="/admin/recipes/{{receita.id}}">visualizar</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 {% endblock content %}

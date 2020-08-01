@@ -4,7 +4,9 @@ const Publico = require("../models/Public")
 module.exports = {
     index(req, res) {
         Publico.allRecipes(function (recipes) {
-            return res.render("home", { recipes })
+            Publico.selectChefOptions(function(chefs) {
+                return res.render("home", { recipes, chefs })
+            })
         })
     },
     about(req, res) {
@@ -12,7 +14,9 @@ module.exports = {
     },
     recipes(req, res) {
         Publico.allRecipes(function (recipes) {
-            return res.render("recipes", { recipes })
+            Publico.selectChefOptions(function(chefs) {
+                return res.render("recipes", { recipes, chefs })
+            })
         })
     },
     recipe(req, res) {
@@ -20,11 +24,15 @@ module.exports = {
             if (!data) {
                 return res.send("Receita não encontrada.")
             }
-            return res.render("recipe", { data })
+            Publico.selectChefOptions(function(chefs) {
+                return res.render("recipe", { data, chefs })
+            })
         })
     },
     chefs(req, res) {
-        return res.render("chefs")
+        Publico.allChefs(function(chefs) {
+            return res.render("chefs", {chefs})
+        })
     },
     search(req, res) {
         return res.render("search")

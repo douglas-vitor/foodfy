@@ -1,0 +1,39 @@
+{% extends "./base-admin.njk" %}
+
+{% block title %}
+    <title>Admin |
+        {{chefs.name}}</title>
+{% endblock title %}
+
+{% block content %}
+    <section class="admin-container">
+        <h1>Editando chef</h1>
+
+        <form id="delete" action="/admin/chefs?_method=DELETE" method="POST">
+            <button type="submit" class="button-delete">Deletar</button>
+            <input type="hidden" name="id" value="{{chefs.id}}">
+        </form>
+
+        <form action="/admin/chefs?_method=PUT" method="POST">
+            <button type="submit" class="button">Salvar chef</button>
+
+            <div class="fields">
+                <div class="chefName">
+                    <h1>Nome</h1>
+                    <input type="text" name="name" value="{{chefs.name}}" placeholder="Chef">
+                </div>
+
+                <div class="chefAvatar">
+                    <h1>Avatar</h1>
+                    <input type="text" name="avatar_url" value="{{chefs.avatar_url}}">
+                </div>
+            </div>
+            <input type="hidden" name="id" value="{{chefs.id}}">
+
+        </form>
+    </section>
+{% endblock content %}
+
+{% block scripts %}
+    <script src="/scripts/admin.js"></script>
+{% endblock scripts %}

@@ -64,7 +64,7 @@ module.exports = {
         })
     },
     delete(req, res) {
-        Admin.deleteRecipe(req.body.id, function () {
+        Admin.deleteRecipe(req.body.id, function() {
             return res.redirect("/admin/recipes")
         })
     },
@@ -79,7 +79,11 @@ module.exports = {
                 return res.send("Chef não encontrado.")
             }
             Admin.countRecipesOfChef(req.params.id, function(count) {
-                return res.render("admin/show_chef", {chefs, count})
+                Admin.recipesOfChef(req.params.id, function(recipes) {
+                    Admin.selectChefOptions(function(options) {
+                        return res.render("admin/show_chef", {chefs, count, recipes, options})
+                    })
+                })
             })
         })
     },
@@ -95,6 +99,32 @@ module.exports = {
         }
         Admin.createChef(req.body, function(chefs) {
             return res.redirect(`/admin/chefs/${chefs.id}`)
+        })
+    },
+    editChef(req, res) {
+        Admin.findChef(req.params.id, function(chefs) {
+            return res.render("admin/edit_chef", {chefs})
+        })
+    },
+    updateChef(req, res) {
+        const keys = Object.keys(req.body)
+        for (key of keys) {
+            if (req.body[key] == "") {
+                return res.send("Todos os capos devem ser preenchidos.")
+            }
+        }
+
+        let data = {
+            ...req.body
+        }
+
+        Admin.updateChef(data, function() {
+            return res.redirect(`/admin/chefs/${req.body.id}`)
+        })
+    },
+    deleteChef(req, res) {
+        Admin.deleteChef(req.body.id, function() {
+            return res.redirect("/admin/chefs")
         })
     }
 }
