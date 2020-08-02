@@ -30,7 +30,7 @@ module.exports = {
         })
     },
     chefs(req, res) {
-        Publico.allChefs(function(chefs) {
+        Publico.countRecipesOfChef(function(chefs) {
             return res.render("chefs", {chefs})
         })
     },
