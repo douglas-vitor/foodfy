@@ -157,7 +157,7 @@ main img {
 footer {
     width: 100%;
     height: 62px;
-    margin-top: 50px;
+    margin-top: 15%;
     background-color: #EEEEEE; 
     text-align: center;
     display: flex;
