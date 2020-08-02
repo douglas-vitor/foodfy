@@ -35,6 +35,11 @@ module.exports = {
         })
     },
     search(req, res) {
-        return res.render("search")
+        const filter = req.query.filter
+        Publico.search(req.query.filter, function(recipes) {
+            Publico.selectChefOptions(function(chefs) {
+                return res.render("search", {recipes, filter, chefs})
+            })
+        })
     }
 }

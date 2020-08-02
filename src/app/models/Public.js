@@ -54,5 +54,17 @@ module.exports = {
             }
         callback(results.rows)
         })
+    },
+    search(data, callback) {
+            db.query(`
+            SELECT * FROM recipes 
+            WHERE title ILIKE '%${data}%' 
+            ORDER BY id ASC
+        `, function(err, results) {
+            if(err) {
+                throw `[DATABASE ERROR] : ${err}`
+            }
+            callback(results.rows)
+        })
     }
 }

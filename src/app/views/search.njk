@@ -7,10 +7,15 @@
 {% block content %}
     <section class="cards">
         {% for receita in recipes %}
-            <div class="card" id="{{recipes.indexOf(receita)}}">
+            <div class="card" id="{{receita.id}}">
                 <img src="{{receita.image}}" alt="{{receita.title}}">
                 <div class="title">{{receita.title}}</div>
-                <div class="autor">{{receita.author}}</div>
+                {% for chef in chefs %}
+                    {% if chef.id == receita.chef_id %}
+                        <div class="autor">por
+                            {{chef.name}}</div>
+                    {% endif %}
+                {% endfor %}
             </div>
         {% endfor %}
     </section>
