@@ -71,7 +71,6 @@ module.exports = {
         const { limit, offset, callback } = params
 
         let query = "",
-        filterQuery = "",
         totalQuery = `(
             SELECT count(*) FROM recipes
         ) AS total`

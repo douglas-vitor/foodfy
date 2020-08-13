@@ -6,9 +6,31 @@ module.exports = {
     index(req, res) {
         Admin.allRecipes(function (recipes) {
             Admin.selectChefOptions(function(chefs) {
-                return res.render("admin/home", { recipes, chefs })
+                let { page, limit } = req.query
+                page = page || 1
+                limit = limit || 10
+                let offset = limit * (page - 1)
+
+                const params = {
+                    page,
+                    limit,
+                    offset,
+                    callback(recipes) {
+                        const pagination = {
+                            total: Math.ceil(recipes[0].total / limit),
+                            page
+                        }
+                        return res.render("admin/home", { recipes, chefs, pagination })
+                    }
+                }
+                Admin.paginate(params)
             })
         })
+        /*Admin.allRecipes(function (recipes) {
+            Admin.selectChefOptions(function(chefs) {
+                return res.render("admin/home", { recipes, chefs })
+            })
+        })*/
     },
     create(req, res) {
         Admin.selectChefOptions(function(options) {

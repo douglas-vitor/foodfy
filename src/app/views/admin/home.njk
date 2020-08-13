@@ -25,4 +25,13 @@
             {% endfor %}
         </div>
     </section>
+
+    <div class="pagination" 
+        data-page="{{pagination.page}}" 
+        data-total="{{pagination.total}}">
+    </div>
 {% endblock content %}
+
+{% block scripts %}
+    <script src="/scripts/pagination.js"></script>
+{% endblock scripts %}
