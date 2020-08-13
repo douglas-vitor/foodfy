@@ -132,7 +132,7 @@ main img {
 }
 .card img {
     width: 300px;
-    height: 140px;
+    max-height: 89px;
     border-radius: 15px;
     margin-bottom: 20px;
 }
@@ -157,7 +157,7 @@ main img {
 footer {
     width: 100%;
     height: 62px;
-    margin-top: 15%;
+    margin-top: 20%;
     background-color: #EEEEEE; 
     text-align: center;
     display: flex;
@@ -471,4 +471,32 @@ section.sobre-text-tres h4 p{
     font-weight: bold;
     font-size: 14px;
     line-height: 16px;
+}
+/*pagination*/
+.pagination {
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+    height: 30px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.pagination a,
+.pagination span {
+    display: inline;
+    margin-right: 16px;
+    background: none;
+    padding: 0;
+    border-radius: initial;
+    border-bottom: 1px solid white;
+    box-sizing: border-box;
+    color: #111111;
+}
+.pagination a:last-child {
+    margin-right: 0;
+}
+.pagination a:hover {
+    filter: brightness(0.3);
+    border-bottom: 1px solid #777777;
 }

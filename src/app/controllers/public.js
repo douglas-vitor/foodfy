@@ -15,9 +15,33 @@ module.exports = {
     recipes(req, res) {
         Publico.allRecipes(function (recipes) {
             Publico.selectChefOptions(function(chefs) {
-                return res.render("recipes", { recipes, chefs })
+                let {page, limit} = req.query
+        page = page || 1
+        limit = limit || 10 //10
+        let offset = limit * (page - 1)
+
+        const params = {
+            page,
+            limit,
+            offset,
+            callback(recipes) {
+                const pagination = {
+                    total: Math.ceil(recipes[0].total / limit),
+                    page
+                }
+                return res.render("recipes", { recipes, chefs, pagination })
+            }
+        }
+        Publico.paginate(params)
+
             })
         })
+        
+        /*Publico.allRecipes(function (recipes) {
+            Publico.selectChefOptions(function(chefs) {
+                return res.render("recipes", { recipes, chefs })
+            })
+        })*/
     },
     recipe(req, res) {
         Publico.findRecipe(req.params.id, function (data) {

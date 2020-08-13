@@ -3,6 +3,7 @@
         margin: 0;
         padding: 0;
         border: none;
+        text-decoration: none;
     }
 
     header {
@@ -30,8 +31,10 @@
     .cards {
         max-width: 90%;
         grid-template-columns: 1fr 1fr;
-        gap: 2%;
+        margin-left: auto;
+        margin-right: auto;
         justify-items: center;
+        column-gap: 15px;
     }
     .title {
         width: 90%;
@@ -42,6 +45,7 @@
     .card img {
         width: 100%;
         height: auto;
+        max-height: 89px;
     }
     /* Sobre */
     section.sobre-text-um,
