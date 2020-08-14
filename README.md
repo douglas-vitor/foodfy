@@ -11,7 +11,7 @@
 
 ## **Instruções**
 
-Para iniciar o servidor da aplicação use o comando **_npm start_**
+Para iniciar o servidor da aplicação use o comando **_npm start_** , caso a aplicação não abra automaticamente em seu navegador acesse **_http://localhost:3000/_**.
 
 ## **Rotas**
 
