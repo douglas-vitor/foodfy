@@ -36,7 +36,7 @@ Para iniciar o servidor da aplicação use o comando **_npm start_**
 
 ## **Histórico**
 
-1. Contruir todo o HTML e CSS do site e deixa-lo funcionando com as especificações do desafio; 
-2. Refatoramento de toda a estrutura do Foodfy, adicionado servidor próprio, pegando informações dinamicamente, usando template engine Nunjucks, adicionado rota para pagina de erro 404, adicionado style responsivo;
-3. Adicionado área administrativa ao site, para gestão de receitas(criação, edição e exclusão). Alterado arquivo base de dados, para arquivo data.json. Refatorado estrutura de arquivos, movido rotas para arquivos especificos.
-4. Alterado armazenamento dos dados de arquivo JSON para banco de dados PostgreSQL; Criado novas páginas de (cadastro, listagem e edição) de chefs, agoras as receitas podem ser atribuidas a um chef; Adicionado sistema de busca pelo nome das receitas; Adicionado paginação de receitas na área pública e administrativa da aplicação.
+1. Construir todo o HTML e CSS do site e deixa-lo funcionando com as especificações do desafio; 
+2. Refatoramento de toda a estrutura do Foodfy, adicionado servidor próprio, pegando informações dinâmicamente, usando template engine Nunjucks, adicionado rota para pagina de erro 404, adicionado style responsivo à área pública;
+3. Adicionado área administrativa ao site, para gestão de receitas(criação, edição e exclusão). Alterado arquivo base de dados, para arquivo data.json. Refatorado estrutura de arquivos, movido rotas para arquivos específicos.
+4. Alterado armazenamento dos dados de arquivo JSON para banco de dados PostgreSQL; Criado novas páginas de (cadastro, listagem e edição) de chefs, agora as receitas podem ser atribuidas a um chef; Adicionado sistema de busca pelo nome das receitas; Adicionado paginação de receitas nas áreas pública e administrativa da aplicação.
