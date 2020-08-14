@@ -9,7 +9,32 @@
 ###### **Curso :** LaunchBase - [Rocketseat](https://rocketseat.com.br)
 ###### **Instrutor :** Mayk Brito
 
-## **Etapas**
+## **Instruções**
+
+Para iniciar o servidor da aplicação use o comando **_npm start_**
+
+## **Rotas**
+
+**[PÚBLICO]**
+- /
+- /about
+- /recipes
+- /recipes/{id}
+- /chefs
+- /search
+
+**[ADMINISTRATIVO]**
+- /admin
+- /admin/recipes
+- /admin/recipes/create
+- /admin/recipes/{id}
+- /admin/recipes/{id}/edit
+- /admin/chefs
+- /admin/chefs/create_chef
+- /admin/chefs/{id}
+- /admin/chefs/{id}/edit
+
+## **Histórico**
 
 1. Contruir todo o HTML e CSS do site e deixa-lo funcionando com as especificações do desafio; 
 2. Refatoramento de toda a estrutura do Foodfy, adicionado servidor próprio, pegando informações dinamicamente, usando template engine Nunjucks, adicionado rota para pagina de erro 404, adicionado style responsivo;
