@@ -181,12 +181,34 @@ module.exports = {
         })
     },
     deleteChef(id, callback) {
-        db.query(`DELETE FROM chefs WHERE id = $1`, [id], function (err, results) {
+        const verifyRecipesOfChef = db.query(`SELECT count(*) FROM recipes WHERE chef_id = $1`, [id], function (err, countResult) {
+            if(err) {
+                throw `[DATABASE ERROR] : ${err}`
+            }
+            const prove = Number(countResult.rows[0].count)
+            if( prove == 0 ) {
+                db.query(`DELETE FROM chefs WHERE id = $1`, [id], function (err, results) {
+                    if (err) {
+                        throw `[DATABASE] : ${err}`
+                    }
+                    callback()
+                })
+            } else {
+                function SendErrorDeleteChef(chefId) {
+                    callback(chefId)
+                }
+                SendErrorDeleteChef(id)
+
+            }
+        })
+        
+
+        /*db.query(`DELETE FROM chefs WHERE id = $1`, [id], function (err, results) {
             if (err) {
                 throw `[DATABASE] : ${err}`
             }
             callback()
-        })
+        })*/
     },
     paginate(params) {
         const { limit, offset, callback } = params

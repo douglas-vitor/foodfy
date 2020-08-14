@@ -26,11 +26,6 @@ module.exports = {
                 Admin.paginate(params)
             })
         })
-        /*Admin.allRecipes(function (recipes) {
-            Admin.selectChefOptions(function(chefs) {
-                return res.render("admin/home", { recipes, chefs })
-            })
-        })*/
     },
     create(req, res) {
         Admin.selectChefOptions(function(options) {
@@ -145,8 +140,12 @@ module.exports = {
         })
     },
     deleteChef(req, res) {
-        Admin.deleteChef(req.body.id, function() {
-            return res.redirect("/admin/chefs")
+        Admin.deleteChef(req.body.id, function(chefId) {
+            if(chefId) {
+                return res.send("O chef não pode ser excluído, pois o mesmo tem receitas em seu nome.")
+            } else {
+                return res.redirect("/admin/chefs")
+            }
         })
     }
 }
