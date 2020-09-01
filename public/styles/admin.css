@@ -244,6 +244,31 @@ section.admin-container .fields {
 }
 
 .fields textarea { margin: 0 0 30px 0; }
+
+/*photos upload create*/
+.fields .image-recipe #photos-upload {
+    display: block;
+    overflow: hidden;
+    width: 149px;
+    min-height: 149px;
+    display: grid;
+    grid-template-columns: 149px 1fr;
+}
+.fields .image-recipe #photos-upload #photos-input {
+    top: 0;
+    left: 0;
+    width: 149px;
+    height: 149px;
+    opacity: 0;
+    cursor: pointer;
+}
+.fields .image-recipe #photos-upload #photos-preview {
+    background-color: red;
+    width: 90px;
+    height: 100%;
+    display: inline-block;
+}
+
 /*Show*/
 section.admin-container span {
     display: flex;
