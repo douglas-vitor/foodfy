@@ -12,7 +12,33 @@ module.exports = {
             callback(results.rows)
         })
     },
-    createRecipe(data, callback) {
+    createRecipe(data) {
+        const query = `
+            INSERT INTO recipes (
+                chef_id,
+                image,
+                title,
+                ingredients,
+                preparation,
+                information,
+                created_at
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+            RETURNING id
+        `
+
+        const values = [
+            data.chef_id,
+            data.image,
+            data.title,
+            data.ingredients,
+            data.preparation,
+            data.information,
+            date(Date.now()).iso
+        ]
+
+        return db.query(query, values)
+    }
+/*    createRecipe(data, callback) {
         const query = `
             INSERT INTO recipes (
                 chef_id,
@@ -42,7 +68,7 @@ module.exports = {
             }
             callback(results.rows[0])
         })
-    },
+    }*/,
     findRecipe(id, callback) {
         db.query(`
             SELECT * 
@@ -201,14 +227,6 @@ module.exports = {
 
             }
         })
-        
-
-        /*db.query(`DELETE FROM chefs WHERE id = $1`, [id], function (err, results) {
-            if (err) {
-                throw `[DATABASE] : ${err}`
-            }
-            callback()
-        })*/
     },
     paginate(params) {
         const { limit, offset, callback } = params

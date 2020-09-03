@@ -1,6 +1,7 @@
 const db = require("../../config/db")
 const Admin = require("../models/Admin")
 const { date } = require("../../lib/utils")
+const File = require("../models/File")
 
 module.exports = {
     index(req, res) {
@@ -32,7 +33,7 @@ module.exports = {
             return res.render("admin/create", {options})
         })
     },
-    post(req, res) {
+    async post(req, res) {
         const keys = Object.keys(req.body)
         for (key of keys) {
             if (req.body[key] == "") {
@@ -40,10 +41,43 @@ module.exports = {
             }
         }
 
+        if(req.files.length == 0) {
+            return res.send("Please, send at least one image.")
+        }
+
+        let results = await Admin.createRecipe(req.body)
+        const recipeId = results.rows[0].id
+
+        const filesPromise = req.files.map(file => File.create({...file}))
+        await Promise.all(filesPromise)
+
+        console.log(filesPromise.values)
+
+
+        return res.redirect(`/admin/recipes/${recipeId}`)
+
+    }
+    /*
+    create(req, res) {
+        Admin.selectChefOptions(function(options) {
+            return res.render("admin/create", {options})
+        })
+    },
+    async post(req, res) {
+        const keys = Object.keys(req.body)
+        for (key of keys) {
+            if (req.body[key] == "") {
+                return res.send("Por favor preencha todos os campos.")
+            }
+        }
+
+
+        let createRecipe = await
         Admin.createRecipe(req.body, function (recipes) {
             return res.redirect(`/admin/recipes/${recipes.id}`)
         })
-    },
+    }
+    */,
     show(req, res) {
         Admin.findRecipe(req.params.id, function(recipes) {
             if (!recipes) {

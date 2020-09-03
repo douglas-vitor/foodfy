@@ -2,6 +2,7 @@ const express = require("express")
 const routes = express.Router()
 const admin = require("./app/controllers/admin")
 const publico = require("./app/controllers/public")
+const multer = require("./app/middlewares/multer")
 
 
 // Public
@@ -19,7 +20,7 @@ routes.get("/admin", function(req, res) {
 })
 routes.get("/admin/recipes", admin.index)
 routes.get("/admin/recipes/create", admin.create)
-routes.post("/admin/recipes", admin.post)
+routes.post("/admin/recipes", multer.array("photos", 5), admin.post)
 routes.get("/admin/recipes/:id", admin.show)
 routes.get("/admin/recipes/:id/edit", admin.edit)
 routes.put("/admin/recipes", admin.update)

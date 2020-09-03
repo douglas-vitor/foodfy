@@ -54,7 +54,7 @@ buttonPreparationAdd.addEventListener("click", addPreparation)
 const PhotosUpload = {
   input: "",
   preview: document.querySelector('#photos-preview'),
-  uploadLimit: 6,
+  uploadLimit: 5,
   files: [],
   handleFileInput(event) {
       const { files: fileList } = event.target
