@@ -1,7 +1,7 @@
 const db = require("../../config/db")
 const Admin = require("../models/Admin")
-const { date } = require("../../lib/utils")
 const File = require("../models/File")
+const { date } = require("../../lib/utils")
 
 module.exports = {
     index(req, res) {
@@ -48,7 +48,7 @@ module.exports = {
         let results = await Admin.createRecipe(req.body)
         const recipeId = results.rows[0].id
 
-        const filesPromise = req.files.map(file => File.create({...file}))
+        const filesPromise = req.files.map(file => File.createFullDataRecipe({...file, recipeId }))
         await Promise.all(filesPromise)
 
         console.log(filesPromise.values)

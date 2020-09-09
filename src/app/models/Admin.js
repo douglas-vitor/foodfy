@@ -15,8 +15,7 @@ module.exports = {
     createRecipe(data) {
         const query = `
             INSERT INTO recipes (
-                chef_id,
-                image,
+function                chef_id,
                 title,
                 ingredients,
                 preparation,
@@ -28,7 +27,6 @@ module.exports = {
 
         const values = [
             data.chef_id,
-            data.image,
             data.title,
             data.ingredients,
             data.preparation,
