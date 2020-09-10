@@ -18,7 +18,8 @@ module.exports = {
         return db.query(query, values)
     },
     async createFullDataRecipe({ filename, path, recipeId}) {
-        let query = `
+        try {
+            let query = `
             INSERT INTO files (
                 name,
                 path
@@ -41,6 +42,9 @@ module.exports = {
             RETURNING id
         `
         return db.query(query, [recipeId, fileId])
+        } catch(err) {
+            console.log(err)
+        }
     },
     async delete(id) {
         try {

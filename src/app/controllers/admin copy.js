@@ -2,13 +2,34 @@ const db = require("../../config/db")
 const Admin = require("../models/Admin")
 const File = require("../models/File")
 const { date } = require("../../lib/utils")
-const { render } = require("nunjucks")
 
 module.exports = {
-    async index(req, res) {
-        const recipes = await Admin.allRecipes()
+    index(req, res) {
+        Admin.allRecipes(function (recipes) {
+            Admin.selectChefOptions(function(chefs) {
+                let { page, limit } = req.query
+                page = page || 1
+                limit = limit || 10
+                let offset = limit * (page - 1)
 
-        return res.render("admin/home", { recipes: recipes, chefs: recipes.name })
+                const params = {
+                    page,
+                    limit,
+                    offset,
+                    callback(recipes) {
+                        const pagination = {
+                            total: Math.ceil(recipes[0].total / limit),
+                            page
+                        }
+                        let amor = Admin.getImageRecipeHome(2)
+                        console.log(amor)
+                        console.log(recipes[0].id)
+                        return res.render("admin/home", { recipes, chefs, pagination })
+                    }
+                }
+                Admin.paginate(params)
+            })
+        })
     },
     create(req, res) {
         Admin.selectChefOptions(function(options) {
@@ -38,7 +59,28 @@ module.exports = {
 
         return res.redirect(`/admin/recipes/${recipeId}`)
 
+    }
+    /*
+    create(req, res) {
+        Admin.selectChefOptions(function(options) {
+            return res.render("admin/create", {options})
+        })
     },
+    async post(req, res) {
+        const keys = Object.keys(req.body)
+        for (key of keys) {
+            if (req.body[key] == "") {
+                return res.send("Por favor preencha todos os campos.")
+            }
+        }
+
+
+        let createRecipe = await
+        Admin.createRecipe(req.body, function (recipes) {
+            return res.redirect(`/admin/recipes/${recipes.id}`)
+        })
+    }
+    */,
     show(req, res) {
         Admin.findRecipe(req.params.id, function(recipes) {
             if (!recipes) {

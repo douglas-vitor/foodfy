@@ -2,15 +2,15 @@ const db = require("../../config/db")
 const { date } = require("../../lib/utils")
 
 module.exports = {
-    async allRecipes() {
-        const query = `
-            SELECT recipes.*, chefs.name AS chef   
-            FROM recipes 
-            LEFT JOIN chefs ON (recipes.chef_id = chefs.id) 
-            ORDER BY recipes.id DESC 
-        `
-        const results = await db.query(query)
-        return results.rows
+    allRecipes(callback) {
+        db.query(`
+            SELECT * FROM recipes ORDER BY id ASC
+        `, function (err, results) {
+            if (err) {
+                throw `[DATABASE ERROR] : ${err}`
+            }
+            callback(results.rows)
+        })
     },
     async getImageRecipeHome(id) {
         let query = `
@@ -45,7 +45,38 @@ module.exports = {
         ]
 
         return db.query(query, values)
-    },
+    }
+/*    createRecipe(data, callback) {
+        const query = `
+            INSERT INTO recipes (
+                chef_id,
+                image,
+                title,
+                ingredients,
+                preparation,
+                information,
+                created_at
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+            RETURNING id
+        `
+
+        const values = [
+            data.chef_id,
+            data.image,
+            data.title,
+            data.ingredients,
+            data.preparation,
+            data.information,
+            date(Date.now()).iso
+        ]
+
+        db.query(query, values, function (err, results) {
+            if (err) {
+                throw `[DATABASE ERROR] : ${err}`
+            }
+            callback(results.rows[0])
+        })
+    }*/,
     findRecipe(id, callback) {
         db.query(`
             SELECT * 

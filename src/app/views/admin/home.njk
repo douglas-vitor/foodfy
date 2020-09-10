@@ -14,11 +14,7 @@
                     <span class="image" style="background-image: url({{receita.image}});"></span>
                     <div class="details">
                         <h1>{{receita.title}}</h1>
-                        {% for chef in chefs %}
-                            {% if chef.id == receita.chef_id %}
-                                <h5>por {{chef.name}}</h5>
-                            {% endif %}
-                        {% endfor %}
+                        <h5>por {{receita.chef}}</h5>
                         <a href="/admin/recipes/{{receita.id}}">visualizar</a>
                     </div>
                 </div>
