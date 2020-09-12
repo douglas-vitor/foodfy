@@ -2,62 +2,56 @@ const db = require("../../config/db")
 const Publico = require("../models/Public")
 
 module.exports = {
-    index(req, res) {
-        Publico.allRecipes(function (recipes) {
-            Publico.selectChefOptions(function (chefs) {
-                return res.render("home", { recipes, chefs })
-            })
-        })
+    async index(req, res) {
+        const recipes = await Publico.allRecipes()
+        const chefs = await Publico.selectChefOptions()
+        return res.render("home", { recipes, chefs })
     },
     about(req, res) {
         return res.render("about")
     },
-    recipes(req, res) {
-        Publico.allRecipes(function (recipes) {
-            Publico.selectChefOptions(function (chefs) {
-                let { page, limit } = req.query
-                page = page || 1
-                limit = limit || 10
-                let offset = limit * (page - 1)
+    async recipes(req, res) {
+        const chefs = await Publico.selectChefOptions()
 
-                const params = {
-                    page,
-                    limit,
-                    offset,
-                    callback(recipes) {
-                        const pagination = {
-                            total: Math.ceil(recipes[0].total / limit),
-                            page
-                        }
-                        return res.render("recipes", { recipes, chefs, pagination })
-                    }
-                }
-                Publico.paginate(params)
+        let { page, limit } = req.query
+        page = page || 1
+        limit = limit || 10
+        let offset = limit * (page - 1)
 
-            })
-        })
+        const params = {
+            page,
+            limit,
+            offset
+        }
+
+        const recipes = await Publico.paginate(params)
+
+        const pagination = {
+            total: Math.ceil(recipes[0].total / limit),
+            page
+        }
+
+        return res.render("recipes", { recipes, chefs, pagination })
     },
-    recipe(req, res) {
-        Publico.findRecipe(req.params.id, function (data) {
-            if (!data) {
-                return res.send("Receita não encontrada.")
-            }
-            Publico.selectChefOptions(function (chefs) {
-                return res.render("recipe", { data, chefs })
-            })
-        })
+    async recipe(req, res) {
+        const data = await Publico.findRecipe(req.params.id)
+        if (!data) {
+            return res.send("Receita não encontrada.")
+        }
+
+        const chefs = await Publico.selectChefOptions()
+
+        return res.render("recipe", { data, chefs })
     },
-    chefs(req, res) {
-        Publico.countRecipesOfChef(function (chefs) {
-            return res.render("chefs", { chefs })
-        })
+    async chefs(req, res) {
+        const chefs = await Publico.countRecipesOfChef()
+        return res.render("chefs", { chefs })
     },
-    search(req, res) {
+    async search(req, res) {
         const filter = req.query.filter
-        Publico.search(req.query.filter, function (recipes) {
-            Publico.selectChefOptions(function (chefs) {
-                return res.render("search", { recipes, filter, chefs })
-            })
-        })
+        const recipes = await Publico.search(filter)
+        const chefs = await Publico.selectChefOptions()
+
+        return res.render("search", { recipes, filter, chefs })
     }
 }

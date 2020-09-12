@@ -1,74 +1,63 @@
 const db = require("../../config/db")
 
 module.exports = {
-    allRecipes(callback) {
-        db.query(`
-            SELECT * FROM recipes ORDER BY id ASC LIMIT 6
-        `, function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback(results.rows)
-        })
+    async allRecipes() {
+        const query = `
+        SELECT * FROM recipes ORDER BY id ASC LIMIT 6
+        `
+
+        const results = await db.query(query)
+        return results.rows
     },
-    findRecipe(id, callback) {
-        db.query(`
-            SELECT * 
-            FROM recipes 
-            WHERE id = $1 
-        `, [id], function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback(results.rows[0])
-        })
+    async findRecipe(id) {
+        const query = `
+        SELECT * 
+        FROM recipes 
+        WHERE id = $1
+        `
+
+        const results = await db.query(query, [id])
+        return results.rows[0]
     },
-    selectChefOptions(callback) {
-        db.query(`SELECT name, id FROM chefs`, function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback(results.rows)
-        })
+    async selectChefOptions() {
+        const query = `
+        SELECT name, id FROM chefs
+        `
+
+        const results = await db.query(query)
+        return results.rows
     },
-    allChefs(callback) {
-        db.query(`
-            SELECT * FROM chefs ORDER BY id ASC
-        `, function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback(results.rows)
-        })
+    async allChefs() {
+        const query = `
+        SELECT * FROM chefs ORDER BY id ASC
+        `
+
+        const results = await db.query(query)
+        return results.rows
     },
-    countRecipesOfChef(callback) {
-        db.query(`
+    async countRecipesOfChef(callback) {
+        const query = `
             SELECT chefs.*, count(recipes) AS count_recipes 
             FROM chefs 
             LEFT JOIN recipes ON (chefs.id = recipes.chef_id) 
             GROUP BY chefs.id 
             ORDER BY chefs.id ASC
-        `, function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback(results.rows)
-        })
+        `
+        const results = await db.query(query)
+        return results.rows
     },
-    search(data, callback) {
-        db.query(`
+    async search(data) {
+        const query = `
             SELECT * FROM recipes 
             WHERE title ILIKE '%${data}%' 
             ORDER BY id ASC
-        `, function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback(results.rows)
-        })
+        `
+
+        const results = await db.query(query)
+        return results.rows
     },
-    paginate(params) {
-        const { limit, offset, callback } = params
+    async paginate(params) {
+        const { limit, offset } = params
 
         let query = "",
         totalQuery = `(
@@ -80,11 +69,8 @@ module.exports = {
             FROM recipes 
             ORDER BY id LIMIT $1 OFFSET $2
         `
-        db.query(query, [limit, offset], function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback(results.rows)
-        })
+
+        const results = await db.query(query, [limit, offset])
+        return results.rows
     }
 }
