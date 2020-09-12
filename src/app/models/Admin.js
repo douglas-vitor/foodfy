@@ -12,17 +12,12 @@ module.exports = {
         const results = await db.query(query)
         return results.rows
     },
-    async getImageRecipeHome(id) {
-        let query = `
-            SELECT files.* FROM files 
-            LEFT JOIN recipe_files ON (files.id = recipe_files.file_id) 
-            WHERE recipe_files.recipe_id = $1 
-        `
-        const results = await db.query(query, [id])
+    async recipeFiles(id) {
         
-        return results.rows
+        return db.query(`SELECT * FROM recipe_files 
+        WHERE recipe_id = $1`, [id])
     },
-    createRecipe(data) {
+    async createRecipe(data) {
         const query = `
             INSERT INTO recipes (
                 chef_id,
@@ -31,7 +26,7 @@ module.exports = {
                 preparation,
                 information,
                 created_at
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+            ) VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING id
         `
 
@@ -44,34 +39,29 @@ module.exports = {
             date(Date.now()).iso
         ]
 
-        return db.query(query, values)
+        return await db.query(query, values)
     },
-    findRecipe(id, callback) {
-        db.query(`
-            SELECT * 
-            FROM recipes 
-            WHERE id = $1 
-        `, [id], function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback(results.rows[0])
-        })
+    async findRecipe(id) {
+        const query = `
+        SELECT * 
+        FROM recipes 
+        WHERE id = $1 
+        `
+        const results = await db.query(query, [id])
+        return results.rows[0]
     },
-    updateRecipe(data, callback) {
+    async updateRecipe(data) {
         const query = `
             UPDATE recipes SET 
             chef_id=($1),
-            image=($2),
-            title=($3),
-            ingredients=($4),
-            preparation=($5),
-            information=($6) 
-            WHERE id = $7
+            title=($2),
+            ingredients=($3),
+            preparation=($4),
+            information=($5) 
+            WHERE id = $6
         `
         const values = [
             data.chef_id,
-            data.image,
             data.title,
             data.ingredients,
             data.preparation,
@@ -79,44 +69,28 @@ module.exports = {
             data.id
         ]
 
-        db.query(query, values, function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback()
-        })
+        return await db.query(query, values)
     },
-    deleteRecipe(id, callback) {
-        db.query(`DELETE FROM recipes WHERE id = $1`, [id], function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback()
-        })
+    async deleteRecipe(id) {
+        return await db.query(`DELETE FROM recipes WHERE id = $1`, [id])
     },
-    findChef(id, callback) {
-        db.query(`
-            SELECT * 
-            FROM chefs 
-            WHERE id = $1 
-        `, [id], function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback(results.rows[0])
-        })
+    async findChef(id) {
+        const query = `
+        SELECT * 
+        FROM chefs 
+        WHERE id = $1
+        `
+        const results = await db.query(query, [id])
+        return results.rows[0]
     },
-    allChefs(callback) {
-        db.query(`
-            SELECT * FROM chefs ORDER BY id ASC
-        `, function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback(results.rows)
-        })
+    async allChefs() {
+        const query = `
+        SELECT * FROM chefs ORDER BY id ASC
+        `
+        const results = await db.query(query)
+        return results.rows
     },
-    createChef(data, callback) {
+    async createChef(data) {
         const query = `
             INSERT INTO chefs (
                 name,
@@ -132,38 +106,22 @@ module.exports = {
             date(Date.now()).iso
         ]
 
-        db.query(query, values, function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback(results.rows[0])
-        })
+        const results = await db.query(query, values)
+        return results.rows[0]
     },
-    selectChefOptions(callback) {
-        db.query(`SELECT name, id FROM chefs`, function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback(results.rows)
-        })
+    async selectChefOptions() {
+        const results = await db.query(`SELECT name, id FROM chefs`)
+        return results.rows
     },
-    countRecipesOfChef(id, callback) {
-        db.query(`SELECT count(*) FROM recipes WHERE chef_id = $1`, [id], function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback(results.rows[0])
-        })
+    async countRecipesOfChef(id) {
+        const results = await db.query(`SELECT count(*) FROM recipes WHERE chef_id = $1`, [id])
+        return results.rows[0]
     },
-    recipesOfChef(id, callback) {
-        db.query(`SELECT * FROM recipes WHERE chef_id = $1`, [id], function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback(results.rows)
-        })
+    async recipesOfChef(id) {
+        const results = await db.query(`SELECT * FROM recipes WHERE chef_id = $1`, [id])
+        return results.rows
     },
-    updateChef(data, callback) {
+    async updateChef(data) {
         const query = `
             UPDATE chefs SET 
             name=($1),
@@ -176,36 +134,18 @@ module.exports = {
             data.id
         ]
 
-        db.query(query, values, function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback()
-        })
+        return await db.query(query, values)
     },
-    deleteChef(id, callback) {
-        const verifyRecipesOfChef = db.query(`SELECT count(*) FROM recipes WHERE chef_id = $1`, [id], function (err, countResult) {
-            if(err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            const prove = Number(countResult.rows[0].count)
-            if( prove == 0 ) {
-                db.query(`DELETE FROM chefs WHERE id = $1`, [id], function (err, results) {
-                    if (err) {
-                        throw `[DATABASE] : ${err}`
-                    }
-                    callback()
-                })
-            } else {
-                function SendErrorDeleteChef(chefId) {
-                    callback(chefId)
-                }
-                SendErrorDeleteChef(id)
-
-            }
-        })
+    async deleteChef(id) {
+        const countResult = await db.query(`SELECT count(*) FROM recipes WHERE chef_id = $1`, [id])
+        const prove = Number(countResult.rows[0].count)
+        if( prove == 0 ) {
+            db.query(`DELETE FROM chefs WHERE id = $1`, [id])
+        } else {
+            return id
+        }
     },
-    paginate(params) {
+    async paginate(params) {
         const { limit, offset, callback } = params
 
         let query = "",
@@ -214,15 +154,13 @@ module.exports = {
         ) AS total`
 
         query = `
-            SELECT recipes.*, ${totalQuery} 
+            SELECT recipes.*, chefs.name AS chef, ${totalQuery}
             FROM recipes 
-            ORDER BY id LIMIT $1 OFFSET $2
+            LEFT JOIN chefs ON (recipes.chef_id = chefs.id) 
+            ORDER BY recipes.id DESC LIMIT $1 OFFSET $2
         `
-        db.query(query, [limit, offset], function (err, results) {
-            if (err) {
-                throw `[DATABASE ERROR] : ${err}`
-            }
-            callback(results.rows)
-        })
+
+        const results = await db.query(query, [limit,offset])
+        return results.rows
     }
 }
