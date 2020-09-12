@@ -14,8 +14,8 @@
             <input type="hidden" name="id" value="{{recipes.id}}">
         </form>
 
-        <form action="/admin/recipes?_method=PUT" method="POST">
-            <button type="submit" class="button">Salvar receita</button>
+        <form action="/admin/recipes?_method=PUT" method="POST" enctype="multipart/form-data">
+            <button type="submit" class="button">Salvar receita{{recipes.id}}</button>
 
             <div class="fields">
             {% include "admin/fields.njk" %}

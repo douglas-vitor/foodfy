@@ -52,14 +52,20 @@ module.exports = {
 
     },
     async show(req, res) {
-        const recipes = await Admin.findRecipe(req.params.id)
+        let recipes = await Admin.findRecipe(req.params.id)
         if (!recipes) {
             return res.send("Receita não encontrada.")
         }
 
         const chefs = await Admin.selectChefOptions()
 
-        return res.render("admin/show", { recipes, chefs })
+        let results = await Admin.files(recipes.id)
+        const files = results.rows.map(file => ({
+            ...file,
+            src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "").replace("\\", "/").replace("\\", "/")}`
+        }))
+
+        return res.render("admin/show", { recipes, chefs, files })
     },
     async edit(req, res) {
         const recipes = await Admin.findRecipe(req.params.id)
@@ -68,14 +74,35 @@ module.exports = {
         }
         const options = await Admin.selectChefOptions()
         
-        return res.render("admin/edit", { recipes, options })
+        let results = await Admin.files(recipes.id)
+        const files = results.rows.map(file => ({
+            ...file,
+            src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "").replace("\\", "/").replace("\\", "/")}`
+        }))
+
+        return res.render("admin/edit", { recipes, options, files })
     },
     async update(req, res) {
         const keys = Object.keys(req.body)
         for (key of keys) {
-            if (req.body[key] == "") {
-                return res.send("Todos os capos devem ser preenchidos.")
+            if (req.body[key] == "" && key != "removed_files") {
+                return res.send("Todos os campos devem ser preenchidos.")
             }
+        }
+
+        if (req.files.length != 0) {
+            const newFilesPromise = req.files.map(file => 
+                File.createFullDataRecipe({...file, recipeId: req.body.id}))
+            await Promise.all(newFilesPromise)
+        }
+
+        if(req.body.removed_files) {
+            const removedFiles = req.body.removed_files.split(",")
+            const lastIndex = removedFiles.length -1
+            removedFiles.splice(lastIndex, 1)
+
+            const removedFilesPromise = removedFiles.map(id => File.delete(id))
+            await Promise.all(removedFilesPromise)
         }
 
         let data = {

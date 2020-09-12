@@ -12,10 +12,13 @@ module.exports = {
         const results = await db.query(query)
         return results.rows
     },
-    async recipeFiles(id) {
-        
-        return db.query(`SELECT * FROM recipe_files 
-        WHERE recipe_id = $1`, [id])
+    async files(id) {
+        const query = `
+            SELECT files.* FROM files 
+            LEFT JOIN recipe_files ON (files.id = recipe_files.file_id) 
+            WHERE recipe_files.recipe_id = $1
+        `
+        return await db.query(query, [id])
     },
     async createRecipe(data) {
         const query = `
