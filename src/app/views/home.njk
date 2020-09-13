@@ -19,7 +19,12 @@
 
         {% for receita in recipes %}
             <div class="card" id="{{receita.id}}">
-                <img src="{{receita.image}}" alt="{{receita.title}}">
+                    {% for image in files %}
+                        {% if image.recipeid == receita.id %}
+                            <img src="{{image.src}}" alt="{{receita.title}}">
+                        {% endif %}
+                    {% endfor %}
+
                 <div class="title">{{receita.title}}</div>
                 {% for chef in chefs %}
                     {% if chef.id == receita.chef_id %}

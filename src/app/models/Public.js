@@ -9,6 +9,16 @@ module.exports = {
         const results = await db.query(query)
         return results.rows
     },
+    async getImages() {
+        const query = `
+            SELECT files.*, recipe_files.recipe_id AS recipeId 
+            FROM files 
+            LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
+        `
+
+        const results = await db.query(query)
+        return results.rows
+    },
     async findRecipe(id) {
         const query = `
         SELECT * 

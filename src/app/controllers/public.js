@@ -3,9 +3,17 @@ const Publico = require("../models/Public")
 
 module.exports = {
     async index(req, res) {
-        const recipes = await Publico.allRecipes()
+        let recipes = await Publico.allRecipes()
         const chefs = await Publico.selectChefOptions()
-        return res.render("home", { recipes, chefs })
+
+        const results = await Publico.getImages()
+        let files = results.map(file => ({
+            ...file,
+            src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "").replace("\\", "/").replace("\\", "/")}`
+        }))
+
+
+            return res.render("home", { recipes, chefs, files })
     },
     about(req, res) {
         return res.render("about")
