@@ -9,13 +9,28 @@
     <section class="admin-container">
         <h1>{{recipes.title}}</h1>
         <a class="button" href="/admin/recipes/{{recipes.id}}/edit">Editar receita</a>
-
-        <span style="background-image: url({{files[0].src}});"></span>
+        
+        <span class="recipeHighlight" style="background-image: url({{files[0].src}});"></span>
+        <div id="" class="show-recipe-preview">
+                {% for image in files %}
+                    <div class="photo" id="{{image.id}}">
+                        <img src="{{image.src}}"
+                         alt="{{image.name}}" 
+                         {% if loop.index0 == 0 %}
+                         class="active" 
+                         {% endif %}
+                         onclick="ImageGallery.setImage(event)"
+                         >
+                    </div>
+                {% endfor %}
+                <input type="hidden" name="removed_files">
+        </div>
 
         <div class="title">{{recipes.title}}</div>
         {% for chef in chefs %}
             {% if chef.id == recipes.chef_id %}
-                <div class="author">por {{chef.name}}</div>
+                <div class="author">por
+                    {{chef.name}}</div>
             {% endif %}
         {% endfor %}
         <h1>Ingredientes</h1>
@@ -40,3 +55,7 @@
         </div>
     </section>
 {% endblock content %}
+
+{% block scripts %}
+<script src="/scripts/gallery.js"></script>
+{% endblock scripts %}

@@ -6,14 +6,9 @@ module.exports = {
         let recipes = await Publico.allRecipes()
         const chefs = await Publico.selectChefOptions()
 
-        const results = await Publico.getImages()
-        let files = results.map(file => ({
-            ...file,
-            src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "").replace("\\", "/").replace("\\", "/")}`
-        }))
 
 
-            return res.render("home", { recipes, chefs, files })
+            return res.render("home", { recipes, chefs })
     },
     about(req, res) {
         return res.render("about")
