@@ -159,7 +159,7 @@ section.admin-container .fields {
     line-height: 19px;
     box-sizing: border-box;
 }
-
+#chef-avatar-input-text { margin-bottom: 10px; }
 .fields .title-recipe {
     width: auto;
     text-align: center;
@@ -444,6 +444,32 @@ section.admin-container .recipe-detail ul {
     font-size: 14px;
     line-height: 16px;
 }
+/*photos upload chef-avatar*/
+.fields .chefAvatar .container-uploader {
+    position: relative;
+    width: 139px;
+    height: 37px;
+    color: #FFFFFF;
+    font-size: 16px;
+    line-height: 19px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    background-color: #6558C3;
+    border-radius: 4px;
+    font-weight: bold;
+}
+.fields .chefAvatar .container-uploader #photos-input {
+    width: 139px;
+    height: 37px;
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+    display: block;
+    overflow: hidden;
+}
+
 /*show chef*/
 body section.show-chef {
     min-height: auto;

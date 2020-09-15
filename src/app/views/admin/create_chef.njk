@@ -6,7 +6,7 @@
 
 {% block content %}
     <section class="admin-container">
-        <form action="/admin/chefs" method="POST">
+        <form action="/admin/chefs" method="POST" enctype="multipart/form-data">
             <h1>Criando chef</h1>
             <button type="submit" class="button">Salvar chef</button>
 
@@ -18,7 +18,10 @@
 
                 <div class="chefAvatar">
                     <h1>Avatar</h1>
-                    <input type="text" name="avatar_url" value="{{recipes.image}}">
+                    <div class="container-uploader">
+                        Enviar avatar
+                        <input id="photos-input" type="file" name="photos" accept="image/*" onchange="PhotosUpload.handleFileInput(event)">
+                    </div>
                 </div>
             </div>
         </form>

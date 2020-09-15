@@ -79,9 +79,10 @@ module.exports = {
     },
     async findChef(id) {
         const query = `
-        SELECT * 
+        SELECT chefs.*, files.path AS path 
         FROM chefs 
-        WHERE id = $1
+        LEFT JOIN files ON (chefs.file_id = files.id) 
+        WHERE chefs.id = $1
         `
         const results = await db.query(query, [id])
         return results.rows[0]

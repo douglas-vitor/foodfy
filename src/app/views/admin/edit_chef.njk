@@ -25,7 +25,11 @@
 
                 <div class="chefAvatar">
                     <h1>Avatar</h1>
-                    <input type="text" name="avatar_url" value="{{chefs.avatar_url}}">
+                    <input type="text" id="chef-avatar-input-text" name="avatar_url" value="{{chefs.avatar_url}}">
+                    <div class="container-uploader">
+                        Enviar avatar
+                        <input id="photos-input" type="file" name="photos" accept="image/*" onchange="PhotosUpload.handleFileInput(event)">
+                    </div>
                 </div>
             </div>
             <input type="hidden" name="id" value="{{chefs.id}}">

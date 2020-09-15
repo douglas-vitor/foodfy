@@ -144,11 +144,24 @@ module.exports = {
                 return res.send("Por favor preencha todos os campos.")
             }
         }
-        const chefs = await Admin.createChef(req.body)
-        return res.redirect(`/admin/chefs/${chefs.id}`)
+
+        if (req.files.length == 0) {
+            return res.send("Please, send at least one image.")
+        }
+        const data = req.body
+
+        const filesPromise = req.files.map(file => File.createFullDataChef({ ...file, data }))
+        await Promise.all(filesPromise)
+
+        const chefId = await filesPromise[0]
+        return res.redirect(`/admin/chefs/${chefId}`)
     },
     async editChef(req, res) {
-        const chefs = await Admin.findChef(req.params.id)
+        let chefs = await Admin.findChef(req.params.id)
+        chefs = {
+            ...chefs,
+            avatar_url: `${req.protocol}://${req.headers.host}${chefs.path.replace("public", "").replace("\\", "/").replace("\\", "/")}`
+        }
         return res.render("admin/edit_chef", { chefs })
     },
     async updateChef(req, res) {
