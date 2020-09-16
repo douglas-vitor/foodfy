@@ -92,8 +92,35 @@ module.exports = {
             ) VALUES ($1, $2, $3)
             RETURNING id
         `
-        const results = await db.query(query, [data.name, date(Date.now()).iso, fileId])
+            const results = await db.query(query, [data.name, date(Date.now()).iso, fileId])
             return results.rows[0].id
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    async updateFullDataChef({ filename, path, data }) {
+        try {
+            let query = `
+            INSERT INTO files (
+                name,
+                path
+            ) VALUES ($1, $2)
+            RETURNING id
+        `
+            let values = [
+                filename,
+                path
+            ]
+            const resultsFile = await db.query(query, values)
+            const fileId = resultsFile.rows[0].id
+
+            query = `
+            UPDATE chefs SET 
+                name=($1),
+                file_id=($2)
+            WHERE id = $3
+        `
+            return await db.query(query, [data.name, fileId, data.id])
         } catch (err) {
             console.log(err)
         }

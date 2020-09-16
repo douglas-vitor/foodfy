@@ -14,7 +14,7 @@
             <input type="hidden" name="id" value="{{chefs.id}}">
         </form>
 
-        <form action="/admin/chefs?_method=PUT" method="POST">
+        <form action="/admin/chefs?_method=PUT" method="POST" enctype="multipart/form-data">
             <button type="submit" class="button">Salvar chef</button>
 
             <div class="fields">
@@ -25,7 +25,7 @@
 
                 <div class="chefAvatar">
                     <h1>Avatar</h1>
-                    <input type="text" id="chef-avatar-input-text" name="avatar_url" value="{{chefs.avatar_url}}">
+                    <input type="text" id="chef-avatar-input-text" name="avatar_url" value="{{chefs.avatar_url}}" readonly="readonly">
                     <div class="container-uploader">
                         Enviar avatar
                         <input id="photos-input" type="file" name="photos" accept="image/*" onchange="PhotosUpload.handleFileInput(event)">

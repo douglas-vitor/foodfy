@@ -30,7 +30,7 @@ routes.get("/admin/chefs/create_chef", admin.createChef)
 routes.post("/admin/chefs", multer.array("photos", 1), admin.postChef)
 routes.get("/admin/chefs/:id", admin.showChef)
 routes.get("/admin/chefs/:id/edit", admin.editChef)
-routes.put("/admin/chefs", admin.updateChef)
+routes.put("/admin/chefs", multer.array("photos", 1), admin.updateChef)
 routes.delete("/admin/chefs", admin.deleteChef)
 
 // Not-found

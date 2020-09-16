@@ -121,9 +121,13 @@ module.exports = {
         return res.render("admin/chefs", { chefs })
     },
     async showChef(req, res) {
-        const chefs = await Admin.findChef(req.params.id)
+        let chefs = await Admin.findChef(req.params.id)
         if (!chefs) {
             return res.send("Chef não encontrado.")
+        }
+        chefs = {
+            ...chefs,
+            avatar_url: `${req.protocol}://${req.headers.host}${chefs.path.replace("public", "").replace("\\", "/").replace("\\", "/")}`
         }
 
         const count = await Admin.countRecipesOfChef(req.params.id)
@@ -175,8 +179,14 @@ module.exports = {
         let data = {
             ...req.body
         }
+        if(req.files != "") {
+            const filesPromise = req.files.map(file => File.updateFullDataChef({ ...file, data }))
+            await Promise.all(filesPromise)
+        } else {
+            Admin.updateChef(data)
+        }
+        
 
-        await Admin.updateChef(data)
         return res.redirect(`/admin/chefs/${req.body.id}`)
     },
     async deleteChef(req, res) {
