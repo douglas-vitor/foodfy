@@ -125,11 +125,12 @@ module.exports = {
         if (!chefs) {
             return res.send("Chef não encontrado.")
         }
+        try {
         chefs = {
             ...chefs,
             avatar_url: `${req.protocol}://${req.headers.host}${chefs.path.replace("public", "").replace("\\", "/").replace("\\", "/")}`
         }
-
+    } catch { /*nada*/ }
         const count = await Admin.countRecipesOfChef(req.params.id)
 
         const recipes = await Admin.recipesOfChef(req.params.id)
