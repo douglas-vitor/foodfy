@@ -16,15 +16,25 @@ module.exports = {
             limit,
             offset
         }
-
         let recipes = await Admin.paginate(params)
+
+        async function getImage(recipeId) {
+            let results = await Admin.files(recipeId)
+            const files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "").replace("\\", "\/").replace("\\", "\/")}`)
+            return files[0]
+        }
+
+        const recipePromise = recipes.map(async recipeI => {
+            recipeI.image = await getImage(recipeI.id)
+            return recipeI
+        })
+        const lastadded = await Promise.all(recipePromise)
 
         const pagination = {
             total: Math.ceil(recipes[0].total / limit),
             page
         }
-
-        return res.render("admin/home", { recipes: recipes, chefs: recipes.name, pagination })
+        return res.render("admin/home", { recipes: recipes, chefs: recipes.name, pagination, lastimg: lastadded })
     },
     async create(req, res) {
         const options = await Admin.selectChefOptions()

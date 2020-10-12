@@ -4,11 +4,15 @@ const { date } = require("../../lib/utils")
 module.exports = {
     async allRecipes() {
         try {
+            /*SELECT recipes.*, chefs.name AS chef   
+            FROM recipes 
+            LEFT JOIN chefs ON (recipes.chef_id = chefs.id) 
+            ORDER BY recipes.id DESC */
             const query = `
             SELECT recipes.*, chefs.name AS chef   
             FROM recipes 
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id) 
-            ORDER BY recipes.id DESC 
+            ORDER BY recipes.id DESC
         `
             const results = await db.query(query)
             return results.rows
@@ -16,13 +20,13 @@ module.exports = {
             console.log(err)
         }
     },
-    async files(id) {
+    files(id) {
         const query = `
             SELECT files.* FROM files 
             LEFT JOIN recipe_files ON (files.id = recipe_files.file_id) 
             WHERE recipe_files.recipe_id = $1
         `
-        return await db.query(query, [id])
+        return db.query(query, [id])
     },
     async createRecipe(data) {
         try {
