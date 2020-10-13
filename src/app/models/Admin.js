@@ -4,10 +4,6 @@ const { date } = require("../../lib/utils")
 module.exports = {
     async allRecipes() {
         try {
-            /*SELECT recipes.*, chefs.name AS chef   
-            FROM recipes 
-            LEFT JOIN chefs ON (recipes.chef_id = chefs.id) 
-            ORDER BY recipes.id DESC */
             const query = `
             SELECT recipes.*, chefs.name AS chef   
             FROM recipes 

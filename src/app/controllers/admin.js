@@ -173,16 +173,20 @@ module.exports = {
     },
     async editChef(req, res) {
         let chefs = await Admin.findChef(req.params.id)
+        try{
         chefs = {
             ...chefs,
             avatar_url: `${req.protocol}://${req.headers.host}${chefs.path.replace("public", "").replace("\\", "/").replace("\\", "/")}`
         }
+    } catch (err) {
+        console.log(err)
+    }
         return res.render("admin/edit_chef", { chefs })
     },
     async updateChef(req, res) {
         const keys = Object.keys(req.body)
         for (key of keys) {
-            if (req.body[key] == "") {
+            if (req.body[key] == "" && key != 'avatar_url') {
                 return res.send("Todos os capos devem ser preenchidos.")
             }
         }
