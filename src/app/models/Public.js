@@ -8,21 +8,14 @@ module.exports = {
 
         const results = await db.query(query)
         return results.rows
-    },async teste() {
-        let results = await db.query(`SELECT * FROM recipes`)
-        let data = results.rows
-        return data
     },
     async getImages(id) {
         const query = `
-            SELECT files.*, recipe_files.recipe_id AS recipeId 
-            FROM files 
-            LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
+            SELECT files.* FROM files 
+            LEFT JOIN recipe_files ON (files.id = recipe_files.file_id) 
             WHERE recipe_files.recipe_id = $1
         `
-
-        const results = await db.query(query, [id])
-        return results.rows
+        return db.query(query, [id])
     },
     async findRecipe(id) {
         const query = `
@@ -75,7 +68,7 @@ module.exports = {
         const { limit, offset } = params
 
         let query = "",
-        totalQuery = `(
+            totalQuery = `(
             SELECT count(*) FROM recipes
         ) AS total`
 

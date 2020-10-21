@@ -83,7 +83,7 @@ module.exports = {
             return res.send("Receita não encontrada.")
         }
         const options = await Admin.selectChefOptions()
-        
+
         let results = await Admin.files(recipes.id)
         const files = results.rows.map(file => ({
             ...file,
@@ -101,14 +101,14 @@ module.exports = {
         }
 
         if (req.files.length != 0) {
-            const newFilesPromise = req.files.map(file => 
-                File.createFullDataRecipe({...file, recipeId: req.body.id}))
+            const newFilesPromise = req.files.map(file =>
+                File.createFullDataRecipe({ ...file, recipeId: req.body.id }))
             await Promise.all(newFilesPromise)
         }
 
-        if(req.body.removed_files) {
+        if (req.body.removed_files) {
             const removedFiles = req.body.removed_files.split(",")
-            const lastIndex = removedFiles.length -1
+            const lastIndex = removedFiles.length - 1
             removedFiles.splice(lastIndex, 1)
 
             const removedFilesPromise = removedFiles.map(id => File.delete(id))
@@ -140,7 +140,7 @@ module.exports = {
             return chefI
         })
         const lastadded = await Promise.all(chefPromisse)
-        
+
         return res.render("admin/chefs", { chefs })
     },
     async showChef(req, res) {
@@ -149,11 +149,11 @@ module.exports = {
             return res.send("Chef não encontrado.")
         }
         try {
-        chefs = {
-            ...chefs,
-            avatar_url: `${req.protocol}://${req.headers.host}${chefs.path.replace("public", "").replace("\\", "/").replace("\\", "/")}`
-        }
-    } catch { /*nada*/ }
+            chefs = {
+                ...chefs,
+                avatar_url: `${req.protocol}://${req.headers.host}${chefs.path.replace("public", "").replace("\\", "/").replace("\\", "/")}`
+            }
+        } catch { /*nada*/ }
         const count = await Admin.countRecipesOfChef(req.params.id)
 
         const recipes = await Admin.recipesOfChef(req.params.id)
@@ -186,14 +186,14 @@ module.exports = {
     },
     async editChef(req, res) {
         let chefs = await Admin.findChef(req.params.id)
-        try{
-        chefs = {
-            ...chefs,
-            avatar_url: `${req.protocol}://${req.headers.host}${chefs.path.replace("public", "").replace("\\", "/").replace("\\", "/")}`
+        try {
+            chefs = {
+                ...chefs,
+                avatar_url: `${req.protocol}://${req.headers.host}${chefs.path.replace("public", "").replace("\\", "/").replace("\\", "/")}`
+            }
+        } catch (err) {
+            console.log(err)
         }
-    } catch (err) {
-        console.log(err)
-    }
         return res.render("admin/edit_chef", { chefs })
     },
     async updateChef(req, res) {
@@ -207,20 +207,20 @@ module.exports = {
         let data = {
             ...req.body
         }
-        if(req.files != "") {
+        if (req.files != "") {
             const filesPromise = req.files.map(file => File.updateFullDataChef({ ...file, data }))
             await Promise.all(filesPromise)
         } else {
             Admin.updateChef(data)
         }
-        
+
 
         return res.redirect(`/admin/chefs/${req.body.id}`)
     },
     async deleteChef(req, res) {
         const chefId = await Admin.deleteChef(req.body.id)
 
-        if(chefId) {
+        if (chefId) {
             return res.send("O chef não pode ser excluído, pois o mesmo tem receitas em seu nome.")
         } else {
             return res.redirect("/admin/chefs")

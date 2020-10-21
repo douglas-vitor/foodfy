@@ -6,9 +6,18 @@ module.exports = {
         let recipes = await Publico.allRecipes()
         const chefs = await Publico.selectChefOptions()
 
+        async function getImage(recipeId) {
+            let results = await Publico.getImages(recipeId)
+            const files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "").replace("\\", "\/").replace("\\", "\/")}`)
+            return files[0]
+        }
 
-
-            return res.render("home", { recipes, chefs })
+        const recipePromise = recipes.map(async recipeI => {
+            recipeI.image = await getImage(recipeI.id)
+            return recipeI
+        })
+        const lastadded = await Promise.all(recipePromise)
+        return res.render("home", { recipes: lastadded, chefs })
     },
     about(req, res) {
         return res.render("about")
