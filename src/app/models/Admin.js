@@ -24,6 +24,14 @@ module.exports = {
         `
         return db.query(query, [id])
     },
+    filesChefs(id) {
+        const query = `
+            SELECT files.* FROM files 
+            LEFT JOIN chefs ON (files.id = chefs.file_id) 
+            WHERE chefs.id = $1
+        `
+        return db.query(query, [id])
+    },
     async createRecipe(data) {
         try {
             const query = `
@@ -112,9 +120,12 @@ module.exports = {
         }
     },
     async allChefs() {
+        //SELECT * FROM chefs ORDER BY id ASC
+        //SELECT chefs.*, files.path AS image from chefs 
+        //LEFT JOIN files ON (chefs.file_id = files.id)
         try {
             const query = `
-        SELECT * FROM chefs ORDER BY id ASC
+            SELECT * FROM chefs ORDER BY id ASC
         `
             const results = await db.query(query)
             return results.rows

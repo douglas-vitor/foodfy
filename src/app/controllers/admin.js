@@ -128,6 +128,19 @@ module.exports = {
     },
     async chefs(req, res) {
         const chefs = await Admin.allChefs()
+
+        async function getImage(chefId) {
+            let results = await Admin.filesChefs(chefId)
+            const files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "").replace("\\", "\/").replace("\\", "\/")}`)
+            return files[0]
+        }
+
+        const chefPromisse = chefs.map(async chefI => {
+            chefI.image = await getImage(chefI.id)
+            return chefI
+        })
+        const lastadded = await Promise.all(chefPromisse)
+        
         return res.render("admin/chefs", { chefs })
     },
     async showChef(req, res) {
