@@ -43,7 +43,7 @@ module.exports = {
         const results = await db.query(query)
         return results.rows
     },
-    async countRecipesOfChef(callback) {
+    async countRecipesOfChef() { //callback
         const query = `
             SELECT chefs.*, count(recipes) AS count_recipes 
             FROM chefs 
@@ -53,6 +53,14 @@ module.exports = {
         `
         const results = await db.query(query)
         return results.rows
+    },
+    filesChefs(id) {
+        const query = `
+            SELECT files.* FROM files 
+            LEFT JOIN chefs ON (files.id = chefs.file_id) 
+            WHERE chefs.id = $1
+        `
+        return db.query(query, [id])
     },
     async search(data) {
         const query = `
