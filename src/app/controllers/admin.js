@@ -153,10 +153,24 @@ module.exports = {
                 ...chefs,
                 avatar_url: `${req.protocol}://${req.headers.host}${chefs.path.replace("public", "").replace("\\", "/").replace("\\", "/")}`
             }
-        } catch { /*nada*/ }
+        } catch(err) {
+            console.log(err)
+        }
+
         const count = await Admin.countRecipesOfChef(req.params.id)
 
         const recipes = await Admin.recipesOfChef(req.params.id)
+        async function getImage(recipeId) {
+            let results = await Admin.files(recipeId)
+            const files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "").replace("\\", "\/").replace("\\", "\/")}`)
+            return files[0]
+        }
+
+        const recipePromise = recipes.map(async recipeI => {
+            recipeI.image = await getImage(recipeI.id)
+            return recipeI
+        })
+        await Promise.all(recipePromise)
 
         const options = await Admin.selectChefOptions()
 
