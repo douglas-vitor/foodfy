@@ -17,20 +17,28 @@ module.exports = {
         }
     },
     files(id) {
-        const query = `
+        try {
+            const query = `
             SELECT files.* FROM files 
             LEFT JOIN recipe_files ON (files.id = recipe_files.file_id) 
             WHERE recipe_files.recipe_id = $1
         `
-        return db.query(query, [id])
+            return db.query(query, [id])
+        } catch (err) {
+            console.log(err)
+        }
     },
     filesChefs(id) {
-        const query = `
-            SELECT files.* FROM files 
-            LEFT JOIN chefs ON (files.id = chefs.file_id) 
-            WHERE chefs.id = $1
-        `
-        return db.query(query, [id])
+        try {
+            const query = `
+    SELECT files.* FROM files 
+    LEFT JOIN chefs ON (files.id = chefs.file_id) 
+    WHERE chefs.id = $1
+`
+            return db.query(query, [id])
+        } catch (err) {
+            console.log(err)
+        }
     },
     async createRecipe(data) {
         try {

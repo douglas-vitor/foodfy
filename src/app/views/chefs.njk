@@ -1,21 +1,22 @@
 {% extends "base.njk" %}
 
 {% block title %}
-<title>Chefs</title>
+    <title>Chefs</title>
 {% endblock title %}
 
 {% block content %}
-<section class="cards align-chefs">
-{% for chef in chefs %}
-                <div class="chef">
-                    <span style="background-image: url({{chef.image}});"></span>
-                    <div class="info">
-                        <h1>{{chef.name}}</h1>
-                        <h2>{{chef.count_recipes}} receitas</h2>
-                    </div>
+    <section class="cards align-chefs">
+        {% for chef in chefs %}
+            <div class="chef">
+                <span style="background-image: url({{chef.image}});"></span>
+                <div class="info">
+                    <h1>{{chef.name}}</h1>
+                    <h2>{{chef.count_recipes}}
+                        receitas</h2>
                 </div>
+            </div>
         {% endfor %}
-</section>
+    </section>
 {% endblock content %}
 
 {% block scripts %}

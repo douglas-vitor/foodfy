@@ -2,91 +2,127 @@ const db = require("../../config/db")
 
 module.exports = {
     async allRecipes() {
-        const query = `
+        try {
+            const query = `
         SELECT * FROM recipes ORDER BY id ASC LIMIT 6
         `
 
-        const results = await db.query(query)
-        return results.rows
+            const results = await db.query(query)
+            return results.rows
+        } catch (err) {
+            console.log(err)
+        }
     },
     async getImages(id) {
-        const query = `
+        try {
+            const query = `
             SELECT files.* FROM files 
             LEFT JOIN recipe_files ON (files.id = recipe_files.file_id) 
             WHERE recipe_files.recipe_id = $1
         `
-        return db.query(query, [id])
+            return db.query(query, [id])
+        } catch (err) {
+            console.log(err)
+        }
     },
     async findRecipe(id) {
-        const query = `
+        try {
+            const query = `
         SELECT * 
         FROM recipes 
         WHERE id = $1
         `
 
-        const results = await db.query(query, [id])
-        return results.rows[0]
+            const results = await db.query(query, [id])
+            return results.rows[0]
+        } catch (err) {
+            console.log(err)
+        }
     },
     async selectChefOptions() {
-        const query = `
+        try {
+            const query = `
         SELECT name, id FROM chefs
         `
 
-        const results = await db.query(query)
-        return results.rows
+            const results = await db.query(query)
+            return results.rows
+        } catch (err) {
+            console.log(err)
+        }
     },
     async allChefs() {
-        const query = `
+        try {
+            const query = `
         SELECT * FROM chefs ORDER BY id ASC
         `
 
-        const results = await db.query(query)
-        return results.rows
+            const results = await db.query(query)
+            return results.rows
+        } catch (err) {
+            console.log(err)
+        }
     },
-    async countRecipesOfChef() { //callback
-        const query = `
+    async countRecipesOfChef() {
+        try {
+            const query = `
             SELECT chefs.*, count(recipes) AS count_recipes 
             FROM chefs 
             LEFT JOIN recipes ON (chefs.id = recipes.chef_id) 
             GROUP BY chefs.id 
             ORDER BY chefs.id ASC
         `
-        const results = await db.query(query)
-        return results.rows
+            const results = await db.query(query)
+            return results.rows
+        } catch (err) {
+            console.log(err)
+        }
     },
     filesChefs(id) {
-        const query = `
+        try {
+            const query = `
             SELECT files.* FROM files 
             LEFT JOIN chefs ON (files.id = chefs.file_id) 
             WHERE chefs.id = $1
         `
-        return db.query(query, [id])
+            return db.query(query, [id])
+        } catch (err) {
+            console.log(err)
+        }
     },
     async search(data) {
-        const query = `
+        try {
+            const query = `
             SELECT * FROM recipes 
             WHERE title ILIKE '%${data}%' 
             ORDER BY id ASC
         `
 
-        const results = await db.query(query)
-        return results.rows
+            const results = await db.query(query)
+            return results.rows
+        } catch (err) {
+            console.log(err)
+        }
     },
     async paginate(params) {
-        const { limit, offset } = params
+        try {
+            const { limit, offset } = params
 
-        let query = "",
-            totalQuery = `(
+            let query = "",
+                totalQuery = `(
             SELECT count(*) FROM recipes
         ) AS total`
 
-        query = `
+            query = `
             SELECT recipes.*, ${totalQuery} 
             FROM recipes 
             ORDER BY id LIMIT $1 OFFSET $2
         `
 
-        const results = await db.query(query, [limit, offset])
-        return results.rows
+            const results = await db.query(query, [limit, offset])
+            return results.rows
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
