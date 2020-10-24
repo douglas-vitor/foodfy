@@ -4,7 +4,7 @@ module.exports = {
     async allRecipes() {
         try {
             const query = `
-        SELECT * FROM recipes ORDER BY id ASC LIMIT 6
+        SELECT * FROM recipes ORDER BY created_at DESC LIMIT 6
         `
 
             const results = await db.query(query)
@@ -95,7 +95,7 @@ module.exports = {
             const query = `
             SELECT * FROM recipes 
             WHERE title ILIKE '%${data}%' 
-            ORDER BY id ASC
+            ORDER BY updated_at DESC
         `
 
             const results = await db.query(query)

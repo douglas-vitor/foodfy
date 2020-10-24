@@ -179,7 +179,7 @@ module.exports = {
     },
     async recipesOfChef(id) {
         try {
-            const results = await db.query(`SELECT * FROM recipes WHERE chef_id = $1`, [id])
+            const results = await db.query(`SELECT * FROM recipes WHERE chef_id = $1 ORDER BY created_at DESC`, [id])
             return results.rows
         } catch (err) {
             console.log(err)
@@ -228,7 +228,7 @@ module.exports = {
             SELECT recipes.*, chefs.name AS chef, ${totalQuery}
             FROM recipes 
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id) 
-            ORDER BY recipes.id DESC LIMIT $1 OFFSET $2
+            ORDER BY recipes.created_at DESC LIMIT $1 OFFSET $2
         `
 
             const results = await db.query(query, [limit, offset])
