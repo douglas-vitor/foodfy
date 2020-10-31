@@ -1,0 +1,123 @@
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap";
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    text-decoration: none;
+}
+
+nav.session.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+nav.session.navbar img {
+    display: inline-block;
+    margin-top: 35px;
+}
+
+div.login.container {
+    display: grid;
+    margin: 0 auto;
+    width: 500px;
+    max-width: 500px;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 146px;
+}
+div.login.container h1 {
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 35px;
+}
+form.login {
+    min-width: 100%;
+}
+form.login .item {
+    min-width: 100%;
+    margin-bottom: 35px;
+}
+form.login .item span {
+    min-width: 100%;
+    font-size: 16px;
+    color: #111111;
+    line-height: 19px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+form.login .item input {
+    min-width: 100%;
+    height: 49px;
+    border-radius: 4px;
+    color: #999999;
+    font-size: 16px;
+    background-color: white;
+    border: 1px solid #DDDDDD;
+    padding: 15px 14px;
+    box-sizing: border-box;
+}
+form.login .form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+form.login .form-footer a {
+    color: #969696;
+    font-size: 16px;
+    line-height: 19px;
+}
+form.login .form-footer button {
+    width: 134px;
+    height: 37px;
+    background-color: #6558c3;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: bold;
+    padding: 9px 35px;
+    border: none;
+    cursor: pointer;
+}
+form.login .form-footer button.forgot {
+    padding: 9px 26.5px;
+}
+form.login .form-footer button.reset {
+    padding: 9px 19.5px;
+}
+form.login .forgot.form-footer,
+form.login .reset.form-footer {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.messages {
+    width: 344px;
+    height: 135px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    color: white;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: bold;
+    border: 1px solid #DDDDDD;
+    opacity: 1;
+    animation: messages 400ms 5s ease-out forwards;
+}
+.error {
+    background-color: #DC4747;
+}
+.success {
+    background-color: #01B12A;
+}
+@keyframes messages {
+    to {
+        right: -350px;
+        opacity: 0;
+    }
+}

@@ -1,0 +1,31 @@
+{% extends "./session-base.njk" %}
+
+{% block title %}
+    <title>Login | Foodfy</title>
+{% endblock title %}
+
+{% block content %}
+<div class="login container">
+    <h1>Iniciar sessão</h1>
+
+    <form class="login" action="" method="POST">
+        <div class="item">
+            <span>Email</span>
+            <input type="text" name="email" placeholder="Email" required>
+        </div>
+
+        <div class="item">
+            <span>Senha</span>
+            <input type="password" name="password" required>
+        </div>
+
+        <div class="form-footer">
+            <a href="/forgot-password">Perdeu a senha?</a>
+            <button type="submit">Acessar</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

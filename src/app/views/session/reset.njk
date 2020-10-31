@@ -1,0 +1,35 @@
+{% extends "./session-base.njk" %}
+
+{% block title %}
+    <title>Resetar senha | Foodfy</title>
+{% endblock title %}
+
+{% block content %}
+<div class="login container">
+    <h1>Nova senha</h1>
+
+    <form class="login" action="" method="POST">
+        <div class="item">
+            <span>Email</span>
+            <input type="text" name="email" placeholder="Digite seu email" required>
+        </div>
+
+        <div class="item">
+            <span>Senha</span>
+            <input type="password" name="password" placeholder="Digite sua senha" required>
+        </div>
+
+        <div class="item">
+            <span>Repetir senha</span>
+            <input type="password" name="passwordRepeat" placeholder="Repita sua senha" required>
+        </div>
+
+        <div class="reset form-footer">
+            <button class="reset" type="submit">Nova senha</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}
