@@ -11,7 +11,7 @@
     <form class="login" action="" method="POST">
         <div class="item">
             <span>Email</span>
-            <input type="text" name="email" placeholder="Digite seu email" required>
+            <input type="text" name="email" value="{{public.email}}" placeholder="Digite seu email" required>
         </div>
 
         <div class="item">
@@ -23,6 +23,8 @@
             <span>Repetir senha</span>
             <input type="password" name="passwordRepeat" placeholder="Repita sua senha" required>
         </div>
+
+        <input type="hidden" name="token" value="{{token}}">
 
         <div class="reset form-footer">
             <button class="reset" type="submit">Nova senha</button>

@@ -25,8 +25,10 @@ routes.get("/search", publico.search)
 
 routes.get("/login", isLoggedRedirectToUsers, publico.loginForm)
 routes.post("/login", SessionValidator.login, publico.login)
-routes.get("/forgot-password", publico.forgot)
-routes.get("/reset", publico.reset)
+routes.get("/forgot-password", publico.forgotForm)
+routes.post("/forgot-password", SessionValidator.forgot, publico.forgot)
+routes.get("/reset", publico.resetForm)
+routes.post("/reset",SessionValidator.reset, publico.reset)
 
 
 // Admin recipes
