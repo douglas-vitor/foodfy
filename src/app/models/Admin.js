@@ -236,5 +236,27 @@ module.exports = {
         } catch (err) {
             console.log(err)
         }
+    },
+    async createUser(data, password) {
+        try {
+            const query = `
+            INSERT INTO users (
+                name,
+                email,
+                password,
+                is_admin
+            ) VALUES ($1, $2, $3, $4)
+            `
+            const values = [
+                data.name,
+                data.email,
+                password,
+                data.is_admin
+            ]
+
+            return await db.query(query, values)
+        } catch (err) {
+            console.log(err)
+        }
     }
 }

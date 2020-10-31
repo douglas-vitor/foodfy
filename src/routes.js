@@ -1,10 +1,19 @@
 const express = require("express")
 const routes = express.Router()
+
+//middlewares
 const multer = require("./app/middlewares/multer")
+//const { isLoggedRedirectToUsers, onlyUsers } = require("./app/middlewares/session")
+
+//controllers
 const admin = require("./app/controllers/admin")
 const publico = require("./app/controllers/public")
 const UserController = require("./app/controllers/UserController")
+const SessionController = require("./app/controllers/SessionController")
 
+//validators
+const UserValidator = require("./app/validators/user")
+const SessionValidator = require("./app/validators/session")
 
 // Public
 routes.get("/", publico.index)
@@ -13,7 +22,9 @@ routes.get("/recipes", publico.recipes)
 routes.get("/recipe/:id", publico.recipe)
 routes.get("/chefs", publico.chefs)
 routes.get("/search", publico.search)
-routes.get("/login", publico.login)
+
+//routes.get("/login", isLoggedRedirectToUsers, publico.loginForm)
+//routes.post("/login", SessionValidator.login, publico.login)
 routes.get("/forgot-password", publico.forgot)
 routes.get("/reset", publico.reset)
 
@@ -45,7 +56,8 @@ routes.delete("/admin/chefs", admin.deleteChef)
 //routes.get('/admin/profile', ProfileController.index) // Mostrar o formulário com dados do usuário logado
 //routes.put('/admin/profile', ProfileController.put)// Editar o usuário logado
 routes.get('/admin/users', UserController.list) //Mostrar a lista de usuários cadastrados
-//routes.post('/admin/users', UserController.post) //Cadastrar um usuário
+routes.get("/admin/users/create", UserController.create)
+routes.post('/admin/users', UserController.post) //Cadastrar um usuário
 //routes.put('/admin/users', UserController.put) // Editar um usuário
 //routes.delete('/admin/users', UserController.delete) // Deletar um usuário
 

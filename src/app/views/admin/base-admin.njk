@@ -5,16 +5,19 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/styles/admin.css">
+        <link rel="stylesheet" href="/styles/messages.css">
         {% block title %}
             <title>Admin | Foodfy</title>
         {% endblock title %}
     </head>
     <body>
+        {% include "../parts/messages.njk" %}
         <header>
             <div class="navbar">
             <a href="/admin/recipes">Foodfy</a>
             <a href="/admin/recipes">Receitas</a>
             <a href="/admin/chefs">Chefs</a>
+            <a href="/admin/users">Usuários</a>
             </div>
         </header>
 

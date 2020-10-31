@@ -111,6 +111,10 @@ module.exports = {
         return res.render("search", { recipes, filter, chefs })
     },
     login(req, res) {
+        req.session.userId = req.user.id
+        return res.redirect("/admin/")
+    },
+    loginForm(req, res) {
         return res.render("session/login")
     },
     forgot(req, res) {

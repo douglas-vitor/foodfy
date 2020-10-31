@@ -5,12 +5,13 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/styles/user.css">
+        <link rel="stylesheet" href="/styles/messages.css">
         {% block title %}
             <title>Foodfy</title>
         {% endblock title %}
     </head>
     <body>
-        {% include "./messages.njk" %}
+        {% include "../parts/messages.njk" %}
         <nav class="session navbar">
             <a href="/login">
                 <img src="/assets/logo.png" alt="Foodfy logo">

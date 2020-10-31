@@ -1,0 +1,37 @@
+{% extends "./base-admin.njk" %}
+
+{% block title %}
+    <title>Admin | Novo usuário</title>
+{% endblock title %}
+
+{% block content %}
+    <section class="admin-container">
+        <form action="/admin/users" method="POST">
+            <h1>Criar usuário</h1>
+            <button type="submit" class="button new-user">Salvar</button>
+            <a href="/admin/users" class="button new-user">Cancelar</a>
+
+            <div class="fields new-user">
+                <div class="item">
+                    <span>Nome</span>
+                    <input type="text" name="name" value="{{admin.name}}" placeholder="Digite seu nome completo" required>
+                </div>
+
+                <div class="item">
+                    <span>Email</span>
+                    <input type="email" name="email" value="{{admin.email}}" placeholder="Digite seu email" required>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox" name="is_admin" id="is_admin">
+                    <font>Administrador</font>
+                </div>
+            </div>
+        </form>
+
+    </section>
+{% endblock content %}
+
+{% block scripts %}
+    <script src="/scripts/admin.js"></script>
+{% endblock scripts %}

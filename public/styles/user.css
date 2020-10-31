@@ -91,33 +91,3 @@ form.login .reset.form-footer {
     justify-content: end;
     align-items: center;
 }
-.messages {
-    width: 344px;
-    height: 135px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 12px;
-    right: 18px;
-    color: white;
-    border-radius: 4px;
-    font-size: 16px;
-    line-height: 19px;
-    font-weight: bold;
-    border: 1px solid #DDDDDD;
-    opacity: 1;
-    animation: messages 400ms 5s ease-out forwards;
-}
-.error {
-    background-color: #DC4747;
-}
-.success {
-    background-color: #01B12A;
-}
-@keyframes messages {
-    to {
-        right: -350px;
-        opacity: 0;
-    }
-}
