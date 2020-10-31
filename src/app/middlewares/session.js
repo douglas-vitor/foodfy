@@ -1,13 +1,13 @@
 function onlyUsers(req, res, next) {
     if(!req.session.userId) {
-        return res.redirect("/users/login")
+        return res.redirect("/login")
     }
     next()
 }
 
 function isLoggedRedirectToUsers(req, res, next) {
     if(req.session.userId) {
-        return res.redirect("/users")
+        return res.redirect("/admin/chefs")
     }
 
     next()

@@ -3,7 +3,7 @@ const routes = express.Router()
 
 //middlewares
 const multer = require("./app/middlewares/multer")
-//const { isLoggedRedirectToUsers, onlyUsers } = require("./app/middlewares/session")
+const { isLoggedRedirectToUsers, onlyUsers } = require("./app/middlewares/session")
 
 //controllers
 const admin = require("./app/controllers/admin")
@@ -23,8 +23,8 @@ routes.get("/recipe/:id", publico.recipe)
 routes.get("/chefs", publico.chefs)
 routes.get("/search", publico.search)
 
-//routes.get("/login", isLoggedRedirectToUsers, publico.loginForm)
-//routes.post("/login", SessionValidator.login, publico.login)
+routes.get("/login", isLoggedRedirectToUsers, publico.loginForm)
+routes.post("/login", SessionValidator.login, publico.login)
 routes.get("/forgot-password", publico.forgot)
 routes.get("/reset", publico.reset)
 
