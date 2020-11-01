@@ -62,7 +62,7 @@ routes.get("/admin/users/create", UserController.create)
 routes.post('/admin/users', UserController.post) //Cadastrar um usuário
 //routes.put('/admin/users', UserController.put) // Editar um usuário
 //routes.delete('/admin/users', UserController.delete) // Deletar um usuário
-
+routes.get("/admin/users/logout", UserController.logout)
 
 // Not-found
 routes.use(function (req, res) {

@@ -73,5 +73,9 @@ module.exports = {
             })
         }
         return res.render("admin/edit_user", {admin: results})
+    },
+    logout(req, res) {
+        req.session.destroy()
+        return res.redirect("/login")
     }
 }
