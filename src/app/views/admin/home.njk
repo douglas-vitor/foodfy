@@ -14,7 +14,8 @@
                     <span class="image" style="background-image: url({{receita.image}});"></span>
                     <div class="details">
                         <h1>{{receita.title}}</h1>
-                        <h5>por {{receita.chef}}</h5>
+                        <h5>por
+                            {{receita.chef}}</h5>
                         <a href="/admin/recipes/{{receita.id}}">visualizar</a>
                     </div>
                 </div>
@@ -22,10 +23,7 @@
         </div>
     </section>
 
-    <div class="pagination" 
-        data-page="{{pagination.page}}" 
-        data-total="{{pagination.total}}">
-    </div>
+    <div class="pagination" data-page="{{pagination.page}}" data-total="{{pagination.total}}"></div>
 {% endblock content %}
 
 {% block scripts %}

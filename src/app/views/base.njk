@@ -4,11 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/styles/style.css">
-        {% block style %}
-        {% endblock style %}
+        {% block style %}{% endblock style %}
         <link rel="stylesheet" href="/styles/responsive.css">
         {% block title %}
-        <title>Home</title>
+            <title>Home</title>
         {% endblock title %}
     </head>
     <body>
@@ -22,14 +21,11 @@
                 <button type="submit">Buscar</button>
             </form>
         </header>
-        {% block content %}
-        {% endblock content %}
-        
+        {% block content %}{% endblock content %}
 
         <footer>
             <h1>Todos direitos reservados, receitas Foodfy.</h1>
         </footer>
-        {% block scripts %}
-        {% endblock scripts %}
+        {% block scripts %}{% endblock scripts %}
     </body>
 </html>

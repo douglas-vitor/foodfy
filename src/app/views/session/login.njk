@@ -5,27 +5,26 @@
 {% endblock title %}
 
 {% block content %}
-<div class="login container">
-    <h1>Iniciar sessão</h1>
+    <div class="login container">
+        <h1>Iniciar sessão</h1>
 
-    <form class="login" action="/login" method="POST">
-        <div class="item">
-            <span>Email</span>
-            <input type="text" name="email" placeholder="Email" value="{{public.email}}" required>
-        </div>
+        <form class="login" action="/login" method="POST">
+            <div class="item">
+                <span>Email</span>
+                <input type="text" name="email" placeholder="Email" value="{{public.email}}" required="required">
+            </div>
 
-        <div class="item">
-            <span>Senha</span>
-            <input type="password" name="password" required>
-        </div>
+            <div class="item">
+                <span>Senha</span>
+                <input type="password" name="password" required="required">
+            </div>
 
-        <div class="form-footer">
-            <a href="/forgot-password">Perdeu a senha?</a>
-            <button type="submit">Acessar</button>
-        </div>
-    </form>
-</div>
+            <div class="form-footer">
+                <a href="/forgot-password">Perdeu a senha?</a>
+                <button type="submit">Acessar</button>
+            </div>
+        </form>
+    </div>
 {% endblock content %}
 
-{% block scripts %}
-{% endblock scripts %}
+{% block scripts %}{% endblock scripts %}

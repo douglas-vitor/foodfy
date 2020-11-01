@@ -12,7 +12,8 @@
         <h1>{{data.title}}</h1>
         {% for chef in chefs %}
             {% if chef.id == data.chef_id %}
-                        <h5>por {{chef.name}}</h5>
+                <h5>por
+                    {{chef.name}}</h5>
             {% endif %}
         {% endfor %}
         <div class="bar">
@@ -51,5 +52,5 @@
 {% endblock content %}
 
 {% block scripts %}
-<script src="/scripts/script.js"></script>
+    <script src="/scripts/script.js"></script>
 {% endblock scripts %}
