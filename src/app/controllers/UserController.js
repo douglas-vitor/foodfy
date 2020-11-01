@@ -60,5 +60,16 @@ module.exports = {
                 error: "Algo deu errado, tente novamente mais tarde."
             })
         }
+    },
+    async editUser(req, res) {
+        const id = req.params.id
+        let results = await Admin.findOne({ where: { id } })
+
+        if(!results) {
+            return res.render("admin/users", {
+                error: 'Usuário não encontrado.'
+            })
+        }
+        return res.render("admin/edit_user", {user: results})
     }
 }
