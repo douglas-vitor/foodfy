@@ -121,13 +121,16 @@ section.admin-container h1 {
     margin: 53px 0 30px 0;
 }
 section.admin-container button,
-section.admin-container a.button {
+section.admin-container a.button,
+section.admin-container a.button.list {
     position: absolute;
     top: 50px;
     max-width: 139px;
+    min-width: 139px;
     border-radius: 4px;
     padding: 9px 20px;
     font-weight: bold;
+    text-align: center;
     color: white;
     font-size: 16px;
     line-height: 19px;
@@ -519,11 +522,9 @@ body section.recipesOfChef span {
     filter: brightness(0.3);
     border-bottom: 1px solid #777777;
 }
-
-
 button.button.new-user {
     position: absolute;
-    right: 125px;
+    right: 195px;
 }
 button.button.new-user + a.new-user {
     background-color: #8a8a8a;
@@ -551,4 +552,46 @@ div.fields.new-user .item input[type="checkbox"] {
     margin-right: 8px;
     border-radius: 4px;
     border: 1px solid #DDDDDD;
+}
+
+section.admin-container div.list-users {
+    max-width: 940px;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    margin-top: 64px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+section.admin-container div.list-users .user {
+    display: grid;
+    margin-bottom: 52px;
+}
+section.admin-container div.list-users .user h3 {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: normal;
+    color: #111111;
+    margin-bottom: 4px;
+}
+section.admin-container div.list-users .user span {
+    width: initial;
+    height: initial;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 17px;
+    color: #777777;
+    margin-bottom: 16px;
+}
+section.admin-container div.list-users .user .footer-user {
+
+}
+section.admin-container div.list-users .user .footer-user a {
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: bold;
+    color: #6558C3;
+    margin-right: 16px;
+}
+section.admin-container div.list-users .user .footer-user a + a {
+    color: #f55a5a;
 }

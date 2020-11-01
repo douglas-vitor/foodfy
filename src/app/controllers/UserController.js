@@ -5,7 +5,7 @@ const Admin = require("../models/Admin")
 
 module.exports = {
     list(req, res) {
-
+        return res.render("admin/users")
     },
     create(req, res) {
         return res.render("admin/create_user")

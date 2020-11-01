@@ -22,7 +22,6 @@ routes.get("/recipes", publico.recipes)
 routes.get("/recipe/:id", publico.recipe)
 routes.get("/chefs", publico.chefs)
 routes.get("/search", publico.search)
-
 routes.get("/login", isLoggedRedirectToUsers, publico.loginForm)
 routes.post("/login", SessionValidator.login, publico.login)
 routes.get("/forgot-password", publico.forgotForm)
