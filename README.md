@@ -11,6 +11,8 @@
 
 ## **Instruções**
 
+**Atenção :** Antes de rodar a aplicação instale todas as dependencias do projeto, para isto rode o comando **_npm install_** .
+
 Para iniciar o servidor da aplicação use o comando **_npm start_** , caso a aplicação não abra automaticamente em seu navegador acesse **_http://localhost:3000/_**.
 
 ## **Rotas**
