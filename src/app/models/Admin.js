@@ -301,5 +301,18 @@ module.exports = {
     async checkUserAdmin(id) {
         let results = await db.query("SELECT is_admin FROM users WHERE id = $1", [id])
         return results.rows[0]
+    },
+    async updateUser(id, data) {
+        const query = `UPDATE users SET 
+        name=($1),
+        email=($2) 
+        WHERE id = $3`
+        const values = [
+            data.name,
+            data.email,
+            id
+        ]
+
+        return await db.query(query, values)
     }
 }

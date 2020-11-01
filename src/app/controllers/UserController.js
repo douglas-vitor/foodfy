@@ -1,13 +1,13 @@
 const mailer = require("../../lib/mailer")
 const crypto = require("crypto")
-const { hash } = require("bcryptjs")
+const { hash, compare } = require("bcryptjs")
 const Admin = require("../models/Admin")
 
 module.exports = {
     async list(req, res) {
         const users = await Admin.listUsers()
         const is_admin = await Admin.checkUserAdmin(req.session.userId)
-        return res.render("admin/users", {users, administrator: is_admin.is_admin})
+        return res.render("admin/users", { users, administrator: is_admin.is_admin })
     },
     create(req, res) {
         return res.render("admin/create_user")
@@ -67,12 +67,12 @@ module.exports = {
         const id = req.params.id
         let results = await Admin.findOne({ where: { id } })
 
-        if(!results) {
+        if (!results) {
             return res.render("admin/users", {
                 error: 'Usuário não encontrado.'
             })
         }
-        return res.render("admin/edit_user", {admin: results})
+        return res.render("admin/edit_user", { admin: results })
     },
     logout(req, res) {
         req.session.destroy()
@@ -80,7 +80,34 @@ module.exports = {
     },
     async profile(req, res) {
         const id = req.session.userId
-        const admin = await Admin.findOne({where: {id}})
-        return res.render("admin/profile", {admin})
+        const admin = await Admin.findOne({ where: { id } })
+        return res.render("admin/profile", { admin })
+    },
+    async putProfile(req, res) {
+        try {
+            let { password } = req.body
+            let id = req.session.userId
+            let checkUser = await Admin.findOne({where: {id} })
+            const passed = await compare(password, checkUser.password)
+            
+            if(!passed) {
+                return res.render("admin/profile", {
+                    admin: req.body,
+                    error: "Senha incorreta."
+                })
+            }
+
+            await Admin.updateUser(req.session.userId, req.body)
+            return res.render("admin/profile", {
+                admin: req.body,
+                success: "Dados atualizados com suceso."
+            })
+        } catch (err) {
+            console.log(err)
+            return res.render("admin/profile", {
+                admin: req.body,
+                error: "Erro ao atualizar dados."
+            })
+        }
     }
 }
