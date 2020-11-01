@@ -77,5 +77,10 @@ module.exports = {
     logout(req, res) {
         req.session.destroy()
         return res.redirect("/login")
+    },
+    async profile(req, res) {
+        const id = req.session.userId
+        const admin = await Admin.findOne({where: {id}})
+        return res.render("admin/profile", {admin})
     }
 }

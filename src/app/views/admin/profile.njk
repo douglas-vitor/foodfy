@@ -7,18 +7,29 @@
 {% block content %}
     <section class="admin-container">
         <form action="/admin/users" method="POST">
-            <h1>Criar usuário</h1>
-            <button type="submit" class="button new-user">Salvar</button>
-            <a href="/admin/users" class="button new-user">Cancelar</a>
+            <h1>Bem vindo
+                {{admin.name}}</h1>
+            <button type="submit" class="button">Salvar</button>
 
             <div class="fields new-user">
-                {% include 'admin/fields-users.njk' %}
+                <div class="item">
+                    <span>Nome</span>
+                    <input type="text" name="name" value="{{admin.name}}" placeholder="Digite seu nome completo" required="required">
+                </div>
+
+                <div class="item">
+                    <span>Email</span>
+                    <input type="email" name="email" value="{{admin.email}}" placeholder="Digite seu email" required="required">
+                </div>
+
+                <div class="item">
+                    <span>Senha</span>
+                    <input type="password" name="password" placeholder="Digite sua senha" required="required">
+                </div>
             </div>
         </form>
 
     </section>
 {% endblock content %}
 
-{% block scripts %}
-    <script src="/scripts/admin.js"></script>
-{% endblock scripts %}
+{% block scripts %}{% endblock scripts %}

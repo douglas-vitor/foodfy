@@ -54,7 +54,7 @@ routes.delete("/admin/chefs", admin.deleteChef)
 
 
 //Admin users
-//routes.get('/admin/profile', ProfileController.index) // Mostrar o formulário com dados do usuário logado
+routes.get('/admin/profile', UserController.profile) // Mostrar o formulário com dados do usuário logado
 //routes.put('/admin/profile', ProfileController.put)// Editar o usuário logado
 routes.get("/admin/profile/:id/edit", UserController.editUser)
 routes.get('/admin/users', UserController.list) //Mostrar a lista de usuários cadastrados
