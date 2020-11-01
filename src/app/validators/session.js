@@ -79,5 +79,5 @@ module.exports = {
         req.user = user
 
         next()
-    }
+    } 
 }

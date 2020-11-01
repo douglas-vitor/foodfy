@@ -293,5 +293,13 @@ module.exports = {
         })
         await db.query(query)
         return
+    },
+    async listUsers() {
+        let results =  await db.query("SELECT * FROM users")
+        return results.rows
+    },
+    async checkUserAdmin(id) {
+        let results = await db.query("SELECT is_admin FROM users WHERE id = $1", [id])
+        return results.rows[0]
     }
 }

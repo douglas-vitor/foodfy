@@ -4,8 +4,10 @@ const { hash } = require("bcryptjs")
 const Admin = require("../models/Admin")
 
 module.exports = {
-    list(req, res) {
-        return res.render("admin/users")
+    async list(req, res) {
+        const users = await Admin.listUsers()
+        const is_admin = await Admin.checkUserAdmin(req.session.userId)
+        return res.render("admin/users", {users, administrator: is_admin.is_admin})
     },
     create(req, res) {
         return res.render("admin/create_user")
@@ -70,6 +72,6 @@ module.exports = {
                 error: 'Usuário não encontrado.'
             })
         }
-        return res.render("admin/edit_user", {user: results})
+        return res.render("admin/edit_user", {admin: results})
     }
 }

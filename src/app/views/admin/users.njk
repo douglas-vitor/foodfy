@@ -6,85 +6,28 @@
 
 {% block content %}
     <section class="admin-container">
-            <h1>Usuários</h1>
-            <a href="/admin/users/create" class="button list">Novo</a>
+        <h1>Usuários</h1>
+        <a href="/admin/users/create" class="button list">Novo</a>
 
-            <div class="list-users">
-                <div class="user">
-                    <h3>Diego</h3>
-                    <span>diego@hotmail.com</span>
-                    <div class="footer-user">
-                        <a href="/admin/profile/99/edit">Editar</a>
-                        <a href="#">Remover</a>
-                    </div>
-                </div>
+        <div class="list-users">
 
+            {% for user in users %}
                 <div class="user">
-                    <h3>Diego</h3>
-                    <span>diego@hotmail.com</span>
-                    <div class="footer-user">
-                        <a href="#">Editar</a>
-                        <a href="#">Remover</a>
-                    </div>
+                    <h3>{{user.name}}</h3>
+                    <span>{{user.email}}</span>
+                    {% if administrator == true %}
+                        <form name="admin-fn{{user.id}}" id="admin-fn{{user.id}}" action="" method="POST">
+                            <div class="footer-user">
+                                <a href="/admin/profile/{{user.id}}/edit">Editar</a>
+                                <a href="#" onclick="document.forms['admin-fn{{user.id}}'].submit()">Remover</a>
+                            </div>
+                        </form>
+                    {% endif %}
                 </div>
+            {% endfor %}
 
-                <div class="user">
-                    <h3>Diego</h3>
-                    <span>diego@hotmail.com</span>
-                    <div class="footer-user">
-                        <a href="#">Editar</a>
-                        <a href="#">Remover</a>
-                    </div>
-                </div>
-
-                <div class="user">
-                    <h3>Diego</h3>
-                    <span>diego@hotmail.com</span>
-                    <div class="footer-user">
-                        <a href="#">Editar</a>
-                        <a href="#">Remover</a>
-                    </div>
-                </div>
-
-                <div class="user">
-                    <h3>Diego</h3>
-                    <span>diego@hotmail.com</span>
-                    <div class="footer-user">
-                        <a href="#">Editar</a>
-                        <a href="#">Remover</a>
-                    </div>
-                </div>
-
-                <div class="user">
-                    <h3>Diego</h3>
-                    <span>diego@hotmail.com</span>
-                    <div class="footer-user">
-                        <a href="#">Editar</a>
-                        <a href="#">Remover</a>
-                    </div>
-                </div>
-
-                <div class="user">
-                    <h3>Diego</h3>
-                    <span>diego@hotmail.com</span>
-                    <div class="footer-user">
-                        <a href="#">Editar</a>
-                        <a href="#">Remover</a>
-                    </div>
-                </div>
-
-                <div class="user">
-                    <h3>Diego</h3>
-                    <span>diego@hotmail.com</span>
-                    <div class="footer-user">
-                        <a href="#">Editar</a>
-                        <a href="#">Remover</a>
-                    </div>
-                </div>
-                
-            </div>
-</section>
+        </div>
+    </section>
 {% endblock content %}
 
-{% block scripts %}
-{% endblock scripts %}
+{% block scripts %}{% endblock scripts %}

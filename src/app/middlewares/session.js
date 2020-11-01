@@ -7,7 +7,7 @@ function onlyUsers(req, res, next) {
 
 function isLoggedRedirectToUsers(req, res, next) {
     if(req.session.userId) {
-        return res.redirect("/admin/chefs")
+        return res.redirect("/admin/")
     }
 
     next()
