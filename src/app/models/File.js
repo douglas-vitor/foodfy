@@ -4,25 +4,6 @@ const { date } = require("../../lib/utils")
 
 
 module.exports = {
-    create(data) {
-        try {
-            const query = `
-            INSERT INTO files (
-                name,
-                path
-            ) VALUES ($1, $2)
-            RETURNING id
-        `
-            const values = [
-                data.filename,
-                data.path
-            ]
-
-            return db.query(query, values)
-        } catch (err) {
-            console.log(err)
-        }
-    },
     async createFullDataRecipe({ filename, path, recipeId }) {
         try {
             let query = `

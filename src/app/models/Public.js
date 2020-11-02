@@ -51,18 +51,6 @@ module.exports = {
             console.log(err)
         }
     },
-    async allChefs() {
-        try {
-            const query = `
-        SELECT * FROM chefs ORDER BY id ASC
-        `
-
-            const results = await db.query(query)
-            return results.rows
-        } catch (err) {
-            console.log(err)
-        }
-    },
     async countRecipesOfChef() {
         try {
             const query = `
