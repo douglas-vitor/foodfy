@@ -40,13 +40,24 @@ module.exports = {
         try {
             user = req.body
             let now = new Date()
-            now = 'Food' + now.getMinutes() + now.getMilliseconds()
-            const tempPassword = now
+            let maintenant = 'Food' + now.getMinutes() + now.getMilliseconds()
+            const tempPassword = maintenant
             const tempPasswordFirst = await hash(tempPassword, 8)
             if (user.is_admin == null) user.is_admin = false
             if (user.is_admin) user.is_admin = true
 
-            await UsersModel.createUser(user, tempPasswordFirst)
+            //token para o usuario
+            const token = crypto.randomBytes(20).toString("hex")
+
+            //criar uma expiração
+            now = now.setHours(now.getHours() + 1)
+
+            const idNewUser = await UsersModel.createUser(user, tempPasswordFirst)
+
+            await UsersModel.updateForForgot(idNewUser.rows[0].id, {
+                reset_token: token,
+                reset_token_expires: now
+            })
 
             await mailer.sendMail({
                 to: user.email,
@@ -60,9 +71,11 @@ module.exports = {
                 <p>
                     login: ${user.email}
                     <br>
-                    password: ${tempPassword}
+                    password: Defina sua senha de acesso através do link abaixo.
                 </p>
-                <b>Atenção:</b> Para sua segurança atualize sua senha após fazer seu primeiro login.
+                <a href="http://localhost:3000/reset?token=${token}" target="_blank">
+                    DEFINIR SENHA.
+                </a>
                 `
             })
 

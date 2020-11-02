@@ -9,7 +9,8 @@ module.exports = {
                 email,
                 password,
                 is_admin
-            ) VALUES ($1, $2, $3, $4)
+            ) VALUES ($1, $2, $3, $4) 
+            RETURNING id
             `
             const values = [
                 data.name,
