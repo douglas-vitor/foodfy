@@ -3,3 +3,4 @@ src/deletar-routes.js
 src/app/controllers/deletar-admin.js
 src/app/models/deletar-Admin.js
 src/lib/mailer.js
+public/images/*

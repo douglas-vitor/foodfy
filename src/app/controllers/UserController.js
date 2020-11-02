@@ -10,10 +10,10 @@ module.exports = {
             let is_admin = await UsersModel.checkUserAdmin(req.session.userId)
             const myid = req.session.userId
 
-            const { error } = req.query
-            if (error) {
-                return res.render("admin/users", { users, administrator: is_admin.is_admin, myid, error })
-            }
+            const { error, success } = req.query
+            if (error) { return res.render("admin/users", { users, administrator: is_admin.is_admin, myid, error }) }
+            if (success) { return res.render("admin/users", { users, administrator: is_admin.is_admin, myid, success }) }
+
             return res.render("admin/users", { users, administrator: is_admin.is_admin, myid })
         } catch (err) {
             console.log(err)
@@ -94,9 +94,7 @@ module.exports = {
             let results = await UsersModel.findOne({ where: { id } })
 
             if (!results) {
-                return res.render("admin/users", {
-                    error: 'Usuário não encontrado.'
-                })
+                return res.redirect("/admin/users?error=Usuário não encontrado.")
             }
             const myid = req.session.userId
             const { success, error } = req.query
@@ -106,6 +104,7 @@ module.exports = {
             return res.render("admin/edit_user", { admin: results, myid })
         } catch (err) {
             console.log(err)
+            return res.redirect("/admin/users?error=Algo deu errado.")
         }
     },
     logout(req, res) {

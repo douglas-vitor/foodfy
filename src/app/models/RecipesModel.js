@@ -82,6 +82,7 @@ module.exports = {
     },
     async deleteRecipe(id) {
         try {
+            await db.query(`DELETE FROM recipe_files WHERE recipe_id = $1`, [id])
             return await db.query(`DELETE FROM recipes WHERE id = $1`, [id])
         } catch (err) {
             console.log(err)

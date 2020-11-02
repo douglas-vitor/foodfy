@@ -20,6 +20,10 @@ module.exports = {
             })
             const lastadded = await Promise.all(chefPromisse)
 
+            const { error, success } = req.query
+            if (error) { return res.render("admin/chefs", { chefs, error }) }
+            if (success) { return res.render("admin/chefs", { chefs, success }) }
+
             return res.render("admin/chefs", { chefs })
         } catch (err) {
             console.log(err)
@@ -29,7 +33,7 @@ module.exports = {
         try {
             let chefs = await ChefsModel.findChef(req.params.id)
             if (!chefs) {
-                return res.send("Chef não encontrado.")
+                return res.redirect("/admin/chefs?error=Chef não encontrado.")
             }
             try {
                 chefs = {
@@ -59,9 +63,14 @@ module.exports = {
 
             let is_admin = await UsersModel.checkUserAdmin(req.session.userId)
 
+            const { error, success } = req.query
+            if (error) { return res.render("admin/show_chef", { chefs, count, recipes, options, administrator: is_admin.is_admin, error }) }
+            if (success) { return res.render("admin/show_chef", { chefs, count, recipes, options, administrator: is_admin.is_admin, success }) }
+
             return res.render("admin/show_chef", { chefs, count, recipes, options, administrator: is_admin.is_admin })
         } catch (err) {
             console.log(err)
+            return res.redirect("/admin/chefs?error=Algo deu errado.")
         }
     },
     createChef(req, res) {
@@ -75,13 +84,15 @@ module.exports = {
         const keys = Object.keys(req.body)
         for (key of keys) {
             if (req.body[key] == "") {
-                return res.send("Por favor preencha todos os campos.")
+                return res.render("admin/create_chef", {
+                    error: "Preencha todos os campos."
+                })
             }
         }
 
         try {
             if (req.files.length == 0) {
-                return res.send("Please, send at least one image.")
+                return res.redirect("/admin/chefs/create?error=Selecione um avatar para o chef.")
             }
             const data = req.body
 
@@ -89,9 +100,10 @@ module.exports = {
             await Promise.all(filesPromise)
 
             const chefId = await filesPromise[0]
-            return res.redirect(`/admin/chefs/${chefId}`)
+            return res.redirect(`/admin/chefs/${chefId}?success=Chef criado com sucesso.`)
         } catch (err) {
             console.log(err)
+            return res.redirect("/admin/chefs?error=Algo deu errado.")
         }
     },
     async editChef(req, res) {
@@ -105,16 +117,22 @@ module.exports = {
             } catch (err) {
                 console.log(err)
             }
+
+            const { error, success } = req.query
+            if (error) { return res.render("admin/edit_chef", { chefs, error }) }
+            if (success) { return res.render("admin/edit_chef", { chefs, success }) }
+
             return res.render("admin/edit_chef", { chefs })
         } catch (err) {
             console.log(err)
+            return res.redirect("/admin/chefs?error=Algo deu errado.")
         }
     },
     async updateChef(req, res) {
         const keys = Object.keys(req.body)
         for (key of keys) {
             if (req.body[key] == "" && key != 'avatar_url') {
-                return res.send("Todos os capos devem ser preenchidos.")
+                return res.redirect(`/admin/chefs/${req.body.id}?error=Todos os campos devem ser preenchidos.`)
             }
         }
 
@@ -129,10 +147,10 @@ module.exports = {
                 ChefsModel.updateChef(data)
             }
 
-
-            return res.redirect(`/admin/chefs/${req.body.id}`)
+            return res.redirect(`/admin/chefs/${req.body.id}?success=Chef atualizado com sucesso.`)
         } catch (err) {
             console.log(err)
+            return res.redirect(`/admin/chefs?error=Algo deu errado.`)
         }
     },
     async deleteChef(req, res) {
@@ -140,12 +158,13 @@ module.exports = {
             const chefId = await ChefsModel.deleteChef(req.body.id)
 
             if (chefId) {
-                return res.send("O chef não pode ser excluído, pois o mesmo tem receitas em seu nome.")
+                return res.redirect(`/admin/chefs/${req.body.id}?error=O chef não pode ser excluído, pois o mesmo tem receitas em seu nome.`)
             } else {
-                return res.redirect("/admin/chefs")
+                return res.redirect("/admin/chefs?success=Chef deletado com sucesso.")
             }
         } catch (err) {
             console.log(err)
+            return res.redirect(`/admin/chefs?error=Algo deu errado.`)
         }
     }
 }

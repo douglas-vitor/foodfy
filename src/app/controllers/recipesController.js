@@ -35,10 +35,10 @@ module.exports = {
                 page
             }
 
-            const { error } = req.query
-            if (error) {
-                return res.render("admin/home", { recipes: recipes, chefs: recipes.name, pagination, lastimg: lastadded, error })
-            }
+            const { error, success } = req.query
+            if (error) { return res.render("admin/home", { recipes: recipes, chefs: recipes.name, pagination, lastimg: lastadded, error }) }
+            if (success) { return res.render("admin/home", { recipes: recipes, chefs: recipes.name, pagination, lastimg: lastadded, success }) }
+
             return res.render("admin/home", { recipes: recipes, chefs: recipes.name, pagination, lastimg: lastadded })
         } catch (err) {
             console.log(err)
@@ -46,7 +46,11 @@ module.exports = {
     },
     async create(req, res) {
         try {
-            const options = await RecipesModel.selectChefOptions()
+            const options = await ChefsModel.selectChefOptions()
+            const { error, success } = req.query
+            if (error) { return res.render("admin/create", { options, error }) }
+            if (success) { return res.render("admin/create", { options, success }) }
+
             return res.render("admin/create", { options })
         } catch (err) {
             console.log(err)
@@ -56,13 +60,15 @@ module.exports = {
         const keys = Object.keys(req.body)
         for (key of keys) {
             if (req.body[key] == "") {
-                return res.send("Por favor preencha todos os campos.")
+                return res.render("admin/create", {
+                    error: 'Preencha todos os campos.'
+                })
             }
         }
 
         try {
             if (req.files.length == 0) {
-                return res.send("Please, send at least one image.")
+                return res.redirect("/admin/recipes/create?error=Selecione pelo menos uma imagem.")
             }
 
             let results = await RecipesModel.createRecipe(req.body)
@@ -71,7 +77,7 @@ module.exports = {
             const filesPromise = req.files.map(file => File.createFullDataRecipe({ ...file, recipeId }))
             await Promise.all(filesPromise)
 
-            return res.redirect(`/admin/recipes/${recipeId}`)
+            return res.redirect(`/admin/recipes/${recipeId}?success=Receita criada com sucesso.`)
         } catch (err) {
             console.log(err)
         }
@@ -81,7 +87,7 @@ module.exports = {
         try {
             let recipes = await RecipesModel.findRecipe(req.params.id)
             if (!recipes) {
-                return res.send("Receita não encontrada.")
+                return res.redirect("/admin/recipes?error=Receita não encontrada.")
             }
 
             const chefs = await ChefsModel.selectChefOptions()
@@ -94,16 +100,21 @@ module.exports = {
 
             let is_admin = await UsersModel.checkUserAdmin(req.session.userId)
 
+            const { error, success } = req.query
+            if (error) { return res.render("admin/show", { recipes, chefs, files, administrator: is_admin.is_admin, error }) }
+            if (success) { return res.render("admin/show", { recipes, chefs, files, administrator: is_admin.is_admin, success }) }
+
             return res.render("admin/show", { recipes, chefs, files, administrator: is_admin.is_admin })
         } catch (err) {
             console.log(err)
+            return res.redirect("/admin/recipes?error=Algo deu errado.")
         }
     },
     async edit(req, res) {
         try {
             const recipes = await RecipesModel.findRecipe(req.params.id)
             if (!recipes) {
-                return res.send("Receita não encontrada.")
+                return res.redirect("/admin/recipes?error=Receita não encontrada.")
             }
             const options = await ChefsModel.selectChefOptions()
 
@@ -115,16 +126,21 @@ module.exports = {
 
             let is_admin = await UsersModel.checkUserAdmin(req.session.userId)
 
+            const { error, success } = req.query
+            if (error) { return res.render("admin/edit", { recipes, options, files, administrator: is_admin.is_admin, error }) }
+            if (success) { return res.render("admin/edit", { recipes, options, files, administrator: is_admin.is_admin, success }) }
+
             return res.render("admin/edit", { recipes, options, files, administrator: is_admin.is_admin })
         } catch (err) {
             console.log(err)
+            return res.redirect("/admin/recipes?error=Algo deu errado.")
         }
     },
     async update(req, res) {
         const keys = Object.keys(req.body)
         for (key of keys) {
             if (req.body[key] == "" && key != "removed_files") {
-                return res.send("Todos os campos devem ser preenchidos.")
+                return res.redirect(`/admin/recipes/${req.body.id}?error=Todos os campos devem ser preenchidos.`)
             }
         }
 
@@ -149,17 +165,19 @@ module.exports = {
             }
 
             await RecipesModel.updateRecipe(data)
-            return res.redirect(`/admin/recipes/${req.body.id}`)
+            return res.redirect(`/admin/recipes/${req.body.id}?success=Receita atualizada com sucesso.`)
         } catch (err) {
             console.log(err)
+            return res.redirect(`/admin/recipes?error=Algo deu errado.`)
         }
     },
     async delete(req, res) {
         try {
             await RecipesModel.deleteRecipe(req.body.id)
-            return res.redirect("/admin/recipes")
+            return res.redirect("/admin/recipes?success=Receita deletada com sucesso.")
         } catch (err) {
             console.log(err)
+            return res.redirect("/admin/recipes?error=Algo deu errado.")
         }
     }
 }
