@@ -6,16 +6,21 @@
 
 {% block content %}
     <section class="admin-container">
-        <form action="" method="POST">
+        <form name="delete_user" action="/admin/users?_method=DELETE" method="POST">
+        <input type="hidden" name="id" value="{{admin.id}}">
+        </form>
+
+        <form action="/admin/users?_method=PUT" method="POST">
             <h1>Atualizar usuário</h1>
             {% if myid != admin.id %}
-                <a href="" class="button edit-user">Deletar</a>
+                <a href="#" onclick="document.forms['delete_user'].submit()" class="button edit-user">Deletar</a>
             {% endif %}
             <button type="submit" class="button edit-user">Salvar</button>
 
             <div class="fields new-user">
                 {% include 'admin/fields-users.njk' %}
             </div>
+            <input type="hidden" name="id" value="{{admin.id}}">
         </form>
 
     </section>

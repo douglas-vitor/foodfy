@@ -21,11 +21,12 @@
                                 <a href="/admin/profile/{{user.id}}/edit">Editar</a>
                             </div>
                         {% else %}
-                            <form name="admin-fn{{user.id}}" id="admin-fn{{user.id}}" action="" method="POST">
+                            <form name="admin-fn{{user.id}}" id="admin-fn{{user.id}}" action="/admin/users?_method=DELETE" method="POST">
                                 <div class="footer-user">
                                     <a href="/admin/profile/{{user.id}}/edit">Editar</a>
                                     <a href="#" onclick="document.forms['admin-fn{{user.id}}'].submit()">Remover</a>
                                 </div>
+                                <input type="hidden" name="id" value="{{user.id}}">
                             </form>
                         {% endif %}
                     {% endif %}

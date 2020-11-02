@@ -10,6 +10,10 @@ module.exports = {
             let is_admin = await UsersModel.checkUserAdmin(req.session.userId)
             const myid = req.session.userId
 
+            const {error} = req.query
+            if(error) {
+                return res.render("admin/users", { users, administrator: is_admin.is_admin, myid, error })
+            }
             return res.render("admin/users", { users, administrator: is_admin.is_admin, myid })
         } catch (err) {
             console.log(err)
@@ -84,7 +88,9 @@ module.exports = {
                 })
             }
             const myid = req.session.userId
-
+            const {success, error} = req.query
+            if(error) { return res.render("admin/edit_user", { admin: results, myid, error }) }
+            if(success) { return res.render("admin/edit_user", { admin: results, myid, success }) }
             return res.render("admin/edit_user", { admin: results, myid })
         } catch (err) {
             console.log(err)
@@ -121,7 +127,7 @@ module.exports = {
                 })
             }
 
-            await UsersModel.updateUser(req.session.userId, req.body)
+            await UsersModel.updateProfile(req.session.userId, req.body)
             return res.render("admin/profile", {
                 admin: req.body,
                 success: "Dados atualizados com suceso."
@@ -132,6 +138,41 @@ module.exports = {
                 admin: req.body,
                 error: "Erro ao atualizar dados."
             })
+        }
+    },
+    async put(req, res) {
+        const keys = Object.keys(req.body)
+
+        for (key of keys) {
+            if (req.body[key] == "" && key != "is_admin") {
+                return res.render("admin/create_user", {
+                    admin: req.body,
+                    error: "Preencha os campos nome e email corretamente."
+                })
+            }
+        }
+        const user = req.body
+        if (user.is_admin == null) user.is_admin = false
+        if (user.is_admin) user.is_admin = true
+
+        try {
+            await UsersModel.updateUser(req.body.id, user)
+            return res.redirect(`/admin/profile/${req.body.id}/edit?success=Usuário atualizado com sucesso.`)
+        } catch (err) {
+            console.log(err)
+            return res.redirect(`/admin/profile/${req.body.id}/edit?error=Erro ao atualizar usuário.`)
+        }
+    },
+    async delete(req, res) {
+        if(!req.body.id) {
+            return res.redirect("/admin/users?error=Usuário inválido.")
+        }
+
+        try {
+            await UsersModel.deleteUser(req.body.id)
+            return res.redirect("/admin/users?success=Usuário deletado com sucesso.")        
+        } catch (err) {
+            console.log(err)
         }
     }
 }

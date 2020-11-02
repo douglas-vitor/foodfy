@@ -103,9 +103,14 @@ module.exports = {
     },
     async notDelete(req, res, next) {
         const userId = req.session.userId
+        const urlId = req.body.id
 
         try {
-            //validações para ver se o usuaio é ele mesmo, se for, bloquear
+            if(userId != urlId) {
+                next()
+            } else {
+                return res.redirect("/admin/users?error=Você não pode excluir sua própria conta.")
+            }
         } catch (err) {
             console.log(er)
             return res.redirect("/admin/recipes?error=Algo deu errado, tente novamente.")

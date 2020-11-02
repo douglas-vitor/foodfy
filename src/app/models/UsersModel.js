@@ -68,7 +68,7 @@ module.exports = {
     },
     async listUsers() {
         try {
-            let results = await db.query("SELECT * FROM users")
+            let results = await db.query("SELECT * FROM users ORDER BY updated_at ASC")
             return results.rows
         } catch (err) {
             console.log(err)
@@ -82,7 +82,7 @@ module.exports = {
             console.log(err)
         }
     },
-    async updateUser(id, data) {
+    async updateProfile(id, data) {
         try {
             const query = `UPDATE users SET 
             name=($1),
@@ -95,6 +95,32 @@ module.exports = {
             ]
 
             return await db.query(query, values)
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    async updateUser(id, data) {
+        try {
+            const query = `UPDATE users SET 
+            name=($1),
+            email=($2),
+            is_admin=($3) 
+            WHERE id = $4`
+            const values = [
+                data.name,
+                data.email,
+                data.is_admin,
+                id
+            ]
+
+            return await db.query(query, values)
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    async deleteUser(id) {
+        try {
+            return await db.query("DELETE FROM users WHERE id = $1", [id])
         } catch (err) {
             console.log(err)
         }
