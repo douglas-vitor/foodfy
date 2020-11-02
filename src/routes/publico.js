@@ -16,6 +16,6 @@ routes.post("/login", SessionValidator.login, publico.login)
 routes.get("/forgot-password", publico.forgotForm)
 routes.post("/forgot-password", SessionValidator.forgot, publico.forgot)
 routes.get("/reset", publico.resetForm)
-routes.post("/reset",SessionValidator.reset, publico.reset)
+routes.post("/reset", SessionValidator.reset, publico.reset)
 
 module.exports = routes

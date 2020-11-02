@@ -1,7 +1,7 @@
 {% extends "./base-admin.njk" %}
 
 {% block title %}
-    <title>Usuários</title>
+    <title>Admin | Usuários</title>
 {% endblock title %}
 
 {% block content %}
@@ -16,12 +16,18 @@
                     <h3>{{user.name}}</h3>
                     <span>{{user.email}}</span>
                     {% if administrator == true %}
-                        <form name="admin-fn{{user.id}}" id="admin-fn{{user.id}}" action="" method="POST">
+                        {% if myid == user.id %}
                             <div class="footer-user">
                                 <a href="/admin/profile/{{user.id}}/edit">Editar</a>
-                                <a href="#" onclick="document.forms['admin-fn{{user.id}}'].submit()">Remover</a>
                             </div>
-                        </form>
+                        {% else %}
+                            <form name="admin-fn{{user.id}}" id="admin-fn{{user.id}}" action="" method="POST">
+                                <div class="footer-user">
+                                    <a href="/admin/profile/{{user.id}}/edit">Editar</a>
+                                    <a href="#" onclick="document.forms['admin-fn{{user.id}}'].submit()">Remover</a>
+                                </div>
+                            </form>
+                        {% endif %}
                     {% endif %}
                 </div>
             {% endfor %}

@@ -134,9 +134,11 @@ padding-top: 1px;
 section.admin-container h1 {
     margin: 53px 0 30px 0;
 }
-section.admin-container button,
-section.admin-container a.button,
-section.admin-container a.button.list {
+body section.admin-container button,
+body section.admin-container a.button,
+body section.admin-container a.button.list,
+body section.admin-container button.button.edit-user,
+body section.admin-container form a.button.edit-user {
     position: absolute;
     top: 50px;
     max-width: 139px;
@@ -152,10 +154,11 @@ section.admin-container a.button.list {
     background-color: #6558C3;
     text-decoration: none;
 }
-section.admin-container .button {
+body section.admin-container .button {
     right: 0%;
 }
-section.admin-container .button-delete {
+body section.admin-container .button-delete,
+body section.admin-container form a.button.edit-user {
     right: 16%;
     background-color: #DC4747;
 }

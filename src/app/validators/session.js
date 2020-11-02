@@ -86,5 +86,29 @@ module.exports = {
         } catch (err) {
             console.log(err)
         }
+    },
+    async checkIsAdmin(req, res, next) {
+        const id = req.session.userId
+        try {
+            const check = await UsersModel.checkUserAdmin(id)
+            if(!check || check.is_admin == false) {
+                return res.redirect("/admin/recipes?error=Você não tem permissões administrativas.")
+            }
+
+            next()
+        } catch (err) {
+            console.log(err)
+            return res.redirect("/admin/recipes?error=Algo deu errado, tente novamente.")
+        }
+    },
+    async notDelete(req, res, next) {
+        const userId = req.session.userId
+
+        try {
+            //validações para ver se o usuaio é ele mesmo, se for, bloquear
+        } catch (err) {
+            console.log(er)
+            return res.redirect("/admin/recipes?error=Algo deu errado, tente novamente.")
+        }
     }
 }

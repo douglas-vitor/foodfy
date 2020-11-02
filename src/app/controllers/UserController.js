@@ -7,8 +7,10 @@ module.exports = {
     async list(req, res) {
         try {
             const users = await UsersModel.listUsers()
-            const is_admin = await UsersModel.checkUserAdmin(req.session.userId)
-            return res.render("admin/users", { users, administrator: is_admin.is_admin })
+            let is_admin = await UsersModel.checkUserAdmin(req.session.userId)
+            const myid = req.session.userId
+
+            return res.render("admin/users", { users, administrator: is_admin.is_admin, myid })
         } catch (err) {
             console.log(err)
         }
@@ -81,7 +83,9 @@ module.exports = {
                     error: 'Usuário não encontrado.'
                 })
             }
-            return res.render("admin/edit_user", { admin: results })
+            const myid = req.session.userId
+
+            return res.render("admin/edit_user", { admin: results, myid })
         } catch (err) {
             console.log(err)
         }

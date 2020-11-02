@@ -33,6 +33,11 @@ module.exports = {
                 total: Math.ceil(recipes[0].total / limit),
                 page
             }
+
+            const {error} = req.query
+            if(error) {
+                return res.render("admin/home", { recipes: recipes, chefs: recipes.name, pagination, lastimg: lastadded, error })
+            }
             return res.render("admin/home", { recipes: recipes, chefs: recipes.name, pagination, lastimg: lastadded })
         } catch (err) {
             console.log(err)

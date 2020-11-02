@@ -7,9 +7,11 @@
 {% block content %}
     <section class="admin-container">
         <form action="" method="POST">
-            <h1>Criar usuário</h1>
-            <button type="submit" class="button new-user">Salvar</button>
-            <a href="/admin/users" class="button new-user">Cancelar</a>
+            <h1>Atualizar usuário</h1>
+            {% if myid != admin.id %}
+                <a href="" class="button edit-user">Deletar</a>
+            {% endif %}
+            <button type="submit" class="button edit-user">Salvar</button>
 
             <div class="fields new-user">
                 {% include 'admin/fields-users.njk' %}
