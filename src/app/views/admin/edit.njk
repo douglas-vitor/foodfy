@@ -9,13 +9,17 @@
     <section class="admin-container">
         <h1>Editando receita</h1>
 
-        <form id="delete" action="/admin/recipes?_method=DELETE" method="POST">
-            <button type="submit" class="button-delete">Deletar</button>
-            <input type="hidden" name="id" value="{{recipes.id}}">
-        </form>
+        {% if administrator == true %}
+            <form id="delete" action="/admin/recipes?_method=DELETE" method="POST">
+                <button type="submit" class="button-delete">Deletar</button>
+                <input type="hidden" name="id" value="{{recipes.id}}">
+            </form>
+        {% endif %}
 
         <form action="/admin/recipes?_method=PUT" method="POST" enctype="multipart/form-data">
-            <button type="submit" class="button">Salvar receita</button>
+            {% if administrator == true %}
+                <button type="submit" class="button">Salvar receita</button>
+            {% endif %}
 
             <div class="fields">
                 {% include "admin/fields.njk" %}

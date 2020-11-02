@@ -8,7 +8,9 @@
 {% block content %}
     <section class="admin-container">
         <h1>{{recipes.title}}</h1>
-        <a class="button" href="/admin/recipes/{{recipes.id}}/edit">Editar receita</a>
+        {% if administrator == true %}
+            <a class="button" href="/admin/recipes/{{recipes.id}}/edit">Editar receita</a>
+        {% endif %}
 
         <span class="recipeHighlight" style="background-image: url({{files[0].src}});"></span>
         <div id="" class="show-recipe-preview">

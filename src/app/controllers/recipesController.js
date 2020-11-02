@@ -1,5 +1,6 @@
 const RecipesModel = require("../models/RecipesModel")
 const ChefsModel = require("../models/ChefsModel")
+const UsersModel = require("../models/UsersModel")
 const File = require("../models/File")
 
 module.exports = {
@@ -91,7 +92,9 @@ module.exports = {
                 src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "").replace("\\", "/").replace("\\", "/")}`
             }))
 
-            return res.render("admin/show", { recipes, chefs, files })
+            let is_admin = await UsersModel.checkUserAdmin(req.session.userId)
+
+            return res.render("admin/show", { recipes, chefs, files, administrator: is_admin.is_admin })
         } catch (err) {
             console.log(err)
         }
@@ -110,7 +113,9 @@ module.exports = {
                 src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "").replace("\\", "/").replace("\\", "/")}`
             }))
 
-            return res.render("admin/edit", { recipes, options, files })
+            let is_admin = await UsersModel.checkUserAdmin(req.session.userId)
+
+            return res.render("admin/edit", { recipes, options, files, administrator: is_admin.is_admin })
         } catch (err) {
             console.log(err)
         }

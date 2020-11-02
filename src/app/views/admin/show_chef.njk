@@ -9,7 +9,9 @@
     <section class="admin-container show-chef">
         <h1>Chef:
             {{chefs.name}}</h1>
-        <a class="button" href="/admin/chefs/{{chefs.id}}/edit">Editar Chef</a>
+        {% if administrator == true %}
+            <a class="button" href="/admin/chefs/{{chefs.id}}/edit">Editar Chef</a>
+        {% endif %}
 
         <span id="chefAvatar" style="background-image: url({{chefs.avatar_url}});"></span>
 

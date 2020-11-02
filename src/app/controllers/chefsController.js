@@ -1,5 +1,6 @@
 const ChefsModel = require("../models/ChefsModel")
 const RecipesModel = require("../models/RecipesModel")
+const UsersModel = require("../models/UsersModel")
 const File = require("../models/File")
 
 module.exports = {
@@ -56,7 +57,9 @@ module.exports = {
 
             const options = await ChefsModel.selectChefOptions()
 
-            return res.render("admin/show_chef", { chefs, count, recipes, options })
+            let is_admin = await UsersModel.checkUserAdmin(req.session.userId)
+
+            return res.render("admin/show_chef", { chefs, count, recipes, options, administrator: is_admin.is_admin })
         } catch (err) {
             console.log(err)
         }

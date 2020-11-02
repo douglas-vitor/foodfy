@@ -7,7 +7,9 @@
 {% block content %}
     <section class="admin-container">
         <h1>Usuários</h1>
-        <a href="/admin/users/create" class="button list">Novo</a>
+        {% if administrator == true %}
+            <a href="/admin/users/create" class="button list">Novo</a>
+        {% endif %}
 
         <div class="list-users">
 
