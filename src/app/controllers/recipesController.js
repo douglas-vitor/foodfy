@@ -35,8 +35,8 @@ module.exports = {
                 page
             }
 
-            const {error} = req.query
-            if(error) {
+            const { error } = req.query
+            if (error) {
                 return res.render("admin/home", { recipes: recipes, chefs: recipes.name, pagination, lastimg: lastadded, error })
             }
             return res.render("admin/home", { recipes: recipes, chefs: recipes.name, pagination, lastimg: lastadded })

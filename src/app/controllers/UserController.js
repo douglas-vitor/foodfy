@@ -10,8 +10,8 @@ module.exports = {
             let is_admin = await UsersModel.checkUserAdmin(req.session.userId)
             const myid = req.session.userId
 
-            const {error} = req.query
-            if(error) {
+            const { error } = req.query
+            if (error) {
                 return res.render("admin/users", { users, administrator: is_admin.is_admin, myid, error })
             }
             return res.render("admin/users", { users, administrator: is_admin.is_admin, myid })
@@ -46,10 +46,8 @@ module.exports = {
             if (user.is_admin == null) user.is_admin = false
             if (user.is_admin) user.is_admin = true
 
-            //token para o usuario
             const token = crypto.randomBytes(20).toString("hex")
 
-            //criar uma expiração
             now = now.setHours(now.getHours() + 1)
 
             const idNewUser = await UsersModel.createUser(user, tempPasswordFirst)
@@ -101,9 +99,10 @@ module.exports = {
                 })
             }
             const myid = req.session.userId
-            const {success, error} = req.query
-            if(error) { return res.render("admin/edit_user", { admin: results, myid, error }) }
-            if(success) { return res.render("admin/edit_user", { admin: results, myid, success }) }
+            const { success, error } = req.query
+            if (error) { return res.render("admin/edit_user", { admin: results, myid, error }) }
+            if (success) { return res.render("admin/edit_user", { admin: results, myid, success }) }
+
             return res.render("admin/edit_user", { admin: results, myid })
         } catch (err) {
             console.log(err)
@@ -177,13 +176,13 @@ module.exports = {
         }
     },
     async delete(req, res) {
-        if(!req.body.id) {
+        if (!req.body.id) {
             return res.redirect("/admin/users?error=Usuário inválido.")
         }
 
         try {
             await UsersModel.deleteUser(req.body.id)
-            return res.redirect("/admin/users?success=Usuário deletado com sucesso.")        
+            return res.redirect("/admin/users?success=Usuário deletado com sucesso.")
         } catch (err) {
             console.log(err)
         }

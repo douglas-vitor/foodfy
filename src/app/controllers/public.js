@@ -156,10 +156,8 @@ module.exports = {
         const user = req.user
 
         try {
-            //token para o usuario
             const token = crypto.randomBytes(20).toString("hex")
 
-            //criar uma expiração
             let now = new Date()
             now = now.setHours(now.getHours() + 1)
 
@@ -168,7 +166,6 @@ module.exports = {
                 reset_token_expires: now
             })
 
-            //enviar um email com um link de recuperação de senha
             await mailer.sendMail({
                 to: user.email,
                 from: 'no-reply@foodfy.com',
@@ -182,7 +179,6 @@ module.exports = {
             </p>
             `
             })
-            //avisar o usuario que eviamos o email
             return res.render("session/forgot-password", {
                 success: "Verifique seu email para resetar sua senha."
             })
@@ -206,17 +202,14 @@ module.exports = {
         const { password, token } = req.body
 
         try {
-            //cria um novo hash de senha
             const newPassword = await hash(password, 8)
 
-            //atualiza o usuario
             await UsersModel.updateForForgot(user.id, {
                 password: newPassword,
                 reset_token: "",
                 reset_token_expires: ""
             })
 
-            //avisa o usuario que ele tem uma nova senha
             return res.render("session/login", {
                 public: req.body,
                 success: "Senha atualizada."

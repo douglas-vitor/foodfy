@@ -10,6 +10,6 @@ module.exports = session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: 30 * 24 * 60 * 60 * 1000 //valido por 30 dias
+        maxAge: 30 * 24 * 60 * 60 * 1000
     }
 })

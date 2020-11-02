@@ -29,7 +29,6 @@ module.exports = {
             let query = `SELECT * FROM users`
 
             Object.keys(filters).map(key => {
-                // WHERE | OR | AND
                 query = `${query} 
                 ${key}`
 
@@ -54,7 +53,6 @@ module.exports = {
                 ${key} = '${fields[key]}',
                 `
                 } else {
-                    //last interation
                     query = `${query} 
                 ${key} = '${fields[key]}'
                 WHERE id = ${id}

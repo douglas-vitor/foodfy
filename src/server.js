@@ -23,6 +23,5 @@ nunjucks.configure("src/app/views", {
     autoescape: false
 })
 
-
 // Server start
 server.listen(5000)

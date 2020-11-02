@@ -47,7 +47,6 @@ module.exports = {
         const { email, password, passwordRepeat, token } = req.body
 
         try {
-            //procurar o usuario
             const user = await UsersModel.findOne({ where: { email } })
 
             if (!user) return res.render("session/reset", {
@@ -56,21 +55,18 @@ module.exports = {
                 error: "Usuário não cadastrado."
             })
 
-            //ver se as senhas batem
             if (password != passwordRepeat) return res.render('session/reset', {
                 public: req.body,
                 token,
                 error: 'Senhas não conferem.'
             })
 
-            //verificar se token bate
             if (token != user.reset_token) return res.render('session/reset', {
                 public: req.body,
                 token,
                 error: 'Token inválido, solicite uma nova recuperação de senha.'
             })
 
-            //verificar se token nao expirou
             let now = new Date()
             now = now.setHours(now.getHours())
 
@@ -91,7 +87,7 @@ module.exports = {
         const id = req.session.userId
         try {
             const check = await UsersModel.checkUserAdmin(id)
-            if(!check || check.is_admin == false) {
+            if (!check || check.is_admin == false) {
                 return res.redirect("/admin/recipes?error=Você não tem permissões administrativas.")
             }
 
@@ -106,7 +102,7 @@ module.exports = {
         const urlId = req.body.id
 
         try {
-            if(userId != urlId) {
+            if (userId != urlId) {
                 next()
             } else {
                 return res.redirect("/admin/users?error=Você não pode excluir sua própria conta.")
