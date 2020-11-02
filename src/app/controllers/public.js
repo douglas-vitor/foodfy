@@ -1,9 +1,8 @@
-const db = require("../../config/db")
 const Publico = require("../models/Public")
 const crypto = require("crypto")
 const { hash } = require("bcryptjs")
 const mailer = require("../../lib/mailer")
-const Admin = require("../models/Admin")
+const UsersModel = require("../models/UsersModel")
 
 module.exports = {
     async index(req, res) {
@@ -164,7 +163,7 @@ module.exports = {
             let now = new Date()
             now = now.setHours(now.getHours() + 1)
 
-            await Admin.updateForForgot(user.id, {
+            await UsersModel.updateForForgot(user.id, {
                 reset_token: token,
                 reset_token_expires: now
             })
@@ -211,7 +210,7 @@ module.exports = {
             const newPassword = await hash(password, 8)
 
             //atualiza o usuario
-            await Admin.updateForForgot(user.id, {
+            await UsersModel.updateForForgot(user.id, {
                 password: newPassword,
                 reset_token: "",
                 reset_token_expires: ""

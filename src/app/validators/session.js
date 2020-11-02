@@ -1,12 +1,11 @@
-const User = require("../models/Admin")
 const { compare } = require("bcryptjs")
-const Admin = require("../models/Admin")
+const UsersModel = require("../models/UsersModel")
 
 module.exports = {
     async login(req, res, next) {
         const { email, password } = req.body
         try {
-            const user = await User.findOne({ where: { email } })
+            const user = await UsersModel.findOne({ where: { email } })
 
             if (!user) return res.render("session/login", {
                 public: req.body,
@@ -30,7 +29,7 @@ module.exports = {
     async forgot(req, res, next) {
         const { email } = req.body
         try {
-            let user = await User.findOne({ where: { email } })
+            let user = await UsersModel.findOne({ where: { email } })
 
             if (!user) return res.render("session/forgot-password", {
                 public: req.body,
@@ -49,7 +48,7 @@ module.exports = {
 
         try {
             //procurar o usuario
-            const user = await Admin.findOne({ where: { email } })
+            const user = await UsersModel.findOne({ where: { email } })
 
             if (!user) return res.render("session/reset", {
                 public: req.body,

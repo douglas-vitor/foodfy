@@ -1,13 +1,13 @@
 const mailer = require("../../lib/mailer")
 const crypto = require("crypto")
 const { hash, compare } = require("bcryptjs")
-const Admin = require("../models/Admin")
+const UsersModel = require("../models/UsersModel")
 
 module.exports = {
     async list(req, res) {
         try {
-            const users = await Admin.listUsers()
-            const is_admin = await Admin.checkUserAdmin(req.session.userId)
+            const users = await UsersModel.listUsers()
+            const is_admin = await UsersModel.checkUserAdmin(req.session.userId)
             return res.render("admin/users", { users, administrator: is_admin.is_admin })
         } catch (err) {
             console.log(err)
@@ -40,7 +40,7 @@ module.exports = {
             if (user.is_admin == null) user.is_admin = false
             if (user.is_admin) user.is_admin = true
 
-            await Admin.createUser(user, tempPasswordFirst)
+            await UsersModel.createUser(user, tempPasswordFirst)
 
             await mailer.sendMail({
                 to: user.email,
@@ -74,7 +74,7 @@ module.exports = {
     async editUser(req, res) {
         const id = req.params.id
         try {
-            let results = await Admin.findOne({ where: { id } })
+            let results = await UsersModel.findOne({ where: { id } })
 
             if (!results) {
                 return res.render("admin/users", {
@@ -97,7 +97,7 @@ module.exports = {
     async profile(req, res) {
         try {
             const id = req.session.userId
-            const admin = await Admin.findOne({ where: { id } })
+            const admin = await UsersModel.findOne({ where: { id } })
             return res.render("admin/profile", { admin })
         } catch (err) {
             console.log(err)
@@ -107,7 +107,7 @@ module.exports = {
         try {
             let { password } = req.body
             let id = req.session.userId
-            let checkUser = await Admin.findOne({ where: { id } })
+            let checkUser = await UsersModel.findOne({ where: { id } })
             const passed = await compare(password, checkUser.password)
 
             if (!passed) {
@@ -117,7 +117,7 @@ module.exports = {
                 })
             }
 
-            await Admin.updateUser(req.session.userId, req.body)
+            await UsersModel.updateUser(req.session.userId, req.body)
             return res.render("admin/profile", {
                 admin: req.body,
                 success: "Dados atualizados com suceso."

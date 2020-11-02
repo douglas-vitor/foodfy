@@ -11,23 +11,12 @@ server.use((req, res, next) => {
     next()
 })
 
-
-// Habilitar o uso do req.body na aplicação
 server.use(express.urlencoded({ extended: true }))
-
-// Pasta publica
 server.use(express.static("public"))
-
-// habilitar sobrescrição de metodo
 server.use(methodOverride("_method"))
-
-//Importar rotas
 server.use(routes)
-
-// Setar template engine
 server.set("view engine", "njk")
 
-// Utilizando template engine nunjucks
 nunjucks.configure("src/app/views", {
     express: server,
     noCache: true,
@@ -35,5 +24,5 @@ nunjucks.configure("src/app/views", {
 })
 
 
-// Ligar servidor
+// Server start
 server.listen(5000)
