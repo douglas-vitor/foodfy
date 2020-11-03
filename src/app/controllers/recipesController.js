@@ -30,9 +30,17 @@ module.exports = {
             })
             const lastadded = await Promise.all(recipePromise)
 
-            const pagination = {
-                total: Math.ceil(recipes[0].total / limit),
-                page
+            let pagination
+            try {
+                pagination = {
+                    total: Math.ceil(recipes[0].total / limit),
+                    page
+                }
+            } catch (err) {
+                pagination = {
+                    total: 0,
+                    page
+                }
             }
 
             const { error, success } = req.query
