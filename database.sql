@@ -63,3 +63,16 @@ WITH (OIDS=FALSE);
 ALTER TABLE "session" 
 ADD CONSTRAINT "session_pkey" 
 PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
+
+--User Administrator for teste plataform
+INSERT INTO users (
+	name,
+	email,
+	password,
+	is_admin
+) VALUES (
+	'Administrador',
+  'admin@foodfy.com',
+  '123',
+  'true'
+)

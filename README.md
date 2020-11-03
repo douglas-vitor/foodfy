@@ -21,6 +21,8 @@ Atualize as credencias da API de envio de emails para as suas necessidades, para
 
 Para iniciar o servidor da aplicação use o comando **_npm start_** , caso a aplicação não abra automaticamente em seu navegador acesse **_http://localhost:3000/_**.
 
+O arquivo **database.sql** cria um usuário administrador **admin@foodfy.com**, com a finalidade de testes da aplicação, para que consiga utiliza-lo e necessário fazer a recuperação de senha do mesmo, após ter recuperado a senha deste usuário e definido uma nova senha você conseguirá se logar por ele.
+
 ## **Rotas**
 
 **[PÚBLICO]**
