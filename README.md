@@ -15,7 +15,7 @@ Arquivo **database.sql** para a criação do banco de dados da aplicação esta 
 
 Atualize as credencias de conexão com o banco de dados para as suas necessidades, para isto edite o arquivo **src/config/db.js**
 
-Atualize as credencias da API de envio de emails para as suas necessidades, para isto soga as instruções do arquivo **src/lib/mailer-example.js**
+Atualize as credencias da API de envio de emails para as suas necessidades, para isto siga as instruções do arquivo **src/lib/mailer-example.js**
 
 **Atenção :** Antes de rodar a aplicação instale todas as dependencias do projeto, para isto rode o comando **_npm install_** .
 
