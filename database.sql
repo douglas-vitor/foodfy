@@ -31,8 +31,8 @@ CREATE TABLE "recipes" (
     "ingredients" text[] NOT NULL,
     "preparation" text[] NOT NULL,
     "information" text NOT NULL,
-    "created_at" timestamp DEFAULT (now()),
-    "updated_at" timestamp DEFAULT (now())
+    "created_at" TIMESTAMP DEFAULT (now()),
+    "updated_at" TIMESTAMP DEFAULT (now())
 );
 
 ALTER TABLE "recipe_files" ADD FOREIGN KEY ("recipe_id") REFERENCES "recipes" ("id");
@@ -69,3 +69,29 @@ ALTER TABLE "session"
 ADD CONSTRAINT "session_pkey" 
 PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
 
+--triggers
+CREATE FUNCTION trigger_set_timestamp()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON recipes
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
+
+CREATE FUNCTION trigger_set_timestamp_users()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON users
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp_users();
