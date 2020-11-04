@@ -1,4 +1,9 @@
---CREATE DATABASE foodfy;
+DROP DATABASE IF EXISTS foodfy;
+CREATE DATABASE foodfy;
+
+--DROP SCHEMA public CASCADE;
+--CREATE SCHEMA public;
+
 
 CREATE TABLE "files" (
 	"id" SERIAL PRIMARY KEY,
@@ -64,15 +69,3 @@ ALTER TABLE "session"
 ADD CONSTRAINT "session_pkey" 
 PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
 
---User Administrator for teste plataform
-INSERT INTO users (
-	name,
-	email,
-	password,
-	is_admin
-) VALUES (
-	'Administrador',
-  'admin@foodfy.com',
-  '123',
-  'true'
-)
