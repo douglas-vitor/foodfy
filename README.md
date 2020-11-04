@@ -21,7 +21,7 @@ Atualize as credencias da API de envio de emails para as suas necessidades, para
 
 Para iniciar o servidor da aplicação use o comando **_npm start_** , caso a aplicação não abra automaticamente em seu navegador acesse **_http://localhost:3000/_**.
 
-Para semear seu banco de dados com alguns registros de testes, execute o arquivo **seed.js** da raíz deste projeto, sera criado alguns usuários, chefs, receitas e uma conta de administrador com email **admin@foodfy.com** e senha **1234** .
+Para semear seu banco de dados com alguns registros de testes, execute o arquivo **seed.js** na raíz deste projeto, sera criado alguns usuários, chefs, receitas e uma conta de administrador com email **admin@foodfy.com** e senha **1234** .
 
 ## **Rotas**
 
@@ -61,3 +61,4 @@ Para semear seu banco de dados com alguns registros de testes, execute o arquivo
 4. Alterado armazenamento dos dados de arquivo JSON para banco de dados PostgreSQL; Criado novas páginas de (cadastro, listagem e edição) de chefs, agora as receitas podem ser atribuídas a um chef; Adicionado sistema de busca pelo nome das receitas; Adicionado paginação de receitas nas áreas pública e administrativa da aplicação; Adicionado verificação antes de excluir um chef, se o mesmo tiver receitas em seu nome, apresenta erro e não é excluído.
 5. Adicionado sistema de upload de imagens na aplicação, para que possa ser enviadas imagens diretamente do computador do usuário; Esta opção de upload de imagens esta disponivel nas páginas de criação/edição de receitas e na criação/edição dos chefs; as imagens upadas são salvas no diretório public/images.
 6. Adicionado sistema de login e recuperação de senha por email; Adicionado paginas de criação/edição/exclusão de usuários; Implementado novas logicas de negócios e validações de usuários; Refatoração da estrutura e arquivos do projeto; Adicionado mensagens informativas para os usuários.
+7. Adicionado script para automatizar população do banco de dados com alguns registros para testes da aplicação.
