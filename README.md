@@ -21,7 +21,7 @@ Atualize as credencias da API de envio de emails para as suas necessidades, para
 
 Para iniciar o servidor da aplicação use o comando **_npm start_** , caso a aplicação não abra automaticamente em seu navegador acesse **_http://localhost:3000/_**.
 
-O arquivo **database.sql** cria um usuário administrador **admin@foodfy.com**, com a finalidade de testes da aplicação, para que consiga utiliza-lo e necessário fazer a recuperação de senha do mesmo, após ter recuperado a senha deste usuário e definido uma nova senha você conseguirá se logar por ele.
+Para semear seu banco de dados com alguns registros de testes, execute o arquivo **seed.js** da raíz deste projeto, sera criado alguns usuários, chefs, receitas e uma conta de administrador com email **admin@foodfy.com** e senha **1234** .
 
 ## **Rotas**
 
@@ -42,12 +42,10 @@ O arquivo **database.sql** cria um usuário administrador **admin@foodfy.com**, 
 - /admin/recipes/create
 - /admin/recipes/{id}
 - /admin/recipes/{id}/edit
-
 - /admin/chefs
 - /admin/chefs/create
 - /admin/chefs/{id}
 - /admin/chefs/{id}/edit
-
 - /admin/profile
 - /admin/profile/{id}/edit
 - /admin/users
