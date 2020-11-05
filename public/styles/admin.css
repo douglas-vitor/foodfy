@@ -141,8 +141,7 @@ section.admin-container button.button.edit-user,
 section.admin-container form a.button.edit-user {
     position: absolute;
     top: 50px;
-    max-width: 139px;
-    min-width: 139px;
+    width: 139px;
     border-radius: 4px;
     padding: 9px 20px;
     font-weight: bold;
@@ -162,6 +161,7 @@ section.admin-container form a.button.edit-user {
     right: 16%;
     background-color: #DC4747;
 }
+a.button { width: 99px !important;}
 section.admin-container .fields,
 div.fields.new-user {
     top: 113px;
