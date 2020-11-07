@@ -39,7 +39,7 @@ async function createUsers() {
 async function createChefs() {
     const chefs = []
 
-    while(chefs.length <= 1) {
+    while (chefs.length <= 1) {
         chefs.push({
             name: faker.name.firstName(),
         })
@@ -60,46 +60,50 @@ async function createChefs() {
 async function createRecipes() {
     const recipes = [
         {
-        id: 1,
-        chef_id: 1,
-        title: 'Omelete Crazy',
-        ingredients: ['1 Ovo', 'Pitada de sal', '20Ml Leite'],
-        preparation: ['Quebre o ovo', 'Coloque a pitada de sal', 'Coloque o leite', 'Misture tudo na tigela', 'Leve ao fogo em uma frigideira'],
-        information: 'Vá a loucura com este omelete feito em casa invetado nos anos 1000.',
-        user_id: 1
-    },
-    {
-        id: 2,
-        chef_id: 2,
-        title: 'Vinho para crianças',
-        ingredients: ['10 Uvas', '200Ml de água', '1 saquinho de suco pronto de uva'],
-        preparation: ['Bata as uvas no liquidiicador', 'Adicione a água', 'Acrescente o suco pronto', 'Bata novamente no liquidificador todos os ingredientes'],
-        information: 'Se divirta com seus filhos com este vinho para crianças.',
-        user_id: 1
-    }
-]
+            id: 1,
+            chef_id: 1,
+            title: 'Omelete Crazy',
+            ingredients: ['1 Ovo', 'Pitada de sal', '20Ml Leite'],
+            preparation: ['Quebre o ovo', 'Coloque a pitada de sal', 'Coloque o leite', 'Misture tudo na tigela', 'Leve ao fogo em uma frigideira'],
+            information: 'Vá a loucura com este omelete feito em casa invetado nos anos 1000.',
+            user_id: 1
+        },
+        {
+            id: 2,
+            chef_id: 2,
+            title: 'Vinho para crianças',
+            ingredients: ['10 Uvas', '200Ml de água', '1 saquinho de suco pronto de uva'],
+            preparation: ['Bata as uvas no liquidiicador', 'Adicione a água', 'Acrescente o suco pronto', 'Bata novamente no liquidificador todos os ingredientes'],
+            information: 'Se divirta com seus filhos com este vinho para crianças.',
+            user_id: 1
+        }
+    ]
 
-const data = [
-    {
-        filename: 'ovo.jpg',
-        path: 'public\\assets\\ovo.jpg',
-    },
-    {
-        filename: 'vinho.jpg',
-        path: 'public\\assets\\vinho.jpg',
-    }
-]
+    const data = [
+        {
+            filename: 'ovo.jpg',
+            path: 'public\\assets\\ovo.jpg',
+        },
+        {
+            filename: 'vinho.jpg',
+            path: 'public\\assets\\vinho.jpg',
+        }
+    ]
 
     const recipesPromise = recipes.map(recipe => Recipes.createRecipe(recipe))
     await Promise.all(recipesPromise)
 
-    for(i in data) {
-        await File.createFullDataRecipe({ ...data[i], recipeId:recipes[i].id })
+    for (i in data) {
+        await File.createFullDataRecipe({ ...data[i], recipeId: recipes[i].id })
     }
     return
 }
 
-createAdmin()
-createUsers()
-createChefs()
-createRecipes()
+async function init() {
+    await createAdmin()
+    await createUsers()
+    await createChefs()
+    await createRecipes()
+}
+
+init()
